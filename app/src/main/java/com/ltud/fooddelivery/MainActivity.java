@@ -7,6 +7,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mNavigationView;
     private ViewPager mViewPager;
+    private ImageView com,douong,anvat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
 
     private void setUpViewPager(){
