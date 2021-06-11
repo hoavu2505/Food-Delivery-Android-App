@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ltud.fooddelivery.Fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/orderFragment"
         android:name="com.ltud.fooddelivery.Fragment.OrderFragment"
-        android:label="OrderFragment" />
+        android:label="OrderFragment"
+        tools:layout="@layout/fragment_order"/>
+    <fragment
+        android:id="@+id/favFragment"
+        android:name="com.ltud.fooddelivery.Fragment.FavFragment"
+        android:label="FavFragment"
+        tools:layout="@layout/fragment_fav"/>
+    <fragment
+        android:id="@+id/notiFragment"
+        android:name="com.ltud.fooddelivery.Fragment.NotiFragment"
+        android:label="NotiFragment"
+        tools:layout="@layout/fragment_noti"/>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.ltud.fooddelivery.Fragment.UserFragment"
+        android:label="UserFragment"
+        tools:layout="@layout/fragment_user"/>
+
 </navigation>
