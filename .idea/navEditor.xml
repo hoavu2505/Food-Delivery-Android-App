@@ -8,13 +8,42 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="favFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-989" />
+                            <option name="y" value="-77" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="homeFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-277" />
-                            <option name="y" value="-8" />
+                            <option name="x" value="-993" />
+                            <option name="y" value="-112" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="notiFragment">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="orderFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-716" />
+                            <option name="y" value="-112" />
                           </Point>
                         </option>
                       </LayoutPositions>
