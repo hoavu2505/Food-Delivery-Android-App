@@ -4,12 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#18000000"
     tools:context=".MainActivity">
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -17,10 +13,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:elevation="50dp"
-        android:background="@drawable/bottom_nav"
+        android:background="@drawable/round_cover"
         app:menu="@menu/menu_bottom_nav"
-        app:itemBackground="@drawable/bottom_nav"
-        app:itemIconTint="@color/custom_color_bottom_nav" />
+        app:itemIconTint="@color/custom_color_bottom_nav"
+        android:layout_margin="20dp"
+        app:itemIconSize="30dp"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
 
 
 </RelativeLayout>
