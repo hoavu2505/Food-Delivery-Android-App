@@ -2,11 +2,15 @@
   <library name="Gradle: com.google.android.play:core:1.9.1@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f5764f1a4b2c4a1b463d39fa068290d/jetified-core-1.9.1/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7313b38c31a5fbc51b9a5d2201c88b7e/jetified-core-1.9.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f5764f1a4b2c4a1b463d39fa068290d/jetified-core-1.9.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f5764f1a4b2c4a1b463d39fa068290d/jetified-core-1.9.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3f5764f1a4b2c4a1b463d39fa068290d/jetified-core-1.9.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7313b38c31a5fbc51b9a5d2201c88b7e/jetified-core-1.9.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7313b38c31a5fbc51b9a5d2201c88b7e/jetified-core-1.9.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7313b38c31a5fbc51b9a5d2201c88b7e/jetified-core-1.9.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

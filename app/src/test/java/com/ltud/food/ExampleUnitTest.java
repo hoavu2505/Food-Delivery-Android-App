@@ -1,4 +1,4 @@
-package com.ltud.fooddelivery;
+package com.ltud.food;
 
 import org.junit.Test;
 
