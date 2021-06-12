@@ -1,49 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
-    tools:context=".Fragment.HomeFragment">
+    tools:context="Fragment.homeFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/search_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/search" />
+
+    <TextView
+        android:id="@+id/txt_location"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_location"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:hint="175 Tây Sơn, Đống Đa, Hà Nội"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            app:boxCornerRadiusTopStart="30dp"
-            app:boxCornerRadiusTopEnd="30dp"
-            app:boxCornerRadiusBottomStart="30dp"
-            app:boxCornerRadiusBottomEnd="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/grey1"
-                android:textSize="15sp"
-                android:fontFamily="@font/semibold"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/search_btn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="15dp"
-            app:srcCompat="@drawable/search" />
-
-    </LinearLayout>
+        android:text="175 Tây Sơn, Đống Đa, Hà Nội"
+        android:textColor="@color/grey1"
+        android:textSize="15sp"
+        android:fontFamily="@font/semibold"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
 
     <TextView
         android:id="@+id/txt_danhmuc"
@@ -136,9 +117,5 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
-
-
-
 
 </RelativeLayout>
