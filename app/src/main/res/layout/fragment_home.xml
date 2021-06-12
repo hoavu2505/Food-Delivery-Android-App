@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Fragment.homeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/search_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/search" />
+
+    <TextView
+        android:id="@+id/txt_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="175 Tây Sơn, Đống Đa, Hà Nội"
+        android:textColor="@color/grey1"
+        android:textSize="15sp"
+        android:fontFamily="@font/semibold"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/txt_danhmuc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Danh mục"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:fontFamily="@font/semibold"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"/>
+
+    <RelativeLayout
+        android:id="@+id/ly_danhmuc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_danhmuc"
+        android:layout_margin="10dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/com">
+            <ImageView
+                android:id="@+id/img_com"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/com_picked" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cơm"
+                android:textColor="@color/grey1"
+                android:textSize="15dp"
+                android:fontFamily="@font/semibold"
+                android:layout_below="@id/img_com"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/douong"
+            android:layout_toRightOf="@id/com"
+            android:layout_marginLeft="30dp">
+
+            <ImageView
+                android:id="@+id/img_douong"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/douong" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đồ uống"
+                android:textColor="@color/grey1"
+                android:textSize="15dp"
+                android:fontFamily="@font/semibold"
+                android:layout_below="@id/img_douong"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/anvat"
+            android:layout_toRightOf="@id/douong"
+            android:layout_marginLeft="30dp">
+
+            <ImageView
+                android:id="@+id/img_anvat"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/anvat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ăn vặt"
+                android:textColor="@color/grey1"
+                android:textSize="15dp"
+                android:fontFamily="@font/semibold"
+                android:layout_below="@id/img_anvat"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
