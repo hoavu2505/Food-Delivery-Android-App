@@ -9,12 +9,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ltud.food.R;
+
 import homeTabLayout.banchayFragment;
 import homeTabLayout.danhgiaFragment;
 import homeTabLayout.gantoiFragment;
@@ -29,6 +31,7 @@ public class homeFragment extends Fragment {
     ViewPager viewPager;
     homeAdapter adapter;
 
+
     public homeFragment() {
         // Required empty public constructor
     }
@@ -36,7 +39,6 @@ public class homeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -46,6 +48,7 @@ public class homeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -53,6 +56,8 @@ public class homeFragment extends Fragment {
         tabLayout = getView().findViewById(R.id.tablayout_home);
         viewPager = getView().findViewById(R.id.viewpager_home);
 
+
+        //Add fragment vao tablayout
         adapter = new homeAdapter(getActivity().getSupportFragmentManager());
 
         adapter.AddFragment(new gantoiFragment(),"Gần tôi");
@@ -63,9 +68,9 @@ public class homeFragment extends Fragment {
 
         tabLayout.setupWithViewPager(viewPager);
 
-
     }
 
+    //Su dung homeAdapter der them cac fragment vao tablayout
     private class homeAdapter extends FragmentPagerAdapter {
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         ArrayList<String>   stringArrayList   = new ArrayList<>();
@@ -76,12 +81,11 @@ public class homeFragment extends Fragment {
             stringArrayList.add(s);
         }
 
-        public homeAdapter(@NonNull @NotNull FragmentManager fm) {
+        public homeAdapter(@NotNull FragmentManager fm) {
             super(fm);
         }
 
         @NonNull
-        @NotNull
         @Override
         public Fragment getItem(int position) {
             return fragmentArrayList.get(position);
@@ -93,7 +97,6 @@ public class homeFragment extends Fragment {
         }
 
         @Nullable
-        @org.jetbrains.annotations.Nullable
         @Override
         public CharSequence getPageTitle(int position) {
             return stringArrayList.get(position);

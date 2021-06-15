@@ -9,6 +9,8 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import Fragment.homeFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,5 +22,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this,R.id.fragment);
 
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
+
     }
 }
