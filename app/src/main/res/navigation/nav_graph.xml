@@ -7,27 +7,70 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="Fragment.homeFragment"
+        android:name="com.ltud.food.Fragment.homeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
     <fragment
         android:id="@+id/orderFragment"
-        android:name="Fragment.orderFragment"
+        android:name="com.ltud.food.Fragment.orderFragment"
         android:label="fragment_order"
         tools:layout="@layout/fragment_order" />
     <fragment
         android:id="@+id/notiFragment"
-        android:name="Fragment.notiFragment"
+        android:name="com.ltud.food.Fragment.notiFragment"
         android:label="fragment_noti"
         tools:layout="@layout/fragment_noti" />
     <fragment
         android:id="@+id/favFragment"
-        android:name="Fragment.favFragment"
+        android:name="com.ltud.food.Fragment.favFragment"
         android:label="fragment_fav"
         tools:layout="@layout/fragment_fav" />
     <fragment
         android:id="@+id/userFragment"
-        android:name="Fragment.userFragment"
+        android:name="com.ltud.food.Fragment.userFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+        <argument
+            android:name="userID"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.ltud.food.Fragment.loginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_verifyOTPFragment"
+            app:destination="@id/verifyOTPFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpEmailFragment"
+            app:destination="@id/signUpEmailFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyOTPFragment"
+        android:name="com.ltud.food.Fragment.verifyOTPFragment"
+        android:label="fragment_verify_otp"
+        tools:layout="@layout/fragment_verify_otp">
+        <argument
+            android:name="phoneNumber"
+            android:defaultValue="null"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_verifyOTPFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpEmailFragment"
+        android:name="com.ltud.food.Fragment.signUpEmailFragment"
+        android:label="fragment_sign_up_email"
+        tools:layout="@layout/fragment_sign_up_email" >
+        <action
+            android:id="@+id/action_signUpEmailFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
 </navigation>

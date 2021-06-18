@@ -1,15 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Fragment.userFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    tools:context=".Fragment.userFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frame_avatar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="User Fragment"
-        android:textSize="25sp"/>
+        android:layout_height="200dp"
+        android:background="@color/primary">
 
-</FrameLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imv_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar_male"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_edit_avatar"
+            app:layout_constraintBottom_toBottomOf="@+id/imv_avatar"
+            app:layout_constraintEnd_toEndOf="@+id/imv_avatar" />
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="User"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Information -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="40dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_account"/>
+
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="0123456789"
+                android:textSize="15sp"
+                android:inputType="phone"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="40dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_name"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Name"
+                android:textSize="15sp"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_forword"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_address"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="40dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_address"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Address"
+                android:textSize="15sp"
+                android:inputType="textPostalAddress"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_forword"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="40dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_birthday"/>
+
+            <TextView
+                android:id="@+id/tv_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="00/00/00"
+                android:textSize="15sp"
+                android:inputType="date"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_forword"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_gender"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/white">
+
+        <Spinner
+            android:id="@+id/spin_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="40dp"
+            android:background="@null"/>
+
+    </FrameLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_log_out"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Đăng xuất"
+        android:textSize="13sp"
+        android:textColor="@color/orange"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/white"
+        app:icon="@drawable/ic_logout"
+        app:cornerRadius="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="20dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/orange"/>
+
+</LinearLayout>

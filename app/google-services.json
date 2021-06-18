@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "405771889622",
+    "firebase_url": "https://myfirstproject-3d101-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "myfirstproject-3d101",
+    "storage_bucket": "myfirstproject-3d101.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405771889622:android:9d396027a58a983b271277",
+        "android_client_info": {
+          "package_name": "com.ltud.food"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405771889622-mmmtnb4sro5ic73jfuaf84clickbn84d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ltud.food",
+            "certificate_hash": "d3b3a8f9dd2b7e3f1c1381554f7069cfa1d15f51"
+          }
+        },
+        {
+          "client_id": "405771889622-u95pj4889tbe3smcq0fin85t7q5ibnga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV_AWaZfNFi7A6vkwVHJnLaRGPN4BaJKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405771889622-u95pj4889tbe3smcq0fin85t7q5ibnga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

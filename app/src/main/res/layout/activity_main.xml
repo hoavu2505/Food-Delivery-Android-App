@@ -6,19 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
         android:elevation="50dp"
         android:background="@drawable/round_cover"
         app:menu="@menu/bottom_menu"
-        app:itemBackground="@drawable/round_cover"
         app:itemIconTint="@color/custom_color_bottom_menu"
-        app:itemIconSize="23dp"/>
+        app:itemIconSize="23dp"
+        app:labelVisibilityMode="unlabeled"/>
 
     <fragment
         android:id="@+id/fragment"

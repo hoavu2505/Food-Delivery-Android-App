@@ -2,21 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
+        android:title="Home"
         android:icon="@drawable/house" />
 
     <item
         android:id="@+id/orderFragment"
+        android:title="Order"
         android:icon="@drawable/order" />
 
     <item
         android:id="@+id/notiFragment"
+        android:title="Notification"
         android:icon="@drawable/bell" />
 
     <item
         android:id="@+id/favFragment"
+        android:title="Favorite"
         android:icon="@drawable/love" />
 
     <item
         android:id="@+id/userFragment"
+        android:title="User"
         android:icon="@drawable/user" />
 </menu>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Fragment.homeFragment">
+    tools:context=".Fragment.homeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="175 Tây Sơn, Đống Đa, Hà Nội"
-        android:textColor="@color/grey1"
+        android:textColor="@color/grey"
         android:textSize="15sp"
         android:fontFamily="@font/semibold"
         android:layout_marginTop="20dp"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cơm"
-                android:textColor="@color/grey1"
+                android:textColor="@color/grey"
                 android:textSize="15dp"
                 android:fontFamily="@font/semibold"
                 android:layout_below="@id/img_com"
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đồ uống"
-                android:textColor="@color/grey1"
+                android:textColor="@color/grey"
                 android:textSize="15dp"
                 android:fontFamily="@font/semibold"
                 android:layout_below="@id/img_douong"
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ăn vặt"
-                android:textColor="@color/grey1"
+                android:textColor="@color/grey"
                 android:textSize="15dp"
                 android:fontFamily="@font/semibold"
                 android:layout_below="@id/img_anvat"
