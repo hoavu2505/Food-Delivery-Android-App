@@ -1,4 +1,4 @@
-package Fragment;
+package com.ltud.food.Fragment;
 
 import android.os.Bundle;
 
@@ -7,25 +7,32 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ltud.food.R;
+import com.ltud.food.SearchFragment;
+import com.ltud.food.homeTabLayout.banchayFragment;
+import com.ltud.food.homeTabLayout.danhgiaFragment;
 
-import homeTabLayout.banchayFragment;
-import homeTabLayout.danhgiaFragment;
-import homeTabLayout.gantoiFragment;
+
+import com.ltud.food.homeTabLayout.gantoiFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class homeFragment extends Fragment {
+
+    ImageView img_search, img_com, img_douong, img_anvat;
 
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -45,9 +52,61 @@ public class homeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        return v;
     }
 
+    @Override
+    public void onViewCreated(View view,Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        NavController navController = Navigation.findNavController(view);
+
+        img_search = view.findViewById(R.id.img_search);
+
+        img_com = view.findViewById(R.id.img_com);
+        img_douong = view.findViewById(R.id.img_douong);
+        img_anvat = view.findViewById(R.id.img_anvat);
+
+        //Dieu huong sang fragment search
+        img_search.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_searchFragment);
+
+            }
+        });
+
+        img_com.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_com.setImageResource(R.drawable.com_picked);
+                img_douong.setImageResource(R.drawable.douong);
+                img_anvat.setImageResource(R.drawable.anvat);
+            }
+        });
+
+        img_douong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_com.setImageResource(R.drawable.com);
+                img_douong.setImageResource(R.drawable.douong_picked);
+                img_anvat.setImageResource(R.drawable.anvat);
+            }
+        });
+
+        img_anvat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_com.setImageResource(R.drawable.com);
+                img_douong.setImageResource(R.drawable.douong);
+                img_anvat.setImageResource(R.drawable.anvat_picked);
+            }
+        });
+
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
@@ -67,6 +126,7 @@ public class homeFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         tabLayout.setupWithViewPager(viewPager);
+
 
     }
 

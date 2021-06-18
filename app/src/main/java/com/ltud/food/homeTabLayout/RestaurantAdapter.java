@@ -1,4 +1,4 @@
-package homeTabLayout;
+package com.ltud.food.homeTabLayout;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ltud.food.R;
-import com.ltud.food.Restaurant;
+import com.ltud.food.Model.Restaurant;
 
 import org.jetbrains.annotations.NotNull;
 

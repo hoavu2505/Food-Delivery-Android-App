@@ -1,4 +1,4 @@
-package Fragment;
+package com.ltud.food.homeTabLayout;
 
 import android.os.Bundle;
 
@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.ltud.food.R;
 
-public class orderFragment extends Fragment {
+public class banchayFragment extends Fragment {
 
-    public orderFragment() {
+    public banchayFragment() {
         // Required empty public constructor
     }
 
@@ -25,6 +25,6 @@ public class orderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        return inflater.inflate(R.layout.fragment_banchay, container, false);
     }
 }

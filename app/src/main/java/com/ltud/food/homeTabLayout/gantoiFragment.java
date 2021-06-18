@@ -1,4 +1,4 @@
-package homeTabLayout;
+package com.ltud.food.homeTabLayout;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ltud.food.R;
-import com.ltud.food.Restaurant;
+import com.ltud.food.Model.Restaurant;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package homeTabLayout;
+package com.ltud.food.homeTabLayout;
 
 import android.os.Bundle;
 

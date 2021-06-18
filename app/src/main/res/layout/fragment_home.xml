@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Fragment.homeFragment">
+    tools:context=".Fragment.homeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+
+
     <ImageView
-        android:id="@+id/search_btn"
+        android:id="@+id/img_search"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"

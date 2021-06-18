@@ -1,4 +1,4 @@
-package com.ltud.food;
+package com.ltud.food.Model;
 
 public class Restaurant {
 
