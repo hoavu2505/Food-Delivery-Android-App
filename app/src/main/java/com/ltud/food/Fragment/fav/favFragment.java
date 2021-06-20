@@ -1,4 +1,4 @@
-package com.ltud.food.Fragment;
+package com.ltud.food.Fragment.fav;
 
 import android.os.Bundle;
 

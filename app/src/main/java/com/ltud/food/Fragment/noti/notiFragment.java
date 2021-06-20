@@ -1,4 +1,4 @@
-package com.ltud.food.Fragment;
+package com.ltud.food.Fragment.noti;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.ltud.food;
+package com.ltud.food.Fragment;
 
 import android.os.Bundle;
 
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 

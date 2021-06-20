@@ -1,4 +1,4 @@
-package com.ltud.food.Fragment;
+package com.ltud.food.Fragment.home;
 
 import android.os.Bundle;
 
@@ -7,7 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
@@ -19,7 +21,6 @@ import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ltud.food.R;
-import com.ltud.food.SearchFragment;
 import com.ltud.food.homeTabLayout.banchayFragment;
 import com.ltud.food.homeTabLayout.danhgiaFragment;
 
@@ -38,6 +39,7 @@ public class homeFragment extends Fragment {
     ViewPager viewPager;
     homeAdapter adapter;
 
+    homeViewModel homeViewModel;
 
     public homeFragment() {
         // Required empty public constructor
@@ -54,7 +56,6 @@ public class homeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         return v;
     }
 
@@ -62,7 +63,9 @@ public class homeFragment extends Fragment {
     public void onViewCreated(View view,Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         NavController navController = Navigation.findNavController(view);
+
 
         img_search = view.findViewById(R.id.img_search);
 
@@ -106,14 +109,17 @@ public class homeFragment extends Fragment {
             }
         });
 
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
+        homeViewModel homeViewModel = new ViewModelProvider(this).get(homeViewModel.class);
+
         tabLayout = getView().findViewById(R.id.tablayout_home);
-        viewPager = getView().findViewById(R.id.viewpager_home);
+        homeViewModel.viewPager = getView().findViewById(R.id.viewpager_home);
 
 
         //Add fragment vao tablayout
@@ -123,9 +129,9 @@ public class homeFragment extends Fragment {
         adapter.AddFragment(new banchayFragment(),"Bán chạy");
         adapter.AddFragment(new danhgiaFragment(),"Đánh giá");
 
-        viewPager.setAdapter(adapter);
+        homeViewModel.viewPager.setAdapter(adapter);
 
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(homeViewModel.viewPager);
 
 
     }

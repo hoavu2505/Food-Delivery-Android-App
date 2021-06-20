@@ -1,4 +1,4 @@
-package com.ltud.food.Fragment;
+package com.ltud.food.Fragment.order;
 
 import android.os.Bundle;
 
@@ -15,11 +15,8 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ltud.food.R;
-import com.ltud.food.hientaiFragment;
-import com.ltud.food.homeTabLayout.banchayFragment;
-import com.ltud.food.homeTabLayout.danhgiaFragment;
-import com.ltud.food.homeTabLayout.gantoiFragment;
-import com.ltud.food.lichsuFragment;
+import com.ltud.food.orderTabLayout.hientaiFragment;
+import com.ltud.food.orderTabLayout.lichsuFragment;
 
 import org.jetbrains.annotations.NotNull;
 

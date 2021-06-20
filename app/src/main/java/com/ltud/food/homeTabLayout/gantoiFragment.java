@@ -3,8 +3,10 @@ package com.ltud.food.homeTabLayout;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.ltud.food.R;
 import com.ltud.food.Model.Restaurant;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class gantoiFragment extends Fragment {
@@ -31,6 +36,7 @@ public class gantoiFragment extends Fragment {
     RestaurantAdapter RestaurantAdapter;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
+    gantoiViewModel gantoiViewModel;
 
     public gantoiFragment() {
         // Required empty public constructor
@@ -44,11 +50,14 @@ public class gantoiFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_gantoi, container, false);
         // Inflate the layout for this fragment
+        gantoiViewModel = new ViewModelProvider(this).get(gantoiViewModel.class);
 
-        return inflater.inflate(R.layout.fragment_gantoi, container, false);
+        return v;
     }
 
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
@@ -66,13 +75,16 @@ public class gantoiFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
-        restaurantArrayList = new ArrayList<Restaurant>();
-        RestaurantAdapter = new RestaurantAdapter(getActivity(),restaurantArrayList);
+        gantoiViewModel.restaurantArrayList = new ArrayList<Restaurant>();
+        RestaurantAdapter = new RestaurantAdapter(getActivity(),gantoiViewModel.restaurantArrayList);
 
         recyclerView.setAdapter(RestaurantAdapter);
 
         EventChangeListener();
+
     }
+
+
 
     //Ham truy van
     private void EventChangeListener() {
@@ -91,7 +103,7 @@ public class gantoiFragment extends Fragment {
 
                         for(DocumentChange dc : value.getDocumentChanges()){
                             if (dc.getType() == DocumentChange.Type.ADDED){
-                                restaurantArrayList.add(dc.getDocument().toObject(Restaurant.class));
+                                gantoiViewModel.restaurantArrayList.add(dc.getDocument().toObject(Restaurant.class));
                             }
 
                             RestaurantAdapter.notifyDataSetChanged();

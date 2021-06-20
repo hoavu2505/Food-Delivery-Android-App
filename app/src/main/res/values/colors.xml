@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#FFD563</color>
     <color name="grey1">#AAAAAA</color>
+    <color name="grey2">#14212423</color>
+    <color name="blue">#2196F3</color>
+    <color name="background_button">#197DCC</color>
+    <color name="red">#F44336</color>
+    <color name="orange">#FF6701</color>
 </resources>
