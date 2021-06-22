@@ -37,12 +37,10 @@
         android:name="com.ltud.food.Fragment.user.userFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" >
-
         <argument
-            android:name="userID"
+            android:name="city"
             app:argType="string"
             android:defaultValue="null" />
-
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -62,25 +60,13 @@
         <action
             android:id="@+id/action_loginFragment_to_verifyOTPFragment"
             app:destination="@id/verifyOTPFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_signUpEmailFragment"
-            app:destination="@id/signUpEmailFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_userFragment"
-            app:destination="@id/userFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/signUpEmailFragment"
         android:name="com.ltud.food.Fragment.signUpEmailFragment"
         android:label="fragment_sign_up_email"
-        tools:layout="@layout/fragment_sign_up_email" >
-
-        <action
-            android:id="@+id/action_signUpEmailFragment_to_userFragment"
-            app:destination="@id/userFragment" />
-
-    </fragment>
+        tools:layout="@layout/fragment_sign_up_email" />
     <fragment
         android:id="@+id/verifyOTPFragment"
         android:name="com.ltud.food.Fragment.verifyOTPFragment"
@@ -91,9 +77,6 @@
             android:name="phoneNumber"
             android:defaultValue="null"
             app:argType="string" />
-        <action
-            android:id="@+id/action_verifyOTPFragment_to_userFragment"
-            app:destination="@id/userFragment" />
 
     </fragment>
     <fragment
@@ -114,4 +97,13 @@
         android:name="com.ltud.food.Fragment.home.homeTabLayout.gantoiFragment"
         android:label="fragment_gantoi"
         tools:layout="@layout/fragment_gantoi" />
+    <fragment
+        android:id="@+id/autoCompleteLocationFragment"
+        android:name="com.ltud.food.Fragment.AutoCompleteLocationFragment"
+        android:label="fragment_auto_complete_location"
+        tools:layout="@layout/fragment_auto_complete_location" >
+        <action
+            android:id="@+id/action_autoCompleteLocationFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
 </navigation>

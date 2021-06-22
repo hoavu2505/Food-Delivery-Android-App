@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -19,6 +20,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.ltud.food.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -47,15 +50,19 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         return new DatePickerDialog(getActivity(), this, year, month, date);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        LocalDate localDate = LocalDate.of(year, month, dayOfMonth);
-        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Calendar calendar =Calendar.getInstance();
+        calendar.set(Calendar.DATE, dayOfMonth);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.YEAR, year);
+        DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String mydate = simpleDateFormat.format(calendar.getTime());
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference docRef = FirebaseFirestore.getInstance()
                 .collection("Customer")
                 .document(user.getUid());
-        docRef.update("birthday", date);
+        docRef.update("birthday", mydate);
+        ((TextView) getActivity().findViewById(R.id.tv_birthday)).setText(mydate);
     }
 }

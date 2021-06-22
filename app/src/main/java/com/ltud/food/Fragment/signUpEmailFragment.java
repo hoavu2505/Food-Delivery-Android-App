@@ -68,7 +68,7 @@ public class signUpEmailFragment extends Fragment implements View.OnClickListene
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        imbBack = view.findViewById(R.id.imb_back);
+        imbBack = (ImageView) view.findViewById(R.id.imb_back);
         edtEmail = (TextInputEditText) view.findViewById(R.id.edt_email);
         edtPassword = (TextInputEditText) view.findViewById(R.id.edt_password);
         btnSignUp = (Button) view.findViewById(R.id.btn_email_signUp);
@@ -140,13 +140,10 @@ public class signUpEmailFragment extends Fragment implements View.OnClickListene
                         if(task.isSuccessful())
                         {
                             FirebaseUser user = auth.getCurrentUser();
-                            Customer customer = new Customer(user.getUid(), user.getEmail(), "", "", new Date(), "none", "");
+                            Customer customer = new Customer(user.getUid(), user.getEmail(), "", "", "", "none", "");
                             FirebaseFirestore.getInstance().collection("Customer").document(user.getUid())
                                     .set(customer);
-
-                            NavDirections action = signUpEmailFragmentDirections.actionSignUpEmailFragmentToUserFragment()
-                                    .setUserID(user.getUid());
-                            navController.navigate(action);
+                            navController.navigate(R.id.homeFragment);
                             progressDialog.dismiss();
                         }
                         else{
