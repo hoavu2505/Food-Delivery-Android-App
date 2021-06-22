@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tip_location"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusBottomEnd="20dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/tv_city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="Ha Noi"
+            android:textSize="18sp"
+            android:paddingLeft="15dp"
+            android:dropDownAnchor="@id/text"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_search_location"
+        app:layout_constraintTop_toTopOf="@id/tip_location"
+        app:layout_constraintEnd_toEndOf="@id/tip_location"
+        app:layout_constraintBottom_toBottomOf="@id/tip_location"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Tỉnh / Thành phố"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/tip_location"
+        app:layout_constraintStart_toStartOf="@+id/tip_location"
+        app:layout_constraintTop_toBottomOf="@id/tip_location"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

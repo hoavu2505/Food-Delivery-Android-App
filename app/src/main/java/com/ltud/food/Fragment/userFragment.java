@@ -1,29 +1,32 @@
 package com.ltud.food.Fragment;
 
-import android.app.DatePickerDialog;
+import android.Manifest;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,11 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -44,7 +44,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+
 import com.ltud.food.Adapter.GenderSpinnerAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
 import com.ltud.food.Model.Customer;
@@ -54,31 +54,37 @@ import com.ltud.food.ViewModel.CustomerViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class userFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private static final String COLLECTION = "Customer";
-    private final int REQUEST_IMAGE_CODE = 1;
+    private static final int REQUEST_IMAGE_CODE = 1;
+    private static final int REQUEST_PERMISSION_CAMERA = 2;
+    private static final int REQUEST_CAPTURE_IMAGE_CODE = 3;
     private CircleImageView imvAvatar;
     private ViewGroup frameName, frameAddress, frameBirthDay, frameGender;
-    private TextView  tvUser, tvName, tvAccount, tvAddress, tvBirthday;
+    private TextView tvUser, tvName, tvAccount, tvAddress, tvBirthday;
     private Spinner spinGender;
     private List<Gender> genderList;
     private Button btnLogOut;
     private FirebaseAuth auth;
     private DocumentReference docRef;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
     private NavController navController;
     private CustomerViewModel customerViewModel;
-    private String customerID;
-    private CustomProgressDialog progressDialog;
     private Customer customer;
+    private CustomProgressDialog progressDialog;
+    private boolean isFirstChecked;
 
     public userFragment() {
         // Required empty public constructor
@@ -87,18 +93,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        if(savedInstanceState != null)
-            customer = (Customer) savedInstanceState.getSerializable("customer");
-
         return inflater.inflate(R.layout.fragment_user, container, false);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NotNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable("customer", customer);
     }
 
     @Override
@@ -110,11 +105,11 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         frameBirthDay = (ViewGroup) view.findViewById(R.id.frame_birthday);
         frameGender = (ViewGroup) view.findViewById(R.id.frame_gender);
         imvAvatar = (CircleImageView) view.findViewById(R.id.imv_avatar);
-        tvUser = (TextView) view.findViewById(R.id.tv_user);
-        tvName = (TextView) view.findViewById(R.id.tv_name);
-        tvAccount= (TextView) view.findViewById(R.id.tv_account);
-        tvAddress = (TextView) view.findViewById(R.id.tv_address);
-        tvBirthday = (TextView) view.findViewById(R.id.tv_birthday);
+        tvUser = view.findViewById(R.id.tv_user);
+        tvName = view.findViewById(R.id.tv_name);
+        tvAccount= view.findViewById(R.id.tv_account);
+        tvAddress = view.findViewById(R.id.tv_address);
+        tvBirthday =  view.findViewById(R.id.tv_birthday);
         btnLogOut = (Button) view.findViewById(R.id.btn_log_out);
 
         //set up spin
@@ -122,12 +117,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         genderList = Arrays.asList(new Gender("Không chọn"), new Gender("Nam"), new Gender("Nữ"));
         GenderSpinnerAdapter adapter = new GenderSpinnerAdapter(getActivity(), R.layout.gender_layout, genderList);
         spinGender.setAdapter(adapter);
-
-        customerID = userFragmentArgs.fromBundle(getArguments()).getUserID();
-        auth = FirebaseAuth.getInstance();
-        docRef = FirebaseFirestore.getInstance().collection(COLLECTION).document(customerID);
-        navController = Navigation.findNavController(view);
-        progressDialog = new CustomProgressDialog(getActivity());
+        spinGender.setOnItemSelectedListener(this);
 
         // event
         imvAvatar.setOnClickListener(this);
@@ -136,30 +126,53 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         frameBirthDay.setOnClickListener(this);
         btnLogOut.setOnClickListener(this);
 
-        // change gender
-        spinGender.setOnItemSelectedListener(this);
-
+        progressDialog = new CustomProgressDialog(getActivity());
+        isFirstChecked = true;
+        storage = FirebaseStorage.getInstance();
+        navController = Navigation.findNavController(view);
         customerViewModel = new ViewModelProvider(getActivity()).get(CustomerViewModel.class);
-        customerViewModel.getCustomerLiveData(customerID).observe(getViewLifecycleOwner(), new Observer<Customer>() {
-            @Override
-            public void onChanged(Customer cus) {
-                customer = cus;
-                updateUI();
-            }
-        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
         if(auth.getCurrentUser() == null)
         {
             navController.navigate(R.id.loginFragment);
         }
+        else
+        {
+            progressDialog = new CustomProgressDialog(getActivity());
+            customerViewModel.getCustomerLiveData(user.getUid()).observe(getViewLifecycleOwner(), new Observer<Customer>() {
+                @Override
+                public void onChanged(Customer cus) {
+                    customer = cus;
+                    updateUI(customer);
+                }
+            });
+            docRef = FirebaseFirestore.getInstance().collection(COLLECTION).document(user.getUid());
+            updateCity();
+        }
     }
 
-    private void updateUI() {
+    private void updateCity() {
+        if(!userFragmentArgs.fromBundle(getArguments()).getCity().equals("null"))
+        {
+            String city = userFragmentArgs.fromBundle(getArguments()).getCity();
+            docRef.update("address", city)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(getActivity(), "Địa chỉ được cập nhật", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+    }
+
+    private void updateUI(Customer customer) {
         progressDialog.show();
 
         if(customer.getAvatar().isEmpty()) {
@@ -177,7 +190,10 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         }
         else
         {
-            imvAvatar.setImageURI(Uri.parse(customer.getAvatar()));
+            Glide.with(getContext())
+                    .load(customer.getAvatar())
+                    .centerCrop()
+                    .into(imvAvatar);
         }
         tvUser.setText(customer.getName().isEmpty() ? "User":customer.getName());
         tvName.setText(customer.getName());
@@ -199,86 +215,9 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         switch (v.getId()) {
             case R.id.imv_avatar: avatarChange(); break;
             case R.id.frame_name: nameChange(); break;
-            case R.id.frame_address: addressChange(); break;
+            case R.id.frame_address: navController.navigate(R.id.autoCompleteLocationFragment); break;
             case R.id.frame_birthday: birthdayChange(); break;
             case R.id.btn_log_out: logOut(); break;
-        }
-    }
-
-    private void avatarChange() {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.pick_image_layout);
-        int width = WindowManager.LayoutParams.MATCH_PARENT;
-        int height = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialog.getWindow().setLayout(width, height);
-        dialog.show();
-
-        ViewGroup camera = (ViewGroup) dialog.findViewById(R.id.camera);
-        ViewGroup gallery = (ViewGroup) dialog.findViewById(R.id.gallery);
-
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                pickImageCamera();
-            }
-        });
-        gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                pickImageGallery();
-            }
-        });
-
-    }
-
-    private void pickImageCamera() {
-    }
-
-    private void pickImageGallery() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
-            startActivityForResult(intent, REQUEST_IMAGE_CODE);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQUEST_IMAGE_CODE && data != null)
-        {
-            progressDialog.show();
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            if(!customer.getAvatar().isEmpty())
-            {
-                StorageReference storageRef = storage.getReference().child("customer/" + customer.getAvatar());
-                storageRef.delete();
-            }
-
-            Uri avatarUri = data.getData();
-            StorageReference storageRef = storage.getReference().child("customer/" + avatarUri.getLastPathSegment());
-            storageRef.putFile(avatarUri)
-                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if(task.isSuccessful())
-                            {
-                                // update image in database
-                                docRef.update("avatar", String.valueOf(avatarUri))
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                progressDialog.dismiss();
-                                                imvAvatar.setImageURI(avatarUri);
-                                                Toast.makeText(getContext(), "Avatar đã được thay đổi", Toast.LENGTH_LONG).show();
-                                            }
-                                        });
-                            }
-                        }
-                    });
         }
     }
 
@@ -314,38 +253,146 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         });
     }
 
-    private void addressChange() {
+    private void avatarChange() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.pick_image_layout);
+        int width = WindowManager.LayoutParams.MATCH_PARENT;
+        int height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setLayout(width, height);
+        dialog.show();
+
+        ViewGroup camera = (ViewGroup) dialog.findViewById(R.id.camera);
+        ViewGroup gallery = (ViewGroup) dialog.findViewById(R.id.gallery);
+
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                pickImageCamera();
+            }
+        });
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                pickImageGallery();
+            }
+        });
+    }
+
+    private void pickImageCamera() {
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAPTURE_IMAGE_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,@NotNull String[] permissions,@NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Toast.makeText(getActivity(), "vao day", Toast.LENGTH_LONG).show();
+        if(requestCode == REQUEST_PERMISSION_CAMERA && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, REQUEST_CAPTURE_IMAGE_CODE);
+        }
+    }
+
+    private void pickImageGallery() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+            startActivityForResult(intent, REQUEST_IMAGE_CODE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        progressDialog.show();
+
+        if(requestCode == REQUEST_IMAGE_CODE && data != null) {
+            Uri avatarUri = data.getData();
+            String filePath = "customer/" + avatarUri.getLastPathSegment();
+            storageRef = storage.getReference().child(filePath);
+            storageRef.putFile(avatarUri);
+
+            storage.getReference().child(filePath).getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            docRef.update("avatar", uri.toString());
+                            imvAvatar.setImageURI(avatarUri);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NotNull Exception e) {
+                            Log.d("error", e.getMessage());
+                        }
+                    });
+
+        }
+
+        else
+        {
+            Bitmap avatar = data.getParcelableExtra("data");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            avatar.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] imageData = baos.toByteArray();
+            String id = UUID.randomUUID().toString();
+            String pathFile = "customer/" + id + ".jpg";
+            storageRef = storage.getReference().child(pathFile);
+            storageRef.putBytes(imageData);
+
+            storage.getReference().child(pathFile).getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            docRef.update("avatar", uri);
+                            imvAvatar.setImageBitmap(avatar);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NotNull Exception e) {
+                            Log.d("error", e.getMessage());
+                        }
+                    });
+        }
+
+        progressDialog.dismiss();
     }
 
     private void birthdayChange() {
         DialogFragment dialogFragment = new DatePickerFragment();
         dialogFragment.show(getActivity().getSupportFragmentManager(), "Birthday");
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                tvBirthday.setText(String.valueOf(documentSnapshot.get("birthday")));
-            }
-        });
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        spinGender.setSelection(position);
-        docRef.update("gender", genderList.get(position).getGender())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        if(customer.getAvatar().isEmpty())
-                        {
-                            switch (position)
+        if(isFirstChecked == true)
+        {
+            isFirstChecked = false;
+        }
+        else{
+            spinGender.setSelection(position);
+            docRef.update("gender", genderList.get(position).getGender())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            if(customer.getAvatar().isEmpty())
                             {
-                                case 0 : imvAvatar.setImageResource(R.drawable.avatar_anonymous); break;
-                                case 1 : imvAvatar.setImageResource(R.drawable.avatar_male); break;
-                                case 2 : imvAvatar.setImageResource(R.drawable.avatar_female); break;
+                                switch (position)
+                                {
+                                    case 0 : imvAvatar.setImageResource(R.drawable.avatar_anonymous); break;
+                                    case 1 : imvAvatar.setImageResource(R.drawable.avatar_male); break;
+                                    case 2 : imvAvatar.setImageResource(R.drawable.avatar_female); break;
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     @Override
@@ -354,7 +401,10 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
     }
 
     private void logOut() {
+        progressDialog = new CustomProgressDialog(getActivity());
+        progressDialog.show();
         FirebaseAuth.getInstance().signOut();
         navController.navigate(R.id.loginFragment);
+        progressDialog.dismiss();
     }
 }

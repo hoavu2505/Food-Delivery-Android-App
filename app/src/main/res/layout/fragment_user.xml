@@ -11,8 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frame_avatar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/primary">
+        android:layout_height="220dp"
+        android:background="@drawable/user_background">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imv_avatar"
@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="30dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="30dp"
@@ -36,17 +36,20 @@
 
         <TextView
             android:id="@+id/tv_user"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            tools:text="User"
+            tools:text="Hoàng"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
+            android:fontFamily="@font/apalu400"
+            android:background="#4C000000"
+            android:paddingHorizontal="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp" />
+            app:layout_constraintTop_toBottomOf="@id/imv_avatar"
+            android:layout_marginTop="20dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,6 +114,8 @@
                 android:layout_height="wrap_content"
                 tools:text="Name"
                 android:textSize="15sp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"/>
 
@@ -154,6 +159,8 @@
                 android:layout_height="wrap_content"
                 tools:text="Address"
                 android:textSize="15sp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
                 android:inputType="textPostalAddress"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"/>
@@ -199,6 +206,8 @@
                 tools:text="00/00/00"
                 android:textSize="15sp"
                 android:inputType="date"
+                android:singleLine="true"
+                android:ellipsize="marquee"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical" />
 
@@ -230,24 +239,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="40dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:spinnerMode="dialog"/>
 
     </FrameLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_log_out"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:text="Đăng xuất"
         android:textSize="13sp"
-        android:textColor="@color/orange"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/white"
-        app:icon="@drawable/ic_logout"
+        app:backgroundTint="@color/orange"
+        app:icon="@drawable/baseline_logout_24"
         app:cornerRadius="30dp"
         android:layout_marginTop="50dp"
-        android:layout_marginHorizontal="20dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/orange"/>
+        android:layout_marginHorizontal="20dp" />
 
 </LinearLayout>

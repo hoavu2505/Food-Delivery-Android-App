@@ -32,7 +32,7 @@
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" >
         <argument
-            android:name="userID"
+            android:name="city"
             app:argType="string"
             android:defaultValue="null" />
     </fragment>
@@ -44,12 +44,6 @@
         <action
             android:id="@+id/action_loginFragment_to_verifyOTPFragment"
             app:destination="@id/verifyOTPFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_signUpEmailFragment"
-            app:destination="@id/signUpEmailFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_userFragment"
-            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/verifyOTPFragment"
@@ -60,17 +54,20 @@
             android:name="phoneNumber"
             android:defaultValue="null"
             app:argType="string" />
-        <action
-            android:id="@+id/action_verifyOTPFragment_to_userFragment"
-            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpEmailFragment"
         android:name="com.ltud.food.Fragment.signUpEmailFragment"
         android:label="fragment_sign_up_email"
-        tools:layout="@layout/fragment_sign_up_email" >
+        tools:layout="@layout/fragment_sign_up_email" />
+    <fragment
+        android:id="@+id/autoCompleteLocationFragment"
+        android:name="com.ltud.food.Fragment.AutoCompleteLocationFragment"
+        android:label="AutoCompleteLocationFragment"
+        tools:layout="@layout/fragment_auto_complete_location">
         <action
-            android:id="@+id/action_signUpEmailFragment_to_userFragment"
+            android:id="@+id/action_autoCompleteLocationFragment_to_userFragment"
             app:destination="@id/userFragment" />
     </fragment>
+
 </navigation>

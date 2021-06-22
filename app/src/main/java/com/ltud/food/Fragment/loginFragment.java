@@ -189,10 +189,7 @@ public class loginFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onComplete(@NotNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            FirebaseUser user = auth.getCurrentUser();
-                            NavDirections action = loginFragmentDirections.actionLoginFragmentToUserFragment()
-                                    .setUserID(user.getUid());
-                            navController.navigate(action);
+                            navController.navigate(R.id.userFragment);
                             progressDialog.dismiss();
                         }
                         else

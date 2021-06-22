@@ -16,14 +16,14 @@ public class Customer implements Serializable {
     private String account;
     private String name;
     private String address;
-    private Date birthday;
+    private String birthday;
     private String gender;
     private String avatar;
 
     public Customer() {
     }
 
-    public Customer(String id, String account, String name, String address, Date birthday, String gender, String avatar) {
+    public Customer(String id, String account, String name, String address, String birthday, String gender, String avatar) {
         this.id = id;
         this.account = account;
         this.name = name;
@@ -49,7 +49,7 @@ public class Customer implements Serializable {
         return address;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 

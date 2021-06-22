@@ -21,8 +21,6 @@ public class GenderSpinnerAdapter extends ArrayAdapter<Gender> {
 
     public GenderSpinnerAdapter(@NonNull Context context, int resource, @NonNull List<Gender> objects) {
         super(context, resource, objects);
-
-
     }
 
     @Override

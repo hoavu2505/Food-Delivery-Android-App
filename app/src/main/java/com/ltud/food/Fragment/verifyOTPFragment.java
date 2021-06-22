@@ -47,6 +47,8 @@ import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -61,11 +63,11 @@ public class verifyOTPFragment extends Fragment implements View.OnClickListener 
     private Button btnVerify;
     private CustomProgressDialog progressDialog;
     private FirebaseAuth auth;
+    private FirebaseUser user;
     private NavController navController;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
     private String phoneNumber;
     private String verifyCode;
-    private PhoneAuthCredential credential;
     private PhoneAuthProvider.ForceResendingToken resendingToken;
     private FirebaseFirestore db;
 
@@ -310,36 +312,25 @@ public class verifyOTPFragment extends Fragment implements View.OnClickListener 
                     public void onComplete( @NotNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            FirebaseUser user = auth.getCurrentUser();
+                            user = auth.getCurrentUser();
                             db.collection("Customer").document(user.getUid())
                                     .get()
-                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
-                                        public void onComplete(@NotNull Task<DocumentSnapshot> task) {
-                                           if(!task.getResult().exists())
-                                           {
-                                               Customer customer = new Customer(user.getUid(), user.getPhoneNumber(), "", "", new Date(), "none", "");
-                                               FirebaseFirestore.getInstance().collection("Customer").document(user.getUid())
-                                                       .set(customer)
-                                                       .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                           @Override
-                                                           public void onSuccess(Void unused) {
-                                                               Log.d("log", "success");
-                                                           }
-                                                       })
-                                                       .addOnFailureListener(new OnFailureListener() {
-                                                           @Override
-                                                           public void onFailure(@NotNull Exception e) {
-                                                               Log.w("log", "Error writing document", e);
-                                                           }
-                                                       });
-                                           }
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            if(!documentSnapshot.exists())
+                                            {
+                                                Customer customer = new Customer(user.getUid(), user.getPhoneNumber(), "", "", "", "none", "");
+                                                FirebaseFirestore.getInstance().collection("Customer").document(user.getUid())
+                                                        .set(customer);
+                                            }
+                                            else {
+                                                Log.i("exist", "Exists");
+                                            }
                                         }
                                     });
 
-                            NavDirections action = verifyOTPFragmentDirections.actionVerifyOTPFragmentToUserFragment()
-                                    .setUserID(user.getUid());
-                            navController.navigate(action);
+                            navController.navigate(R.id.homeFragment);
                             progressDialog.dismiss();
                         }
                         else

@@ -36,6 +36,8 @@ import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -139,13 +141,10 @@ public class signUpEmailFragment extends Fragment implements View.OnClickListene
                         if(task.isSuccessful())
                         {
                             FirebaseUser user = auth.getCurrentUser();
-                            Customer customer = new Customer(user.getUid(), user.getEmail(), "", "", new Date(), "none", "");
+                            Customer customer = new Customer(user.getUid(), user.getEmail(), "", "", "", "none", "");
                             FirebaseFirestore.getInstance().collection("Customer").document(user.getUid())
                                     .set(customer);
-
-                            NavDirections action = signUpEmailFragmentDirections.actionSignUpEmailFragmentToUserFragment()
-                                    .setUserID(user.getUid());
-                            navController.navigate(action);
+                            navController.navigate(R.id.homeFragment);
                             progressDialog.dismiss();
                         }
                         else{
