@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey1"
+    android:id="@+id/detail_fragment"
+    tools:context=".Fragment.restaurantDetail.RestaurantDetailFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:id="@+id/img_restaurant_detail"
+        android:src="@drawable/background"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ly_restaurant_detail"
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_back_white"
+            android:layout_centerVertical="true"/>
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/res_detail_round"
+        android:elevation="20dp"
+        android:layout_marginTop="230dp">
+
+        <TextView
+            android:id="@+id/txt_restaurant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Name"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/semibold"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="30dp"/>
+
+        <LinearLayout
+            android:id="@+id/ly_rate_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_restaurant_name"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="25dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/rate"/>
+
+            <TextView
+                android:id="@+id/txt_rate_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="4.5"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/regular" />
+
+            <TextView
+                android:id="@+id/txt_address_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="90dp"
+                android:text="Address"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:fontFamily="@font/regular" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/ly_rate_address"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tablayout_res_detail"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="20dp"
+                app:tabMode="fixed"
+                app:tabIndicatorGravity="stretch"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/grey1"
+                app:tabTextAppearance="@style/tablayout_style"
+                app:tabBackground="@color/white"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabIndicator="@drawable/tab_indicator" />
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

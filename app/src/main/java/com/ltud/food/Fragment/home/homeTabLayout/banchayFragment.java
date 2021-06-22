@@ -1,4 +1,4 @@
-package com.ltud.food.homeTabLayout;
+package com.ltud.food.Fragment.home.homeTabLayout;
 
 import android.os.Bundle;
 
@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.ltud.food.R;
 
-public class danhgiaFragment extends Fragment {
+public class banchayFragment extends Fragment {
 
-    public danhgiaFragment() {
+    public banchayFragment() {
         // Required empty public constructor
     }
 
@@ -25,6 +25,6 @@ public class danhgiaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_danhgia, container, false);
+        return inflater.inflate(R.layout.fragment_banchay, container, false);
     }
 }

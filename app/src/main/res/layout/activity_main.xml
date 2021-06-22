@@ -17,6 +17,8 @@
         android:elevation="50dp"
         android:background="@drawable/round_cover"
         app:menu="@menu/bottom_menu"
+        app:labelVisibilityMode="unlabeled"
+        app:itemRippleColor="@android:color/transparent"
         app:itemBackground="@drawable/round_cover"
         app:itemIconTint="@color/custom_color_bottom_menu"
         app:itemIconSize="23dp"/>

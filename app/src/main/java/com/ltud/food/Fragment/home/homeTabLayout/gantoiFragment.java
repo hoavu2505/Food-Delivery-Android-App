@@ -1,12 +1,11 @@
-package com.ltud.food.homeTabLayout;
+package com.ltud.food.Fragment.home.homeTabLayout;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -21,22 +21,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.ltud.food.Fragment.restaurantDetail.RestaurantDetailFragmentDirections;
 import com.ltud.food.R;
 import com.ltud.food.Model.Restaurant;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class gantoiFragment extends Fragment {
+public class gantoiFragment extends Fragment{
 
     RecyclerView recyclerView;
     ArrayList<Restaurant> restaurantArrayList;
     RestaurantAdapter RestaurantAdapter;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
-    gantoiViewModel gantoiViewModel;
 
     public gantoiFragment() {
         // Required empty public constructor
@@ -52,10 +49,13 @@ public class gantoiFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_gantoi, container, false);
         // Inflate the layout for this fragment
-        gantoiViewModel = new ViewModelProvider(this).get(gantoiViewModel.class);
+
+
 
         return v;
     }
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -75,10 +75,11 @@ public class gantoiFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
-        gantoiViewModel.restaurantArrayList = new ArrayList<Restaurant>();
-        RestaurantAdapter = new RestaurantAdapter(getActivity(),gantoiViewModel.restaurantArrayList);
+        restaurantArrayList = new ArrayList<Restaurant>();
+        RestaurantAdapter = new RestaurantAdapter(getActivity(),restaurantArrayList);
 
         recyclerView.setAdapter(RestaurantAdapter);
+
 
         EventChangeListener();
 
@@ -103,7 +104,11 @@ public class gantoiFragment extends Fragment {
 
                         for(DocumentChange dc : value.getDocumentChanges()){
                             if (dc.getType() == DocumentChange.Type.ADDED){
-                                gantoiViewModel.restaurantArrayList.add(dc.getDocument().toObject(Restaurant.class));
+                                restaurantArrayList.add(dc.getDocument().toObject(Restaurant.class));
+                            }
+
+                            if (dc.getType() == DocumentChange.Type.REMOVED){
+
                             }
 
                             RestaurantAdapter.notifyDataSetChanged();
@@ -114,4 +119,5 @@ public class gantoiFragment extends Fragment {
                     }
                 });
     }
+
 }

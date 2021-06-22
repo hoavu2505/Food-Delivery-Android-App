@@ -1,9 +1,17 @@
 package com.ltud.food.Model;
 
+import java.util.ArrayList;
+
 public class Restaurant {
 
     public String id, name, address, img;
     public double rate;
+
+    ArrayList<Restaurant> data;
+
+    public ArrayList<Restaurant> getData() {
+        return data;
+    }
 
     public Restaurant() {
     }

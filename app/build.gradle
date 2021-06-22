@@ -48,9 +48,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // ViewModel
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
     // LiveData
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.3.1'
 
 
     //Add libs
@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
 
+
     //firestore
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
     implementation 'com.google.firebase:firebase-firestore'
@@ -67,6 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
+
 
     //Android jetpack navigation
     def nav_version = "2.3.5"

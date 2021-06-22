@@ -7,9 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
@@ -20,18 +17,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.ltud.food.Fragment.home.homeTabLayout.RestaurantAdapter;
 import com.ltud.food.R;
-import com.ltud.food.homeTabLayout.banchayFragment;
-import com.ltud.food.homeTabLayout.danhgiaFragment;
+import com.ltud.food.Fragment.home.homeTabLayout.banchayFragment;
+import com.ltud.food.Fragment.home.homeTabLayout.danhgiaFragment;
 
 
-import com.ltud.food.homeTabLayout.gantoiFragment;
+import com.ltud.food.Fragment.home.homeTabLayout.gantoiFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class homeFragment extends Fragment {
+public class homeFragment extends Fragment{
 
     ImageView img_search, img_com, img_douong, img_anvat;
 
@@ -39,7 +37,6 @@ public class homeFragment extends Fragment {
     ViewPager viewPager;
     homeAdapter adapter;
 
-    homeViewModel homeViewModel;
 
     public homeFragment() {
         // Required empty public constructor
@@ -78,7 +75,7 @@ public class homeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_homeFragment_to_searchFragment);
-
+                onDestroyView();
             }
         });
 
@@ -116,10 +113,10 @@ public class homeFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-        homeViewModel homeViewModel = new ViewModelProvider(this).get(homeViewModel.class);
+
 
         tabLayout = getView().findViewById(R.id.tablayout_home);
-        homeViewModel.viewPager = getView().findViewById(R.id.viewpager_home);
+        viewPager = getView().findViewById(R.id.viewpager_home);
 
 
         //Add fragment vao tablayout
@@ -129,14 +126,14 @@ public class homeFragment extends Fragment {
         adapter.AddFragment(new banchayFragment(),"Bán chạy");
         adapter.AddFragment(new danhgiaFragment(),"Đánh giá");
 
-        homeViewModel.viewPager.setAdapter(adapter);
+        viewPager.setAdapter(adapter);
 
-        tabLayout.setupWithViewPager(homeViewModel.viewPager);
+        tabLayout.setupWithViewPager(viewPager);
 
 
     }
 
-    //Su dung homeAdapter der them cac fragment vao tablayout
+    //Su dung homeAdapter de them cac fragment vao tablayout
     private class homeAdapter extends FragmentPagerAdapter {
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         ArrayList<String>   stringArrayList   = new ArrayList<>();
@@ -167,6 +164,22 @@ public class homeFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             return stringArrayList.get(position);
         }
+    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        viewPager.setAdapter(adapter);
+//        tabLayout.setupWithViewPager(viewPager);
+//    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 }
