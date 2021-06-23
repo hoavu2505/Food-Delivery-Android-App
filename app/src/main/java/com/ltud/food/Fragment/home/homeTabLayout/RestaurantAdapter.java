@@ -1,29 +1,19 @@
 package com.ltud.food.Fragment.home.homeTabLayout;
 
-import android.app.Dialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.util.Util;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.ltud.food.Fragment.restaurantDetail.RestaurantDetailFragment;
 import com.ltud.food.R;
 import com.ltud.food.Model.Restaurant;
@@ -38,8 +28,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ho
     Context context;
     ArrayList<Restaurant> restaurantArrayList;
 
-    NavController navController;
-
 
     public RestaurantAdapter(Context context, ArrayList<Restaurant> restaurantArrayList) {
         this.context = context;
@@ -53,30 +41,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ho
 
         View v = LayoutInflater.from(context).inflate(R.layout.item_gantoi,parent,false);
         final homeViewHolder vHolder = new homeViewHolder(v);
-
-
-//        vHolder.item_gantoi.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context,"Test"+ String.valueOf(vHolder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
-//
-//
-//                //Navigate fragment
-//                navController = Navigation.findNavController(v);
-//                navController.navigate(R.id.action_homeFragment_to_restaurantDetailFragment);
-//                //Truyen du lieu
-//                TextView txt_restaurant_name = (TextView) v.findViewById(R.id.txt_restaurant_name);
-//                TextView txt_address_detail = (TextView) v.findViewById(R.id.txt_address_detail);
-//                TextView txt_rate_detail = (TextView) v.findViewById(R.id.txt_rate_detail);
-//                ImageView img_res_detail = (ImageView) v.findViewById(R.id.img_restaurant_detail);
-//
-////                txt_restaurant_name.setText(restaurantArrayList.get(vHolder.getAdapterPosition()).getName());
-////                txt_address_detail.setText(restaurantArrayList.get(vHolder.getAdapterPosition()).getAddress());
-////                txt_rate_detail.setText((int) restaurantArrayList.get(vHolder.getAdapterPosition()).getRate());
-////
-////                img_res_detail.setImageURI(restaurantArrayList.get(vHolder.getAdapterPosition()).getImg());
-//            }
-//        });
 
         return vHolder;
     }
@@ -98,7 +62,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ho
 
                 //Navigate Detail Fragment
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new RestaurantDetailFragment(restaurant.getName(),restaurant.getAddress(),String.valueOf(restaurant.getRate()),restaurant.getImg())).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_Fragment, new RestaurantDetailFragment(restaurant.getId(),restaurant.getName(),restaurant.getAddress(),String.valueOf(restaurant.getRate()),restaurant.getImg())).addToBackStack(null).commit();
             }
         });
 
@@ -128,6 +92,5 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ho
         }
 
     }
-
 
 }
