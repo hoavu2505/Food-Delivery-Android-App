@@ -8,7 +8,6 @@ import androidx.navigation.Navigation;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.ltud.food.Fragment.restaurantDetail.RestaurantDetailFragment;
 
 public class MainActivity extends AppCompatActivity{
 

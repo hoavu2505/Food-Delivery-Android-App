@@ -11,10 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.ltud.food.Fragment.home.homeFragmentDirections;
 import com.ltud.food.Fragment.restaurantDetail.RestaurantDetailFragment;
+import com.ltud.food.Fragment.restaurantDetail.RestaurantDetailFragmentDirections;
 import com.ltud.food.R;
 import com.ltud.food.Model.Restaurant;
 
@@ -61,9 +66,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ho
 //                Toast.makeText(context,"Test"+ String.valueOf(holder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
 
                 //Navigate Detail Fragment
-                AppCompatActivity activity = (AppCompatActivity)v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_Fragment, new RestaurantDetailFragment(restaurant.getId(),restaurant.getName(),restaurant.getAddress(),String.valueOf(restaurant.getRate()),restaurant.getImg())).addToBackStack(null).commit();
-            }
+//                AppCompatActivity activity = (AppCompatActivity)v.getContext();
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_Fragment, new RestaurantDetailFragment(restaurant.getId(),restaurant.getName(),restaurant.getAddress(),String.valueOf(restaurant.getRate()),restaurant.getImg())).addToBackStack(null).commit();
+
+                NavDirections action = homeFragmentDirections.actionHomeFragmentToRestaurantDetailFragment(restaurant.name, restaurant.address, (float) restaurant.rate, restaurant.img, restaurant.id);
+
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(action);
+           }
         });
 
     }

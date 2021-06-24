@@ -37,6 +37,7 @@ public class detail_datdonFragment extends Fragment{
     FirebaseFirestore db;
     ProgressDialog progressDialog;
 
+    String res_id;
 
 
     public detail_datdonFragment() {
@@ -61,9 +62,13 @@ public class detail_datdonFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
 
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Đang lấy dữ liệu...");
-        progressDialog.show();
+        if (FoodAdapter == null){   //FoodAdapter null thi khong dung progressDialog
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Đang lấy dữ liệu...");
+            progressDialog.show();
+        }
+
+
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.datdon_list);
         recyclerView.setHasFixedSize(true);
@@ -76,12 +81,16 @@ public class detail_datdonFragment extends Fragment{
 
         recyclerView.setAdapter(FoodAdapter);
 
-        EventChangeListener();
+        RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
+        res_id = restaurantDetailFragment.get_resId();
+
+
+        EventChangeListener(res_id);
 
     }
 
-    private void EventChangeListener() {
-        db.collection("Restaurants").document("2svb78zObPMaazcEuWpB").collection("Food").orderBy("name", Query.Direction.ASCENDING)
+    private void EventChangeListener(String id) {
+        db.collection("Restaurants").document(id).collection("Food").orderBy("name", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable @org.jetbrains.annotations.Nullable QuerySnapshot value, @Nullable @org.jetbrains.annotations.Nullable FirebaseFirestoreException error) {
@@ -103,6 +112,4 @@ public class detail_datdonFragment extends Fragment{
                     }
                 });
     }
-
-
 }

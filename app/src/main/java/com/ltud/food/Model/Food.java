@@ -3,8 +3,8 @@ package com.ltud.food.Model;
 import java.util.ArrayList;
 
 public class Food {
-    public String id, restaurant_id,name,rate,img;
-    public int price;
+    public String id, restaurant_id,name,img;
+    public int price,rate;
 
     ArrayList<Food> data;
 
@@ -15,7 +15,7 @@ public class Food {
     public Food() {
     }
 
-    public Food(String id, String restaurant_id, String name, String rate, String img, int price) {
+    public Food(String id, String restaurant_id, String name, int rate, String img, int price) {
         this.id = id;
         this.restaurant_id = restaurant_id;
         this.name = name;
@@ -48,11 +48,11 @@ public class Food {
         this.name = name;
     }
 
-    public String getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(int rate) {
         this.rate = rate;
     }
 

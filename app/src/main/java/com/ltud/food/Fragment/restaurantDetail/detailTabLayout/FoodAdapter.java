@@ -45,7 +45,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.foodViewHolder
 
         holder.name.setText(food.name);
         holder.price.setText(String.valueOf(food.price));
-        holder.rate.setText(food.rate);
+        holder.rate.setText(String.valueOf(food.rate));
         Glide.with(holder.food.getContext()).load(food.img).into(holder.food);
     }
 

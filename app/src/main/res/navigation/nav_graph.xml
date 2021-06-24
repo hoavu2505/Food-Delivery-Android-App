@@ -84,13 +84,25 @@
         android:name="com.ltud.food.Fragment.restaurantDetail.RestaurantDetailFragment"
         android:label="fragment_restaurant_detail"
         tools:layout="@layout/fragment_restaurant_detail" >
-        <argument
-            android:name="position"
-            app:argType="integer"
-            android:defaultValue="0" />
+
         <action
             android:id="@+id/action_restaurantDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+        <argument
+            android:name="rate"
+            app:argType="float" />
+        <argument
+            android:name="img"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/gantoiFragment"

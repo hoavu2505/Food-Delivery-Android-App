@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.ltud.food.Fragment.home.homeFragment;
 import com.ltud.food.Fragment.order.orderFragment;
@@ -41,21 +43,16 @@ public class RestaurantDetailFragment extends Fragment {
     resdetailAdapter adapter;
     ImageView img_back;
 
+//    private RestaurantDetailListener listener;
 
-    public String id, name, address,img;
-    public String rate;
+    public static String id;
 
+    public String get_resId(){
+        return id;
+    }
 
     public RestaurantDetailFragment() {
         // Required empty public constructor
-    }
-
-    public RestaurantDetailFragment(String id,String name, String address, String rate, String img) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.rate = rate;
-        this.img = img;
     }
 
 
@@ -71,16 +68,19 @@ public class RestaurantDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
 
-        TextView txt_restaurant_name = v.findViewById(R.id.txt_restaurant_name);
-        TextView txt_address = v.findViewById(R.id.txt_address_detail);
-        TextView txt_rate = v.findViewById(R.id.txt_rate_detail);
-        ImageView img_detail = v.findViewById(R.id.img_restaurant_detail);
-
-
-        txt_restaurant_name.setText(name);
-        txt_address.setText(address);
-        txt_rate.setText(rate);
-        Glide.with(getContext()).load(img).into(img_detail);
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
+        navBar.setVisibility(v.GONE);
+//
+//        TextView txt_restaurant_name = v.findViewById(R.id.txt_restaurant_name);
+//        TextView txt_address = v.findViewById(R.id.txt_address_detail);
+//        TextView txt_rate = v.findViewById(R.id.txt_rate_detail);
+//        ImageView img_detail = v.findViewById(R.id.img_restaurant_detail);
+//
+//
+//        txt_restaurant_name.setText(name);
+//        txt_address.setText(address);
+//        txt_rate.setText(rate);
+//        Glide.with(getContext()).load(img).into(img_detail);
 
         return v;
     }
@@ -93,16 +93,35 @@ public class RestaurantDetailFragment extends Fragment {
 
         NavController navController = Navigation.findNavController(view);
 
+        String name = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getName();
+        String address = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getAddress();
+        Float rate = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getRate();
+        String img = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getImg();
+
+
+
+        TextView txt_restaurant_name = view.findViewById(R.id.txt_restaurant_name);
+        TextView txt_address = view.findViewById(R.id.txt_address_detail);
+        TextView txt_rate = view.findViewById(R.id.txt_rate_detail);
+        ImageView img_detail = view.findViewById(R.id.img_restaurant_detail);
+
+        txt_restaurant_name.setText(name);
+        txt_address.setText(address);
+        txt_rate.setText(String.valueOf(rate));
+        Glide.with(getContext()).load(img).into(img_detail);
+
+        id = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getId();
+
 
         img_back = view.findViewById(R.id.img_res_detail_back);
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity)getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment, new homeFragment()).addToBackStack(null).commit();
+//                AppCompatActivity activity = (AppCompatActivity)getContext();
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment, new homeFragment()).commit();
 
-//                navController.navigate(R.id.action_restaurantDetailFragment_to_homeFragment);
+                navController.navigate(R.id.action_restaurantDetailFragment_to_homeFragment);
             }
         });
     }
@@ -159,10 +178,21 @@ public class RestaurantDetailFragment extends Fragment {
         }
     }
 
-        public void onBackPressed(){
-        AppCompatActivity activity = (AppCompatActivity)getContext();
-        activity.getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment, new homeFragment()).addToBackStack(null).commit();
 
+
+//    public void onBackPressed(){
+//        AppCompatActivity activity = (AppCompatActivity)getContext();
+//        activity.getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment, new homeFragment()).addToBackStack(null).commit();
+//
+//    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
+        navBar.setVisibility(getView().VISIBLE);
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
-
 }
