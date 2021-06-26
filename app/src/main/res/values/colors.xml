@@ -10,6 +10,7 @@
     <color name="primary">#FFD563</color>
     <color name="grey">#14212423</color>
     <color name="orange">#FF6701</color>
+    <color name="orange_tab_layout">#CEFF6701</color>
     <color name="red">#F44336</color>
     <color name="background_button">#197DCC</color>
     <color name="blue">#2196F3</color>

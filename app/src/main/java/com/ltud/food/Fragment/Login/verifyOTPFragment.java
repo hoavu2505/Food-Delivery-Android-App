@@ -1,4 +1,4 @@
-package com.ltud.food.Fragment;
+package com.ltud.food.Fragment.Login;
 
 import android.app.ProgressDialog;
 import android.os.Build;
@@ -320,7 +320,7 @@ public class verifyOTPFragment extends Fragment implements View.OnClickListener 
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             if(!documentSnapshot.exists())
                                             {
-                                                Customer customer = new Customer(user.getUid(), user.getPhoneNumber(), "", "", "", "none", "");
+                                                Customer customer = new Customer(user.getUid(), phoneNumber, "", "", "", "none", "");
                                                 FirebaseFirestore.getInstance().collection("Customer").document(user.getUid())
                                                         .set(customer);
                                             }

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="10dp"
+    android:layout_marginTop="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <RelativeLayout
+            android:id="@+id/layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đồ ăn"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/tv_ngay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                tools:text="30/06/2021" />
+
+        </RelativeLayout>
+
+        <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+            android:id="@+id/cardView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/imv_mon_an"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                android:scaleType="centerCrop" />
+
+        </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+        <RelativeLayout
+            android:id="@+id/layout_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/cardView"
+            app:layout_constraintBottom_toBottomOf="@id/cardView"
+            app:layout_constraintStart_toEndOf="@id/cardView"
+            app:layout_constraintEnd_toEndOf="@id/layout_1"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:id="@+id/tv_mon_an"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Sushi"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/tv_don_gia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_mon_an"
+                tools:text="100.000đ"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_so_luong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_mon_an"
+                android:layout_toRightOf="@id/tv_don_gia"
+                android:layout_alignTop="@id/tv_don_gia"
+                tools:text="(5 phần)"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                tools:text="Đang giao hàng"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                tools:text="Ví điện tử"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/layout_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/layout_1"
+            app:layout_constraintEnd_toEndOf="@id/layout_1"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_trang_thai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="Hoàn thành"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btn_dat_lai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Đặt lại"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/orange"
+                android:layout_marginLeft="150dp"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

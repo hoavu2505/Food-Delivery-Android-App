@@ -7,28 +7,28 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.ltud.food.Fragment.homeFragment"
+        android:name="com.ltud.food.Fragment.Home.homeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
-        android:name="com.ltud.food.Fragment.orderFragment"
+        android:name="com.ltud.food.Fragment.Order.orderFragment"
         android:label="fragment_order"
         tools:layout="@layout/fragment_order" />
     <fragment
         android:id="@+id/notiFragment"
-        android:name="com.ltud.food.Fragment.notiFragment"
+        android:name="com.ltud.food.Fragment.Notification.notiFragment"
         android:label="fragment_noti"
         tools:layout="@layout/fragment_noti" />
     <fragment
         android:id="@+id/favFragment"
-        android:name="com.ltud.food.Fragment.favFragment"
+        android:name="com.ltud.food.Fragment.Favorite.favFragment"
         android:label="fragment_fav"
         tools:layout="@layout/fragment_fav" />
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.ltud.food.Fragment.userFragment"
+        android:name="com.ltud.food.Fragment.Customer.userFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" >
         <argument
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.ltud.food.Fragment.loginFragment"
+        android:name="com.ltud.food.Fragment.Login.loginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/verifyOTPFragment"
-        android:name="com.ltud.food.Fragment.verifyOTPFragment"
+        android:name="com.ltud.food.Fragment.Login.verifyOTPFragment"
         android:label="fragment_verify_otp"
         tools:layout="@layout/fragment_verify_otp">
         <argument
@@ -57,17 +57,42 @@
     </fragment>
     <fragment
         android:id="@+id/signUpEmailFragment"
-        android:name="com.ltud.food.Fragment.signUpEmailFragment"
+        android:name="com.ltud.food.Fragment.Login.signUpEmailFragment"
         android:label="fragment_sign_up_email"
         tools:layout="@layout/fragment_sign_up_email" />
     <fragment
         android:id="@+id/autoCompleteLocationFragment"
-        android:name="com.ltud.food.Fragment.AutoCompleteLocationFragment"
+        android:name="com.ltud.food.Fragment.Customer.AutoCompleteLocationFragment"
         android:label="AutoCompleteLocationFragment"
         tools:layout="@layout/fragment_auto_complete_location">
         <action
             android:id="@+id/action_autoCompleteLocationFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_autoCompleteLocationFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+        <argument
+            android:name="navigate_payment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.ltud.food.Fragment.Home.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.ltud.food.Fragment.Home.CheckoutFragment"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" >
+        <argument
+            android:name="address"
+            app:argType="string"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_autoCompleteLocationFragment"
+            app:destination="@id/autoCompleteLocationFragment" />
     </fragment>
 
 </navigation>

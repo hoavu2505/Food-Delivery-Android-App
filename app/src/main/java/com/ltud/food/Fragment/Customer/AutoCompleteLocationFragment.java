@@ -1,4 +1,4 @@
-package com.ltud.food.Fragment;
+package com.ltud.food.Fragment.Customer;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +37,21 @@ public class AutoCompleteLocationFragment extends Fragment {
                 android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.city));
         AutoCompleteTextView textView = (AutoCompleteTextView) view.findViewById(R.id.tv_city);
         textView.setAdapter(adapter);
-
+        boolean navigatePayment = AutoCompleteLocationFragmentArgs.fromBundle(getArguments()).getNavigatePayment();
+        Log.i("log", String.valueOf(navigatePayment));
         textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                NavDirections action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToUserFragment()
-                        .setCity(textView.getText().toString());
+                NavDirections action;
+                if(navigatePayment == true)
+                {
+                    action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToCheckoutFragment()
+                            .setAddress(textView.getText().toString());
+                }
+                else{
+                    action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToUserFragment()
+                            .setCity(textView.getText().toString());
+                }
                 Navigation.findNavController(view).navigate(action);
             }
         });

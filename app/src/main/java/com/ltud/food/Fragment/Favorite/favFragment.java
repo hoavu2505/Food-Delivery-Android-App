@@ -1,4 +1,4 @@
-package com.ltud.food.Fragment;
+package com.ltud.food.Fragment.Favorite;
 
 import android.os.Bundle;
 
@@ -16,9 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ltud.food.R;
 
-public class notiFragment extends Fragment {
+public class favFragment extends Fragment {
 
-    public notiFragment() {
+
+    public favFragment() {
         // Required empty public constructor
     }
 
@@ -31,7 +32,7 @@ public class notiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_noti, container, false);
+        return inflater.inflate(R.layout.fragment_fav, container, false);
     }
 
     @Override
