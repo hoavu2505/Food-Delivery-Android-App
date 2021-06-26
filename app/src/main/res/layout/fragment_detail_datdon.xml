@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_datdon"
     tools:context=".Fragment.restaurantDetail.detailTabLayout.detail_datdonFragment">
 
@@ -10,6 +11,51 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/datdon_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/ly_cart"/>
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ly_cart"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="6dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ly">
+
+            <ImageView
+                android:id="@+id/restaurant_detail_cart"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/cart" />
+        </RelativeLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/txt_cart_count"-->
+<!--            android:layout_width="22dp"-->
+<!--            android:layout_height="22dp"-->
+<!--            android:background="@drawable/item_count"-->
+<!--            android:text="15"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="13sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:fontFamily="@font/semibold"-->
+<!--            android:layout_alignRight="@id/ly" />-->
+
+        <com.nex3z.notificationbadge.NotificationBadge
+            android:id="@+id/badge"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignRight="@id/ly"
+            app:nbMaxTextLength="2"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

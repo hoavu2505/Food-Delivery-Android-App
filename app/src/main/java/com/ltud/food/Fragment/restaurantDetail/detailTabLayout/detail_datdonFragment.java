@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -24,12 +27,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.ltud.food.Fragment.restaurantDetail.RestaurantDetailFragment;
 import com.ltud.food.Model.Food;
 import com.ltud.food.R;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class detail_datdonFragment extends Fragment{
+public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCallbacks{
 
     RecyclerView recyclerView;
     ArrayList<Food> foodArrayList;
@@ -39,10 +43,12 @@ public class detail_datdonFragment extends Fragment{
 
     String res_id;
 
+    private static int cart_count=0;
 
     public detail_datdonFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,26 @@ public class detail_datdonFragment extends Fragment{
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_detail_datdon, container, false);
         return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        FoodAdapter foodAdapter = new FoodAdapter();
+        foodAdapter.setCallback(this);
+    }
+
+    @Override
+    public void onAddProduct(int pos) {
+//        Toast.makeText(getContext(),"Click " + pos,Toast.LENGTH_SHORT).show();
+        cart_count++;
+        NotificationBadge notificationBadge;
+        notificationBadge = getView().findViewById(R.id.badge);
+
+        RelativeLayout ly_cart = getView().findViewById(R.id.ly_cart);
+
+        ly_cart.setVisibility(getView().VISIBLE);
+        notificationBadge.setNumber(cart_count);
     }
 
     @Override
@@ -77,13 +103,13 @@ public class detail_datdonFragment extends Fragment{
         db = FirebaseFirestore.getInstance();
 
         foodArrayList = new ArrayList<Food>();
-        FoodAdapter = new FoodAdapter(getActivity(), foodArrayList);
+        FoodAdapter = new FoodAdapter(getActivity(), foodArrayList,this);
 
         recyclerView.setAdapter(FoodAdapter);
 
+        //Get id cua restaurant de thuc hien truy van food
         RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
         res_id = restaurantDetailFragment.get_resId();
-
 
         EventChangeListener(res_id);
 
@@ -111,5 +137,11 @@ public class detail_datdonFragment extends Fragment{
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        cart_count = 0;
     }
 }

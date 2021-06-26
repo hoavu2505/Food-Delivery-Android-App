@@ -114,13 +114,9 @@ public class RestaurantDetailFragment extends Fragment {
 
 
         img_back = view.findViewById(R.id.img_res_detail_back);
-
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AppCompatActivity activity = (AppCompatActivity)getContext();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment, new homeFragment()).commit();
-
                 navController.navigate(R.id.action_restaurantDetailFragment_to_homeFragment);
             }
         });
@@ -178,13 +174,6 @@ public class RestaurantDetailFragment extends Fragment {
         }
     }
 
-
-
-//    public void onBackPressed(){
-//        AppCompatActivity activity = (AppCompatActivity)getContext();
-//        activity.getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment, new homeFragment()).addToBackStack(null).commit();
-//
-//    }
 
     @Override
     public void onDestroyView() {
