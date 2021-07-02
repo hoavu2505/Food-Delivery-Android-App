@@ -64,4 +64,3 @@ public class Restaurant {
         this.rate = rate;
     }
 }
-

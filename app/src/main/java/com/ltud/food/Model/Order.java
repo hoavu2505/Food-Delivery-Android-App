@@ -1,17 +1,26 @@
 package com.ltud.food.Model;
 
+import java.util.List;
+
 public class Order {
 
-    private String id;
-    private int quantity;
-    private String date;
+    private String id, date;
     private long status, payment_method;
-    private Food food;
+    private boolean complete;
+    private Restaurant restaurant;
+    private List<Order_Food> foodList;
 
     public Order() {
     }
 
-
+    public Order(String id, String date, long status, long payment_method, Restaurant restaurant, List<Order_Food> foodList) {
+        this.id = id;
+        this.date = date;
+        this.status = status;
+        this.payment_method = payment_method;
+        this.restaurant = restaurant;
+        this.foodList = foodList;
+    }
 
     public String getId() {
         return id;
@@ -19,14 +28,6 @@ public class Order {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getDate() {
@@ -41,7 +42,7 @@ public class Order {
         return status;
     }
 
-    public void setStatus(long status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -53,11 +54,27 @@ public class Order {
         this.payment_method = payment_method;
     }
 
-    public Food getFood() {
-        return food;
+    public boolean isComplete() {
+        return complete;
     }
 
-    public void setFood(Food food) {
-        this.food = food;
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public List<Order_Food> getFoodList() {
+        return foodList;
+    }
+
+    public void setFoodList(List<Order_Food> foodList) {
+        this.foodList = foodList;
     }
 }

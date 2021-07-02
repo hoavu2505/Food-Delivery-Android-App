@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.Home.CheckoutFragment">
+    tools:context=".Fragment.RestaurantDetail.CheckoutFragment">
 
     <LinearLayout
         android:id="@+id/layout_1"
@@ -36,6 +36,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/white"
+            android:fontFamily="@font/semibold"
             android:layout_gravity="center"
             android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
@@ -84,6 +85,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:hint="Thêm địa chỉ"
+                android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 app:layout_constraintStart_toEndOf="@id/image_location"
                 app:layout_constraintEnd_toStartOf="@id/image_add"
@@ -124,6 +126,7 @@
                 tools:text="Date"
                 android:textSize="15sp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toBottomOf="@id/text2"
                 app:layout_constraintStart_toStartOf="@id/tv_address"
                 android:layout_marginTop="9dp" />
@@ -221,6 +224,7 @@
                     android:text="Ví điện tử"
                     android:textSize="15sp"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/semibold"
                     android:layoutDirection="rtl"
                     android:buttonTint="@color/orange" />
 
@@ -231,6 +235,7 @@
                     android:text="Tiền mặt"
                     android:textSize="15sp"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/semibold"
                     android:layoutDirection="rtl"
                     android:buttonTint="@color/orange" />
 
@@ -252,6 +257,7 @@
                 tools:text="500.000đ"
                 android:textSize="16sp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toTopOf="@id/text5"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -270,6 +276,7 @@
                 android:layout_height="wrap_content"
                 android:text="15.000đ"
                 android:textSize="16sp"
+                android:fontFamily="@font/semibold"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toTopOf="@id/text6"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -303,6 +310,7 @@
             android:layout_height="60dp"
             android:text="Thanh toán"
             android:textSize="15sp"
+            android:fontFamily="@font/semibold"
             app:backgroundTint="@color/orange"
             app:cornerRadius="15dp"
             android:layout_alignParentBottom="true" />
@@ -314,6 +322,7 @@
             android:text="Tổng tiền"
             android:textColor="@color/black"
             android:textSize="20sp"
+            android:fontFamily="@font/semibold"
             android:layout_alignParentLeft="true"
             android:layout_above="@id/btn_thanh_toan"
             android:layout_marginBottom="10dp"/>
@@ -325,6 +334,7 @@
             android:textColor="@color/orange"
             android:textSize="20sp"
             tools:text="500.000đ"
+            android:fontFamily="@font/semibold"
             android:layout_alignParentRight="true"
             android:layout_above="@id/btn_thanh_toan"
             android:layout_marginBottom="10dp"/>

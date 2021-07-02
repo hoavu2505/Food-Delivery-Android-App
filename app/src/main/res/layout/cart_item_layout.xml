@@ -46,7 +46,8 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:ellipsize="end"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:fontFamily="@font/semibold"/>
 
             <TextView
                 android:id="@+id/tv_rate"
@@ -64,7 +65,8 @@
                 android:textStyle="bold"
                 android:textColor="@color/orange"
                 android:layout_marginTop="20dp"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:fontFamily="@font/semibold"/>
 
         </LinearLayout>
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.Home.homeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:id="@+id/search_btn"
+        android:id="@+id/img_search"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
@@ -117,5 +117,35 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ly_danhmuc"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout_home"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            app:tabMode="fixed"
+            app:tabIndicatorGravity="stretch"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/grey"
+            app:tabTextAppearance="@style/tablayout_style"
+            app:tabBackground="@color/white"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicator="@drawable/tab_indicator" />
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.Order.deliveringTabFragment"
+    tools:context=".Fragment.Order.DeliveringTab.deliveringTabFragment"
     android:background="@color/grey">
 
     <androidx.recyclerview.widget.RecyclerView

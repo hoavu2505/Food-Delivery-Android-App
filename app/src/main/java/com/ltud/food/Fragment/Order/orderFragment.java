@@ -16,12 +16,16 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.ltud.food.Adapter.ViewPagerAdapter;
+import com.ltud.food.Fragment.Order.DeliveringTab.deliveringTabFragment;
+import com.ltud.food.Fragment.Order.DraftTab.draftTabFragment;
+import com.ltud.food.Fragment.Order.HistoryTab.historyTabFragment;
 import com.ltud.food.R;
 
 public class orderFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
     private NavController navController;
 
     public orderFragment() {
@@ -42,7 +46,7 @@ public class orderFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewpager_order);
         navController = Navigation.findNavController(view);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPagerAdapter.addFragment(new deliveringTabFragment(), "Đang giao");
         viewPagerAdapter.addFragment(new historyTabFragment(), "Lịch sử");
         viewPagerAdapter.addFragment(new draftTabFragment(), "Đơn nháp");
@@ -51,9 +55,10 @@ public class orderFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onDestroyView() {
+        super.onDestroyView();
 
-        navController.navigate(R.id.cartFragment);
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

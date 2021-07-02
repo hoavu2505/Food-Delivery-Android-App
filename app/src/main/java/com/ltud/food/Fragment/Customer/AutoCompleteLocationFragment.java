@@ -35,18 +35,18 @@ public class AutoCompleteLocationFragment extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.city));
-        AutoCompleteTextView textView = (AutoCompleteTextView) view.findViewById(R.id.tv_city);
+        AutoCompleteTextView textView = view.findViewById(R.id.tv_city);
         textView.setAdapter(adapter);
         boolean navigatePayment = AutoCompleteLocationFragmentArgs.fromBundle(getArguments()).getNavigatePayment();
-        Log.i("log", String.valueOf(navigatePayment));
         textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 NavDirections action;
                 if(navigatePayment == true)
                 {
-                    action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToCheckoutFragment()
-                            .setAddress(textView.getText().toString());
+                    Log.i("log", textView.getText().toString());
+                    action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToCheckoutFragment(textView.getText().toString())
+                    .setAddress(textView.getText().toString());
                 }
                 else{
                     action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToUserFragment()

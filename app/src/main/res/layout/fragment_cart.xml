@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.Home.CartFragment"
+    tools:context=".Fragment.RestaurantDetail.CartFragment"
     android:background="@color/grey">
 
     <LinearLayout
@@ -37,6 +37,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/white"
+            android:fontFamily="@font/semibold"
             android:layout_gravity="center"
             android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
@@ -87,6 +88,7 @@
             android:layout_height="60dp"
             android:text="Thanh toán"
             android:textSize="15sp"
+            android:fontFamily="@font/semibold"
             app:backgroundTint="@color/orange"
             app:cornerRadius="15dp"
             android:layout_alignParentBottom="true" />
@@ -98,6 +100,7 @@
             android:text="Tổng tiền"
             android:textColor="@color/black"
             android:textSize="20sp"
+            android:fontFamily="@font/semibold"
             android:layout_alignParentLeft="true"
             android:layout_above="@id/btn_thanh_toan"
             android:layout_marginBottom="10dp"/>
@@ -109,6 +112,7 @@
             android:textColor="@color/orange"
             android:textSize="20sp"
             tools:text="500.000đ"
+            android:fontFamily="@font/semibold"
             android:layout_alignParentRight="true"
             android:layout_above="@id/btn_thanh_toan"
             android:layout_marginBottom="10dp"/>

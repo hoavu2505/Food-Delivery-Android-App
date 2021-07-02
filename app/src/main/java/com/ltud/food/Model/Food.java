@@ -1,18 +1,15 @@
 package com.ltud.food.Model;
 
-import android.net.Uri;
-
 public class Food {
 
-    private String id, name;
-    private String img;
-    private long price;
-    private long rate;
+    private String id, name, img;
+    private double price;
+    private int rate;
 
     public Food() {
     }
 
-    public Food(String id, String name, String image, long price, long rate) {
+    public Food(String id, String name, String image, double price, int rate) {
         this.id = id;
         this.name = name;
         this.img = image;
@@ -44,7 +41,7 @@ public class Food {
         this.img = img;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -52,11 +49,12 @@ public class Food {
         this.price = price;
     }
 
-    public long getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(long rate) {
+    public void setRate(int rate) {
         this.rate = rate;
     }
+
 }
