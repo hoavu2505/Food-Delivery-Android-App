@@ -14,42 +14,36 @@ import java.util.List;
 public class CartViewModel extends ViewModel {
 
     private final CartRepository cartRepository = CartRepository.getInstance();
-    private MutableLiveData<List<Order_Food>> orderListLiveData;
+    private MutableLiveData<Order> orderLiveData;
 
-    public LiveData<List<Order_Food>> getOrderList(String orderID)
+    public LiveData<Order> getCurrentOrder(String orderID)
     {
-        if(orderListLiveData == null)
-        {
-            orderListLiveData = cartRepository.getOrderListLiveData(orderID);
-        }
-        return orderListLiveData;
+        orderLiveData = cartRepository.getCurrentOrder(orderID);
+        return orderLiveData;
     }
 
     public void updateFoodQuantity(String orderID, List<Order_Food> foodList)
     {
         cartRepository.updateFoodQuantity(orderID, foodList);
-        orderListLiveData.setValue(foodList);
+        Order order = orderLiveData.getValue();
+        order.setFoodList(foodList);
+        orderLiveData.setValue(order);
     }
 
     public void deleteOneFood(String orderID, int index, Order_Food food)
     {
         cartRepository.deleteOneFood(orderID, food);
-        List<Order_Food> orders = orderListLiveData.getValue();
-        orders.remove(index);
-        orderListLiveData.setValue(orders);
+        Order order= orderLiveData.getValue();
+        order.getFoodList().remove(index);
+        orderLiveData.setValue(order);
     }
 
     public void deleteOneOrder(String orderID)
     {
         cartRepository.deleteOneOrder(orderID);
-        List<Order_Food> orders = orderListLiveData.getValue();
-        orders.clear();
-        orderListLiveData.setValue(orders);
-    }
-
-    public LiveData<Restaurant> getRestaurant(String orderID)
-    {
-        return cartRepository.getRestaurant(orderID);
+        Order order = orderLiveData.getValue();
+        order.getFoodList().clear();
+        orderLiveData.setValue(order);
     }
 
 }

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 
 import com.ltud.food.R;
 
@@ -38,15 +39,33 @@ public class AutoCompleteLocationFragment extends Fragment {
         AutoCompleteTextView textView = view.findViewById(R.id.tv_city);
         textView.setAdapter(adapter);
         boolean navigatePayment = AutoCompleteLocationFragmentArgs.fromBundle(getArguments()).getNavigatePayment();
+        String orderID = AutoCompleteLocationFragmentArgs.fromBundle(getArguments()).getOrderID();
+
+        ImageView imvBack = view.findViewById(R.id.imv_back);
+        imvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(navigatePayment == true)
+                {
+                    NavDirections action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToCheckoutFragment(orderID);
+                    Navigation.findNavController(view).navigate(action);
+                }
+                else {
+                    NavDirections action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToUserFragment();
+                    Navigation.findNavController(view).navigate(action);
+                }
+            }
+        });
+
         textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 NavDirections action;
                 if(navigatePayment == true)
                 {
-                    Log.i("log", textView.getText().toString());
                     action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToCheckoutFragment(textView.getText().toString())
-                    .setAddress(textView.getText().toString());
+                    .setAddress(textView.getText().toString())
+                    .setOrderID(orderID);
                 }
                 else{
                     action = AutoCompleteLocationFragmentDirections.actionAutoCompleteLocationFragmentToUserFragment()

@@ -35,33 +35,49 @@ public class CartRepository {
         return cartRepository;
     }
 
-    //get ordered food list
-    public MutableLiveData<List<Order_Food>> getOrderListLiveData(String orderID)
+    //get an order
+    public MutableLiveData<Order> getCurrentOrder(String orderID)
     {
-        MutableLiveData<List<Order_Food>> foodListLiveData = new MutableLiveData<>();
-        List<Order_Food> foodList = new ArrayList<>();
+        MutableLiveData<Order> orderMutableLiveData = new MutableLiveData<>();
 
         db.collection("Customer").document(userID)
                 .collection("Order").document(orderID)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        List<Map<String, Object>> foodGroup = (List<Map<String, Object>>) documentSnapshot.get("food");
+                    public void onSuccess(DocumentSnapshot document) {
+                        Map<String, Object> restaurantMap = (Map<String, Object>) document.get("restaurant");
+                        String resID = restaurantMap.get("id").toString();
+                        String resName = restaurantMap.get("name").toString();
+                        String resAddress = restaurantMap.get("address").toString();
+                        String resImg = restaurantMap.get("img").toString();
+                        double resRate = (double) restaurantMap.get("rate");
+                        Restaurant restaurant = new Restaurant(resID, resName, resAddress, resImg, resRate);
+
+                        List<Map<String, Object>> foodGroup = (List<Map<String, Object>>) document.get("food");
+                        List<Order_Food> foodList = new ArrayList<>();
                         for (Map<String, Object> food : foodGroup)
                         {
-                            String id = food.get("id").toString();
-                            String name = food.get("name").toString();
-                            String img = food.get("img").toString();
-                            double price = (double) food.get("price");
+                            String foodID = food.get("id").toString();
+                            String foodName = food.get("name").toString();
+                            String foodImg = food.get("img").toString();
+                            long price = (long) food.get("price");
                             long rate = (long) food.get("rate");
                             long quantity = (long) food.get("quantity");
-                            foodList.add(new Order_Food(id, name, img, price, rate, quantity));
+                            Order_Food order_food = new Order_Food(foodID, foodName, foodImg, price, rate, quantity);
+                            foodList.add(order_food);
                         }
-                        foodListLiveData.setValue(foodList);
+
+                        String id = document.get("id").toString();
+                        String date = document.get("date").toString();
+                        long status = (long) document.get("status");
+                        long payment_method = (long) document.get("payment_method");
+                        Order order = new Order(id, date, status, payment_method, restaurant, foodList);
+
+                        orderMutableLiveData.setValue(order);
                     }
                 });
-        return foodListLiveData;
+        return orderMutableLiveData;
     }
 
     //update quantity of food
@@ -108,30 +124,4 @@ public class CartRepository {
                 .collection("Order").document(orderID)
                 .delete();
     }
-
-    public MutableLiveData<Restaurant> getRestaurant(String orderID)
-    {
-        MutableLiveData<Restaurant> restaurantMutableLiveData = new MutableLiveData<>();
-
-        db.collection("Customer").document(userID)
-                .collection("Order").document(orderID)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Map<String, Object> map = (Map<String, Object>) documentSnapshot.get("restaurant");
-                        String id = map.get("id").toString();
-                        String name = map.get("name").toString();
-                        String img = map.get("img").toString();
-                        String address = map.get("address").toString();
-                        double rate = (double) map.get("rate");
-                        Restaurant restaurant = new Restaurant(id, name, address, img, rate);
-
-                        restaurantMutableLiveData.setValue(restaurant);
-                    }
-                });
-        return restaurantMutableLiveData;
-    }
-
-
 }

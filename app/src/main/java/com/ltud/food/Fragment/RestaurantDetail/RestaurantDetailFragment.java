@@ -34,7 +34,7 @@ public class RestaurantDetailFragment extends Fragment {
 
 //    private RestaurantDetailListener listener;
 
-    public static String id, name, address, img;
+    public static String id, name, address, img, orderID;
     public static float rate;
 
     public String get_resId(){
@@ -51,6 +51,11 @@ public class RestaurantDetailFragment extends Fragment {
 
     public String getImg() {
         return img;
+    }
+
+    public String getOrderID()
+    {
+        return orderID;
     }
 
     public float getRate() {
@@ -76,17 +81,6 @@ public class RestaurantDetailFragment extends Fragment {
 
         BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
         navBar.setVisibility(v.GONE);
-//
-//        TextView txt_restaurant_name = v.findViewById(R.id.txt_restaurant_name);
-//        TextView txt_address = v.findViewById(R.id.txt_address_detail);
-//        TextView txt_rate = v.findViewById(R.id.txt_rate_detail);
-//        ImageView img_detail = v.findViewById(R.id.img_restaurant_detail);
-//
-//
-//        txt_restaurant_name.setText(name);
-//        txt_address.setText(address);
-//        txt_rate.setText(rate);
-//        Glide.with(getContext()).load(img).into(img_detail);
 
         return v;
     }
@@ -103,6 +97,7 @@ public class RestaurantDetailFragment extends Fragment {
         address = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getAddress();
         rate = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getRate();
         img = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getImg();
+        orderID = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getOrderID();
 
 
 
@@ -123,6 +118,8 @@ public class RestaurantDetailFragment extends Fragment {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
+                navBar.setVisibility(getView().VISIBLE);
                 navController.navigate(R.id.action_restaurantDetailFragment_to_homeFragment);
             }
         });
@@ -141,7 +138,7 @@ public class RestaurantDetailFragment extends Fragment {
 
         adapter.AddFragment(new detail_datdonFragment(),"Đặt đơn");
         adapter.AddFragment(new detail_danhgiaFragment(),"Đánh giá");
-        adapter.AddFragment(new detail_thongtinFragment(),"Thông tin");
+        //adapter.AddFragment(new detail_thongtinFragment(),"Thông tin");
 
         viewPager.setAdapter(adapter);
 
@@ -184,8 +181,6 @@ public class RestaurantDetailFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
-        navBar.setVisibility(getView().VISIBLE);
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

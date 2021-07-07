@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".Fragment.Order.orderFragment">
 
     <com.google.android.material.tabs.TabLayout
@@ -12,7 +13,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="fixed"
+        app:tabGravity="center"
+        app:tabIndicatorGravity="stretch"
+        app:tabSelectedTextColor="@color/white"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabTextAppearance="@style/tab_text"
+        app:tabIndicator="@drawable/tab_indicator"
+        android:paddingVertical="5dp">
 
     </com.google.android.material.tabs.TabLayout>
 

@@ -38,11 +38,10 @@ public class CartFragment extends Fragment implements CartListAdapter.ChangeQuan
     private CartViewModel cartViewModel;
     private TextView tvTotalPrice;
     private ImageView imvClose;
-    private List<Order_Food> orderFoodList;
+    private Order currentOrder = new Order();
     private NavController navController;
     private CustomProgressDialog progressDialog;
     private String orderID;
-    private Restaurant restaurant;
 
     public CartFragment() {
         // Required empty public constructor
@@ -59,9 +58,6 @@ public class CartFragment extends Fragment implements CartListAdapter.ChangeQuan
     public void onViewCreated(@NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
-        bottomNavigationView.setVisibility(View.GONE);
-
         tvTotalPrice = (TextView) view.findViewById(R.id.tv_tong_tien);
         imvClose = (ImageView) view.findViewById(R.id.imv_close);
         MaterialButton btnThanhtoan = (MaterialButton) view.findViewById(R.id.btn_thanh_toan);
@@ -76,31 +72,23 @@ public class CartFragment extends Fragment implements CartListAdapter.ChangeQuan
         orderID = CartFragmentArgs.fromBundle(getArguments()).getOrderID();
 
         cartViewModel = new ViewModelProvider(getActivity()).get(CartViewModel.class);
-        cartViewModel.getOrderList(orderID).observe(getViewLifecycleOwner(), new Observer<List<Order_Food>>() {
-            @Override
-            public void onChanged(List<Order_Food> order_foods) {
-                adapter.setOrderList(order_foods);
-                adapter.notifyDataSetChanged();
-                orderFoodList = order_foods;
+        cartViewModel.getCurrentOrder(orderID).observe(getViewLifecycleOwner(), new Observer<Order>() {
+                @Override
+                public void onChanged(Order order) {
+                    adapter.setOrderList(order.getFoodList());
+                    adapter.notifyDataSetChanged();
 
-                double totalPrice = 0;
-                for (Order_Food food : order_foods)
-                {
-                    totalPrice += food.getPrice() * food.getQuantity();
-                }
-                tvTotalPrice.setText(String.valueOf(totalPrice));
+                    int totalPrice = 0;
+                    for (Order_Food food : order.getFoodList())
+                    {
+                        totalPrice += food.getPrice() * food.getQuantity();
+                    }
+                    tvTotalPrice.setText(String.format("%sđ", String.valueOf(totalPrice)));
 
-                if(progressDialog.isShowing())
+                    currentOrder = order;
                     progressDialog.dismiss();
-            }
-        });
-
-        cartViewModel.getRestaurant(orderID).observe(getViewLifecycleOwner(), new Observer<Restaurant>() {
-            @Override
-            public void onChanged(Restaurant res) {
-                restaurant = res;
-            }
-        });
+                }
+            });
 
         btnThanhtoan.setOnClickListener(this);
         imvClose.setOnClickListener(this);
@@ -108,27 +96,32 @@ public class CartFragment extends Fragment implements CartListAdapter.ChangeQuan
 
     @Override
     public void onIncreaseQuantity(int index) {
-        long quantity = orderFoodList.get(index).getQuantity() + 1;
-        orderFoodList.get(index).setQuantity(quantity);
-        cartViewModel.updateFoodQuantity(orderID, orderFoodList);
+        long quantity = currentOrder.getFoodList().get(index).getQuantity() + 1;
+        currentOrder.getFoodList().get(index).setQuantity(quantity);
+        cartViewModel.updateFoodQuantity(orderID, currentOrder.getFoodList());
     }
 
     @Override
     public void onDecreaseQuantity(int index) {
-        long quantity = orderFoodList.get(index).getQuantity() - 1;
+        long quantity = currentOrder.getFoodList().get(index).getQuantity() - 1;
         if(quantity == 0)
         {
-            if (orderFoodList.size() == 1)
+            if (currentOrder.getFoodList().size() == 1)
             {
+                NavDirections action = CartFragmentDirections.actionCartFragmentToRestaurantDetailFragment(
+                        currentOrder.getRestaurant().name, currentOrder.getRestaurant().address, currentOrder.getRestaurant().id,
+                        currentOrder.getRestaurant().img, (float) currentOrder.getRestaurant().rate
+                );
+                navController.navigate(action);
                 cartViewModel.deleteOneOrder(orderID);
             }
             else
-                cartViewModel.deleteOneFood(orderID, index, orderFoodList.get(index));
+                cartViewModel.deleteOneFood(orderID, index, currentOrder.getFoodList().get(index));
         }
         else
         {
-            orderFoodList.get(index).setQuantity(quantity);
-            cartViewModel.updateFoodQuantity(orderID, orderFoodList);
+            currentOrder.getFoodList().get(index).setQuantity(quantity);
+            cartViewModel.updateFoodQuantity(orderID, currentOrder.getFoodList());
         }
     }
 
@@ -141,7 +134,8 @@ public class CartFragment extends Fragment implements CartListAdapter.ChangeQuan
         }
         else {
             NavDirections action = CartFragmentDirections.actionCartFragmentToRestaurantDetailFragment(
-                    restaurant.name, restaurant.address, restaurant.id, restaurant.img, (float) restaurant.rate
+                    currentOrder.getRestaurant().name, currentOrder.getRestaurant().address, currentOrder.getRestaurant().id,
+                    currentOrder.getRestaurant().img, (float) currentOrder.getRestaurant().rate
             );
             navController.navigate(action);
         }

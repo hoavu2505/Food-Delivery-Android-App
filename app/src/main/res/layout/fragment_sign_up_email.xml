@@ -7,34 +7,33 @@
     tools:context=".Fragment.Login.signUpEmailFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/grey"
-        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:background="@color/primary">
 
-        <ImageButton
-            android:id="@+id/imb_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_back"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_back" />
+            android:layout_marginLeft="15dp"/>
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
             android:text="Đăng ký"
+            android:fontFamily="@font/semibold"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginRight="60dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="30dp"/>
 
     </LinearLayout>
 

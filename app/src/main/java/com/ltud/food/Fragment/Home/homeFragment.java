@@ -161,14 +161,6 @@ public class homeFragment extends Fragment{
         }
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        viewPager.setAdapter(adapter);
-//        tabLayout.setupWithViewPager(viewPager);
-//    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

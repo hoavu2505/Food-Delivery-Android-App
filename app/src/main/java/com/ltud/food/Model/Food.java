@@ -3,13 +3,12 @@ package com.ltud.food.Model;
 public class Food {
 
     private String id, name, img;
-    private double price;
-    private int rate;
+    private long price, rate;
 
     public Food() {
     }
 
-    public Food(String id, String name, String image, double price, int rate) {
+    public Food(String id, String name, String image, long price, long rate) {
         this.id = id;
         this.name = name;
         this.img = image;
@@ -41,7 +40,7 @@ public class Food {
         this.img = img;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
@@ -49,11 +48,11 @@ public class Food {
         this.price = price;
     }
 
-    public int getRate() {
+    public long getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(long rate) {
         this.rate = rate;
     }
 

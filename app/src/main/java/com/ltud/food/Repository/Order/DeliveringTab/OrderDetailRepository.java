@@ -45,7 +45,7 @@ public class OrderDetailRepository {
         return address;
     }
 
-    //get an order food
+    //get an order
     public MutableLiveData<Order> getOrderList(String orderID)
     {
         MutableLiveData<Order> orderMutableLiveData = new MutableLiveData<>();
@@ -71,7 +71,7 @@ public class OrderDetailRepository {
                             String foodID = food.get("id").toString();
                             String foodName = food.get("name").toString();
                             String foodImg = food.get("img").toString();
-                            double price = (double) food.get("price");
+                            long price = (long) food.get("price");
                             long rate = (long) food.get("rate");
                             long quantity = (long) food.get("quantity");
                             Order_Food order_food = new Order_Food(foodID, foodName, foodImg, price, rate, quantity);

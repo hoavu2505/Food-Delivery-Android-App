@@ -17,10 +17,7 @@ public class DraftTabViewModel extends ViewModel {
 
     public LiveData<List<Order>> getDraftOrder()
     {
-        if(orderListLiveData == null)
-        {
-            orderListLiveData = repository.getDraftOrder();
-        }
+        orderListLiveData = repository.getDraftOrder();
         return orderListLiveData;
     }
 

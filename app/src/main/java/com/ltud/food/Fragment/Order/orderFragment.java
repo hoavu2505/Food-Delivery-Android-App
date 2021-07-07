@@ -15,13 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.ltud.food.Adapter.ViewPagerAdapter;
 import com.ltud.food.Fragment.Order.DeliveringTab.deliveringTabFragment;
-import com.ltud.food.Fragment.Order.DraftTab.draftTabFragment;
 import com.ltud.food.Fragment.Order.HistoryTab.historyTabFragment;
 import com.ltud.food.R;
 
-public class orderFragment extends Fragment {
+public class orderFragment extends Fragment{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -52,6 +52,14 @@ public class orderFragment extends Fragment {
         viewPagerAdapter.addFragment(new draftTabFragment(), "Đơn nháp");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null)
+            navController.navigate(R.id.loginFragment);
     }
 
     @Override

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ import java.util.concurrent.TimeUnit;
 
 public class loginFragment extends Fragment implements View.OnClickListener {
 
+    private ImageView imvBack;
     private TextInputEditText edtPhoneNumber, edtEmail, edtPassword;
     private Button btnPhoneSubmit, btnEmailSubmit;
     private TextView tvSignUpChange, tvPhoneLoginChange, tvEmailLoginChange;
@@ -70,6 +72,7 @@ public class loginFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        imvBack = view.findViewById(R.id.imgBack);
         edtPhoneNumber = view.findViewById(R.id.edt_phone_number);
         edtEmail = view.findViewById(R.id.edt_email);
         edtPassword = view.findViewById(R.id.edt_password);
@@ -78,8 +81,8 @@ public class loginFragment extends Fragment implements View.OnClickListener {
         tvSignUpChange = view.findViewById(R.id.tv_signUp);
         tvPhoneLoginChange = view.findViewById(R.id.tv_phone_login_change);
         tvEmailLoginChange = view.findViewById(R.id.tv_email_login_change);
-        layoutPhoneLogin = (ViewGroup)view.findViewById(R.id.layout_phone);
-        layoutEmailLogin = (ViewGroup)view.findViewById(R.id.layout_email);
+        layoutPhoneLogin = view.findViewById(R.id.layout_phone);
+        layoutEmailLogin = view.findViewById(R.id.layout_email);
         auth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(view);
         progressDialog = new CustomProgressDialog(getActivity());
@@ -87,7 +90,7 @@ public class loginFragment extends Fragment implements View.OnClickListener {
         // Check text input is not empty
         inputValidateSetUp();
 
-
+        imvBack.setOnClickListener(this);
         btnPhoneSubmit.setOnClickListener(this);
         btnEmailSubmit.setOnClickListener(this);
         tvSignUpChange.setOnClickListener(this::onClick);
@@ -162,6 +165,7 @@ public class loginFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId())
         {
+            case R.id.imgBack: navController.navigate(R.id.homeFragment); break;
             case R.id.btn_phone_submit: verifyPhoneNumberAction(); break;
             case R.id.btn_email_submit: logInWithEmail(); break;
             case R.id.tv_signUp: navController.navigate(R.id.signUpEmailFragment); break;

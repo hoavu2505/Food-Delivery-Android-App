@@ -4,13 +4,12 @@ public class Order_Food {
 
     private String id, name;
     private String img;
-    private double price;
-    private long rate, quantity;
+    private long price, rate, quantity;
 
     public Order_Food() {
     }
 
-    public Order_Food(String id, String name, String image, double price, long rate, long quantity) {
+    public Order_Food(String id, String name, String image, long price, long rate, long quantity) {
         this.id = id;
         this.name = name;
         this.img = image;
@@ -43,7 +42,7 @@ public class Order_Food {
         this.img = img;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 

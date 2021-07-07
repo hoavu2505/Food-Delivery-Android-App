@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_orderFragment_to_historyDetailFragment"
             app:destination="@id/historyDetailFragment" />
+        <action
+            android:id="@+id/action_orderFragment_to_restaurantDetailFragment"
+            app:destination="@id/restaurantDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/notiFragment"
@@ -88,6 +91,10 @@
             android:name="navigate_payment"
             app:argType="boolean"
             android:defaultValue="false" />
+        <argument
+            android:name="orderID"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -126,7 +133,8 @@
     <fragment
         android:id="@+id/restaurantDetailFragment"
         android:name="com.ltud.food.Fragment.RestaurantDetail.RestaurantDetailFragment"
-        android:label="RestaurantDetailFragment" >
+        android:label="RestaurantDetailFragment"
+        tools:layout="@layout/fragment_restaurant_detail">
         <argument
             android:name="name"
             app:argType="string" />
@@ -148,11 +156,16 @@
         <action
             android:id="@+id/action_restaurantDetailFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <argument
+            android:name="orderID"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.ltud.food.Fragment.RestaurantDetail.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -175,13 +188,8 @@
             android:name="orderID"
             app:argType="string" />
         <action
-            android:id="@+id/action_historyDetailFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
+            android:id="@+id/action_historyDetailFragment_to_restaurantDetailFragment"
+            app:destination="@id/restaurantDetailFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/draftTabFragment"
-        android:name="com.ltud.food.Fragment.Order.DraftTab.draftTabFragment"
-        android:label="fragment_draft"
-        tools:layout="@layout/fragment_draft" />
 
 </navigation>

@@ -114,10 +114,9 @@
                 android:layout_marginHorizontal="20dp"
                 app:tabMode="fixed"
                 app:tabIndicatorGravity="stretch"
-                app:tabSelectedTextColor="@color/black"
-                app:tabTextColor="@color/grey"
-                app:tabTextAppearance="@style/tablayout_style"
-                app:tabBackground="@color/white"
+                app:tabSelectedTextColor="@color/white"
+                app:tabBackground="@drawable/round_cover"
+                app:tabTextAppearance="@style/tab_text"
                 app:tabIndicatorAnimationMode="elastic"
                 app:tabIndicator="@drawable/tab_indicator" />
             <androidx.viewpager.widget.ViewPager

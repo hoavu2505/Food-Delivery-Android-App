@@ -18,19 +18,13 @@ public class CheckoutViewModel extends ViewModel {
 
     public LiveData<String> getAddressCustomer()
     {
-        if(addressCustomerLiveData == null)
-        {
-            addressCustomerLiveData = repository.getAddressCustomer();
-        }
+        addressCustomerLiveData = repository.getAddressCustomer();
         return addressCustomerLiveData;
     }
 
     public LiveData<Order> getOrder(String orderID)
     {
-        if(orderLiveData == null)
-        {
-            orderLiveData = repository.getOrderList(orderID);
-        }
+        orderLiveData = repository.getOrderList(orderID);
         return orderLiveData;
     }
 

@@ -1,10 +1,13 @@
 package com.ltud.food.Repository.RestaurantDetail;
 
 import android.os.Build;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -14,8 +17,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ltud.food.Model.Food;
+import com.ltud.food.Model.Order;
 import com.ltud.food.Model.Order_Food;
 import com.ltud.food.Model.Restaurant;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -42,9 +48,100 @@ public class datDonRepository {
         return repository;
     }
 
+    //get food list (for reorder)
+    /*public MutableLiveData<List<Order_Food>> getFoodListLiveData(String orderID)
+    {
+        MutableLiveData<List<Order_Food>> foodListLiveData = new MutableLiveData<>();
+        Log.i("log1", "here");
+
+        colRef.document(orderID)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Log.i("log1", orderID);
+                        List<Map<String, Object>> foodGroup = (List<Map<String, Object>>) documentSnapshot.get("food");
+                        List<Order_Food> foodList = new ArrayList<>();
+
+                        for (Map<String, Object> food : foodGroup)
+                        {
+                            String foodID = food.get("id").toString();
+                            String foodName = food.get("name").toString();
+                            String foodImg = food.get("img").toString();
+                            long price = (long) food.get("price");
+                            long rate = (long) food.get("rate");
+                            long quantity = (long) food.get("quantity");
+                            Order_Food order_food = new Order_Food(foodID, foodName, foodImg, price, rate, quantity);
+                            foodList.add(order_food);
+
+                        }
+                        foodListLiveData.setValue(foodList);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        Log.i("log2", e.getMessage());
+                    }
+                });
+
+        return foodListLiveData;
+    }*/
+
+    // get current order
+    public MutableLiveData<Order> getCurrentOrder(String resID)
+    {
+        MutableLiveData<Order> orderMutableLiveData = new MutableLiveData<>();
+
+        colRef.whereEqualTo("restaurant.id", resID)
+                .whereEqualTo("status", 0)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(!queryDocumentSnapshots.isEmpty())
+                        {
+                            for(DocumentSnapshot document : queryDocumentSnapshots)
+                            {
+                                Map<String, Object> restaurantMap = (Map<String, Object>) document.get("restaurant");
+                                String resID = restaurantMap.get("id").toString();
+                                String resName = restaurantMap.get("name").toString();
+                                String resAddress = restaurantMap.get("address").toString();
+                                String resImg = restaurantMap.get("img").toString();
+                                double resRate = (double) restaurantMap.get("rate");
+                                Restaurant restaurant = new Restaurant(resID, resName, resAddress, resImg, resRate);
+
+                                List<Map<String, Object>> foodGroup = (List<Map<String, Object>>) document.get("food");
+                                List<Order_Food> foodList = new ArrayList<>();
+                                for (Map<String, Object> food : foodGroup)
+                                {
+                                    String foodID = food.get("id").toString();
+                                    String foodName = food.get("name").toString();
+                                    String foodImg = food.get("img").toString();
+                                    long price = (long) food.get("price");
+                                    long rate = (long) food.get("rate");
+                                    long quantity = (long) food.get("quantity");
+                                    Order_Food order_food = new Order_Food(foodID, foodName, foodImg, price, rate, quantity);
+                                    foodList.add(order_food);
+                                }
+
+                                String id = document.get("id").toString();
+                                String date = document.get("date").toString();
+                                long status = (long) document.get("status");
+                                long payment_method = (long) document.get("payment_method");
+                                Order order = new Order(id, date, status, payment_method, restaurant, foodList);
+
+                                orderMutableLiveData.setValue(order);
+                            }
+                        }
+                    }
+                });
+        return orderMutableLiveData;
+    }
+
     // add a order
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public String addOneOrder(Restaurant restaurant, Food food)
+    public Order addOneOrder(Restaurant restaurant, Order_Food food)
     {
         UUID uuid = UUID.randomUUID();
         String id = uuid.toString();
@@ -68,7 +165,7 @@ public class datDonRepository {
         foodMap.put("img", food.getImg());
         foodMap.put("price", food.getPrice());
         foodMap.put("rate", food.getRate());
-        foodMap.put("quantity", 1);
+        foodMap.put("quantity", food.getQuantity());
 
         //list of food map
         List<Map<String, Object>> parentFoodMap = new ArrayList<>();
@@ -84,11 +181,15 @@ public class datDonRepository {
         map.put("food", parentFoodMap);
         colRef.document(id).set(map);
 
-        return id;
+        List<Order_Food> foodList = new ArrayList<>();
+        foodList.add(food);
+        Order order = new Order(id, date, status, payment_method,restaurant, foodList);
+
+        return order;
     }
 
     //add food
-    public void addFood(String orderID, Food food)
+    public void addFood(String orderID, Order_Food food)
     {
         Map<String, Object> foodMap = new HashMap<>();
         foodMap.put("id", food.getId());
@@ -96,8 +197,27 @@ public class datDonRepository {
         foodMap.put("img", food.getImg());
         foodMap.put("price", food.getPrice());
         foodMap.put("rate", food.getRate());
-        foodMap.put("quantity", 1);
+        foodMap.put("quantity", food.getQuantity());
 
         colRef.document(orderID).update("food", FieldValue.arrayUnion(foodMap));
+    }
+
+    //update quantity of food
+    public void updateFoodQuantity(String orderID, List<Order_Food> foodList)
+    {
+        List<Map<String, Object>> foodGroup = new ArrayList<>();
+        for (Order_Food food : foodList)
+        {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", food.getId());
+            map.put("name", food.getName());
+            map.put("img", food.getImg());
+            map.put("price", food.getPrice());
+            map.put("rate", food.getRate());
+            map.put("quantity", food.getQuantity());
+            foodGroup.add(map);
+        }
+
+        colRef.document(orderID).update("food", foodGroup);
     }
 }

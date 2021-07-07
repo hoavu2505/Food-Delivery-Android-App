@@ -62,7 +62,7 @@ public class DraftTabRepository {
                                     String foodID = food.get("id").toString();
                                     String foodName = food.get("name").toString();
                                     String foodImg = food.get("img").toString();
-                                    double price = (double) food.get("price");
+                                    long price = (long) food.get("price");
                                     long rate = (long) food.get("rate");
                                     long quantity = (long) food.get("quantity");
                                     Order_Food order_food = new Order_Food(foodID, foodName, foodImg, price, rate, quantity);

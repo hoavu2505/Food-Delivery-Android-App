@@ -6,17 +6,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.Login.loginFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/grey"
-        android:gravity="center"
-        android:text="Đăng nhập"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:background="@color/primary">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_back"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="Đăng nhập"
+            android:fontFamily="@font/semibold"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="20dp"/>
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imv_logo"

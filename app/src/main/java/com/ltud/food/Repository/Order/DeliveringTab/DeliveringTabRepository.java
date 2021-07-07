@@ -1,5 +1,7 @@
 package com.ltud.food.Repository.Order.DeliveringTab;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,7 +39,7 @@ public class DeliveringTabRepository {
     {
         MutableLiveData<List<Order>> orderListLiveData = new MutableLiveData<>();
         List<Order> orderList = new ArrayList<>();
-
+        Log.i("log3", "abc");
         collectionReference.whereEqualTo("status", 1).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -61,7 +63,7 @@ public class DeliveringTabRepository {
                                     String foodID = food.get("id").toString();
                                     String foodName = food.get("name").toString();
                                     String foodImg = food.get("img").toString();
-                                    double price = (double) food.get("price");
+                                    long price = (long) food.get("price");
                                     long rate = (long) food.get("rate");
                                     long quantity = (long) food.get("quantity");
                                     Order_Food order_food = new Order_Food(foodID, foodName, foodImg, price, rate, quantity);

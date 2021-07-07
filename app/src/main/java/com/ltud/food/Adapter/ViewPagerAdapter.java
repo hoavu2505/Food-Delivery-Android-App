@@ -1,5 +1,6 @@
 package com.ltud.food.Adapter;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -40,5 +41,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return fragmentTitle.get(position);
+    }
+
+    @Override
+    public int getItemPosition(@NonNull @NotNull Object object) {
+        
+        return super.getItemPosition(object);
     }
 }

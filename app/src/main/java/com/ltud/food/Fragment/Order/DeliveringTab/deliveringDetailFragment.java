@@ -41,6 +41,7 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
     private CustomProgressDialog progressDialog;
     private OrderDetailViewModel viewModel;
     private NavController navController;
+    private BottomNavigationView bottomNavigationView;
     private String orderID;
 
     public deliveringDetailFragment() {
@@ -58,7 +59,7 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
         bottomNavigationView.setVisibility(View.GONE);
 
         progressDialog = new CustomProgressDialog(getContext());
@@ -107,7 +108,7 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
                 tvOrderID.setText(order.getId());
                 tvDate.setText(order.getDate());
 
-                double price = 0;
+                long price = 0;
                 for (Order_Food food : order.getFoodList())
                 {
                     price += food.getPrice() * food.getQuantity();
@@ -130,6 +131,7 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        bottomNavigationView.setVisibility(View.VISIBLE);
         switch (v.getId())
         {
             case R.id.imv_back: navController.navigate(R.id.orderFragment); break;

@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ltud.food.Adapter.CheckoutAdapter;
@@ -44,7 +45,9 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
     private CheckoutViewModel checkoutViewModel;
     private NavController navController;
     private CustomProgressDialog progressDialog;
+    private BottomNavigationView bottomNavigationView;
     private String orderID;
+    private String address;
 
     public CheckoutFragment() {
         // Required empty public constructor
@@ -60,9 +63,6 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
-        bottomNavigationView.setVisibility(View.GONE);
 
         imvBack = view.findViewById(R.id.imv_back);
         tvLocation = view.findViewById(R.id.tv_address);
@@ -98,6 +98,7 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onChanged(String s) {
                 tvLocation.setText(s);
+                address = s;
             }
         });
 
@@ -113,7 +114,7 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
                 else
                     rdbCash.setChecked(true);
 
-                double price = 0;
+                long price = 0;
                 for (Order_Food food : order.getFoodList())
                 {
                     price += food.getPrice() * food.getQuantity();
@@ -152,15 +153,23 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
 
     private void changeLocation() {
         NavDirections action = CheckoutFragmentDirections.actionCheckoutFragmentToAutoCompleteLocationFragment()
-                .setNavigatePayment(true);
+                .setNavigatePayment(true)
+                .setOrderID(orderID);
         navController.navigate(action);
     }
 
     private void orderCheckOut() {
+        if(address.isEmpty())
+        {
+            Toast.makeText(getActivity(), "Thêm địa chỉ giao hàng", Toast.LENGTH_LONG).show();
+            return;
+        }
         long method = 0;
         if(rdbCash.isChecked())
             method = 1;
         checkoutViewModel.updateOrderPayment(orderID, method);
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
+        bottomNavigationView.setVisibility(View.VISIBLE);
         navController.navigate(R.id.orderFragment);
     }
 

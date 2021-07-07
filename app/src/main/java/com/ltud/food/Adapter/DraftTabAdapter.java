@@ -36,6 +36,7 @@ public class DraftTabAdapter extends RecyclerView.Adapter<DraftTabAdapter.ItemVi
     public interface SelectedItem
     {
         void onButtonClicked(int index);
+        void onClickedItem(int index);
     }
 
     @NotNull
@@ -53,7 +54,7 @@ public class DraftTabAdapter extends RecyclerView.Adapter<DraftTabAdapter.ItemVi
         holder.tvName.setText(orderList.get(position).getRestaurant().getName());
         holder.tvAddress.setText(orderList.get(position).getRestaurant().getAddress());
 
-        double totalPrice = 0;
+        long totalPrice = 15000;
         long quantity = 0;
         for (Order_Food food : orderList.get(position).getFoodList())
         {
@@ -91,6 +92,13 @@ public class DraftTabAdapter extends RecyclerView.Adapter<DraftTabAdapter.ItemVi
                 @Override
                 public void onClick(View v) {
                     fragment.onButtonClicked(getAdapterPosition());
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fragment.onClickedItem(getAdapterPosition());
                 }
             });
         }

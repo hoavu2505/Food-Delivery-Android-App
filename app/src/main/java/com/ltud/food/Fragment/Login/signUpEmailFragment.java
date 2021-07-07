@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,7 +48,7 @@ public class signUpEmailFragment extends Fragment implements View.OnClickListene
 
     private TextInputEditText edtEmail, edtPassword;
     private Button btnSignUp;
-    private ImageButton imbBack;
+    private ImageView imbBack;
     private NavController navController;
     private String email;
     private String password;
@@ -69,10 +70,10 @@ public class signUpEmailFragment extends Fragment implements View.OnClickListene
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        imbBack = (ImageButton) view.findViewById(R.id.imb_back);
-        edtEmail = (TextInputEditText) view.findViewById(R.id.edt_email);
-        edtPassword = (TextInputEditText) view.findViewById(R.id.edt_password);
-        btnSignUp = (Button) view.findViewById(R.id.btn_email_signUp);
+        imbBack = view.findViewById(R.id.imv_back);
+        edtEmail =  view.findViewById(R.id.edt_email);
+        edtPassword =  view.findViewById(R.id.edt_password);
+        btnSignUp = view.findViewById(R.id.btn_email_signUp);
         navController = Navigation.findNavController(view);
         progressDialog = new CustomProgressDialog(getActivity());
         db = FirebaseFirestore.getInstance();
@@ -122,7 +123,7 @@ public class signUpEmailFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.imb_back: navController.navigate(R.id.loginFragment); break;
+            case R.id.imv_back: navController.navigate(R.id.loginFragment); break;
             case R.id.btn_email_signUp: signUpEmail(); break;
         }
     }

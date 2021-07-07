@@ -42,7 +42,9 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
     private CustomProgressDialog progressDialog;
     private HistoryDetailViewModel viewModel;
     private NavController navController;
+    private BottomNavigationView bottomNavigationView;
     private String orderID;
+    private Order currentOrder;
 
     public historyDetailFragment() {
         // Required empty public constructor
@@ -59,7 +61,7 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
         bottomNavigationView.setVisibility(View.GONE);
 
         progressDialog = new CustomProgressDialog(getContext());
@@ -104,23 +106,32 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
                 tvStatus.setText(order.isComplete() ? "Hoàn thành" : "Bị hủy");
                 tvDate.setText(order.getDate());
 
-                double price = 0;
+                long price = 0;
                 for (Order_Food food : order.getFoodList())
                 {
                     price += food.getPrice() * food.getQuantity();
                 }
                 tvPrice.setText(String.format("%sđ", String.valueOf(price)));
                 tvTotalPrice.setText(String.format("%sđ", String.valueOf(price + 15000)));
+
+                currentOrder = order;
             }
         });
     }
 
     @Override
     public void onClick(View v) {
+
         if(v.getId() == R.id.imv_back)
+        {
+            bottomNavigationView.setVisibility(View.VISIBLE);
             navController.navigate(R.id.orderFragment);
+        }
         else {
-            NavDirections action = historyDetailFragmentDirections.actionHistoryDetailFragmentToCartFragment(orderID);
+            NavDirections action = historyDetailFragmentDirections.actionHistoryDetailFragmentToRestaurantDetailFragment(
+                    currentOrder.getRestaurant().name, currentOrder.getRestaurant().address, currentOrder.getRestaurant().id,
+                    currentOrder.getRestaurant().img, (float) currentOrder.getRestaurant().rate
+            ).setOrderID(orderID);
             navController.navigate(action);
         }
     }

@@ -16,10 +16,8 @@ public class DeliveringTabViewModel extends ViewModel {
 
     public LiveData<List<Order>> getDeliveringOrderList()
     {
-        if(orderListLiveData == null)
-        {
-            orderListLiveData = repository.getDeliveringOrderList();
-        }
+
+        orderListLiveData = repository.getDeliveringOrderList();
         return orderListLiveData;
     }
 }

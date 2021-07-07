@@ -16,10 +16,7 @@ public class HistoryTabViewModel extends ViewModel {
 
     public LiveData<List<Order>> getHistoryOrderList()
     {
-        if(orderListLiveData == null)
-        {
-            orderListLiveData = repository.getHistoryOrderList();
-        }
+        orderListLiveData = repository.getHistoryOrderList();
         return orderListLiveData;
     }
 }

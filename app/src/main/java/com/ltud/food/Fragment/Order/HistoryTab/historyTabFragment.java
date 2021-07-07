@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +55,6 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
         super.onViewCreated(view, savedInstanceState);
 
         progressDialog = new CustomProgressDialog(getContext());
-        progressDialog.show();
         navController = Navigation.findNavController(view);
 
         recyclerView = view.findViewById(R.id.rec_history_list);
@@ -61,8 +62,25 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
         adapter = new HistoryTabAdapter(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
         viewModel = new ViewModelProvider(getActivity()).get(HistoryTabViewModel.class);
+    }
+
+    @Override
+    public void onSelectedItem(int index) {
+        NavDirections action = orderFragmentDirections.actionOrderFragmentToHistoryDetailFragment(orderList.get(index).getId());
+        navController.navigate(action);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        updateUI();
+    }
+
+    private void updateUI() {
+        progressDialog.show();
         viewModel.getHistoryOrderList().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
@@ -71,14 +89,7 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
                 orderList = orders;
             }
         });
-
-        if(progressDialog.isShowing())
-            progressDialog.dismiss();
+        progressDialog.dismiss();
     }
 
-    @Override
-    public void onSelectedItem(int index) {
-        NavDirections action = orderFragmentDirections.actionOrderFragmentToHistoryDetailFragment(orderList.get(index).getId());
-        navController.navigate(action);
-    }
 }

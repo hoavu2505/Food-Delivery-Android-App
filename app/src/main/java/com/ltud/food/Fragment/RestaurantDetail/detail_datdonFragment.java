@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ltud.food.Adapter.FoodAdapter;
 import com.ltud.food.Model.Food;
+import com.ltud.food.Model.Order;
 import com.ltud.food.Model.Order_Food;
 import com.ltud.food.Model.Restaurant;
 import com.ltud.food.R;
@@ -47,15 +49,19 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
 
     RecyclerView recyclerView;
     ArrayList<Food> foodArrayList;
+    List<Order_Food> orderFoodList = new ArrayList<>();
+    Restaurant restaurant;
     com.ltud.food.Adapter.FoodAdapter FoodAdapter;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
     datDonViewModel viewModel;
-    String orderID;
-    List<String> orderedFoodList = new ArrayList<>();
+    Order currentOrder = new Order();
     NavController navController;
+    NotificationBadge notificationBadge;
+    RelativeLayout ly_cart;
 
-    String res_id;
+    String res_id, resName, resAddress, resImg, orderID;
+    double resRate;
 
     private static int cart_count=0;
 
@@ -83,8 +89,63 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
         FoodAdapter foodAdapter = new FoodAdapter();
         foodAdapter.setCallback(this);
         navController = Navigation.findNavController(view);
+        notificationBadge = view.findViewById(R.id.badge);
+        ly_cart = view.findViewById(R.id.ly_cart);
+
+        RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
+        orderID = restaurantDetailFragment.getOrderID();
+        res_id = restaurantDetailFragment.get_resId();
+        resName = restaurantDetailFragment.getName();
+        resAddress = restaurantDetailFragment.getAddress();
+        resRate = restaurantDetailFragment.getRate();
+        resImg = restaurantDetailFragment.getImg();
+        restaurant = new Restaurant(res_id, resName, resAddress, resImg, resRate);
+
         viewModel = new ViewModelProvider(getActivity()).get(datDonViewModel.class);
+        viewModel.getCurrentOrder(res_id).observe(getViewLifecycleOwner(), new Observer<Order>() {
+            @Override
+            public void onChanged(Order order) {
+                int quantity = 0;
+                for(Order_Food food : order.getFoodList())
+                {
+                    quantity += food.getQuantity();
+                }
+                cart_count = quantity;
+                notificationBadge.setNumber(cart_count);
+                ly_cart.setVisibility(getView().VISIBLE);
+                currentOrder = order;
+            }
+        });
     }
+
+    /*@RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        if(!orderID.equals("null"))
+        {
+            viewModel = new ViewModelProvider(getActivity()).get(datDonViewModel.class);
+            viewModel.getFoodList(orderID).observe(getViewLifecycleOwner(), new Observer<List<Order_Food>>() {
+                @Override
+                public void onChanged(List<Order_Food> foodList) {
+                    orderFoodList = foodList;
+                }
+            });
+
+            if(cart_count == 0) {
+                viewModel.addOneOrder(restaurant, orderFoodList.get(0));
+                viewModel.updateFoodQuantity(orderID, orderFoodList);
+            }
+            else{
+                List<Order_Food> newList = new ArrayList<>();
+                newList.addAll(currentOrder.getFoodList());
+                newList.addAll(orderFoodList);
+                viewModel.updateFoodQuantity(orderID, newList);
+            }
+        }
+    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -96,51 +157,39 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
             return;
         }
 
-        NotificationBadge notificationBadge;
-        notificationBadge = getView().findViewById(R.id.badge);
-
-        RelativeLayout ly_cart = getView().findViewById(R.id.ly_cart);
-        ly_cart.setVisibility(getView().VISIBLE);
         ImageView imgCart = getView().findViewById(R.id.restaurant_detail_cart);
+        imgCart.setOnClickListener(this);
 
         //create and update cart in database
-        RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
-        String resId = restaurantDetailFragment.get_resId();
-        String resName = restaurantDetailFragment.getName();
-        String resAddress = restaurantDetailFragment.getAddress();
-        float resRate = restaurantDetailFragment.getRate();
-        String resImg = restaurantDetailFragment.getImg();
-        Restaurant restaurant = new Restaurant(resId, resName, resAddress, resImg, resRate);
-        Food food = new Food(foodArrayList.get(pos).getId(), foodArrayList.get(pos).getName(), foodArrayList.get(pos).getImg(),
-                foodArrayList.get(pos).getPrice(), foodArrayList.get(pos).getRate());
-        Log.i("log", String.valueOf(orderedFoodList.size()));
+        String foodID = foodArrayList.get(pos).getId();
+        String foodName = foodArrayList.get(pos).getName();
+        String foodImg = foodArrayList.get(pos).getImg();
+        long foodPrice = foodArrayList.get(pos).getPrice();
+        long foodRate = foodArrayList.get(pos).getRate();
+        Order_Food food = new Order_Food(foodID, foodName, foodImg, foodPrice, foodRate, 1);
 
-        if(cart_count == 0)
+       if(cart_count == 0)
         {
-            cart_count++;
-            orderID = viewModel.addOneOrder(restaurant, food);
+            viewModel.addOneOrder(restaurant, food);
         }
         else{
-            for (String id : orderedFoodList)
+            for (int i=0; i<currentOrder.getFoodList().size(); i++)
             {
-                if(id.equals(food.getId()))
+                if(currentOrder.getFoodList().get(i).getId().equals(food.getId()))
                 {
-                    Toast.makeText(getActivity(), "Món ăn đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                    long quantity = currentOrder.getFoodList().get(i).getQuantity() + 1;
+                    currentOrder.getFoodList().get(i).setQuantity(quantity);
+                    viewModel.updateFoodQuantity(currentOrder.getId(), currentOrder.getFoodList());
                     return;
                 }
             }
-
-            viewModel.addFood(orderID, food);
-            cart_count++;
+            viewModel.addFood(currentOrder.getId(), food);
         }
-        orderedFoodList.add(food.getId());
-        notificationBadge.setNumber(cart_count);
-        imgCart.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        NavDirections action = RestaurantDetailFragmentDirections.actionRestaurantDetailFragmentToCartFragment(orderID);
+        NavDirections action = RestaurantDetailFragmentDirections.actionRestaurantDetailFragmentToCartFragment(currentOrder.getId());
         navController.navigate(action);
     }
 
@@ -167,10 +216,6 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
         FoodAdapter = new FoodAdapter(getActivity(), foodArrayList,this);
 
         recyclerView.setAdapter(FoodAdapter);
-
-        //Get id cua restaurant de thuc hien truy van food
-        RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
-        res_id = restaurantDetailFragment.get_resId();
 
         EventChangeListener(res_id);
 
@@ -203,6 +248,7 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         cart_count = 0;
     }
 

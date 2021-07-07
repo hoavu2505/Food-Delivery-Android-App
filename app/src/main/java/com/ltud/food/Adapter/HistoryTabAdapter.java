@@ -54,7 +54,7 @@ public class HistoryTabAdapter extends RecyclerView.Adapter<HistoryTabAdapter.It
         holder.tvName.setText(orderList.get(position).getRestaurant().getName());
         holder.tvAddress.setText(orderList.get(position).getRestaurant().getAddress());
 
-        double totalPrice = 0;
+        long totalPrice = 15000;
         long quantity = 0;
         for (Order_Food food : orderList.get(position).getFoodList())
         {
