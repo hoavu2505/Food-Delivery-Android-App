@@ -22,19 +22,12 @@ public class datDonViewModel extends ViewModel {
     private final datDonRepository repository = datDonRepository.getInstance();
     private MutableLiveData<Order> currentOrderLiveData;
 
-    /*public LiveData<List<Order_Food>> getFoodList(String orderID)
-    {
-        foodListLiveData = repository.getFoodListLiveData(orderID);
-        return foodListLiveData;
-    }*/
-
     public LiveData<Order> getCurrentOrder(String resID)
     {
         currentOrderLiveData = repository.getCurrentOrder(resID);
         return currentOrderLiveData;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addOneOrder(Restaurant restaurant, Order_Food food)
     {
         Order order = repository.addOneOrder(restaurant, food);

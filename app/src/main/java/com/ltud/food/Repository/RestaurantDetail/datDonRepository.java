@@ -48,46 +48,6 @@ public class datDonRepository {
         return repository;
     }
 
-    //get food list (for reorder)
-    /*public MutableLiveData<List<Order_Food>> getFoodListLiveData(String orderID)
-    {
-        MutableLiveData<List<Order_Food>> foodListLiveData = new MutableLiveData<>();
-        Log.i("log1", "here");
-
-        colRef.document(orderID)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Log.i("log1", orderID);
-                        List<Map<String, Object>> foodGroup = (List<Map<String, Object>>) documentSnapshot.get("food");
-                        List<Order_Food> foodList = new ArrayList<>();
-
-                        for (Map<String, Object> food : foodGroup)
-                        {
-                            String foodID = food.get("id").toString();
-                            String foodName = food.get("name").toString();
-                            String foodImg = food.get("img").toString();
-                            long price = (long) food.get("price");
-                            long rate = (long) food.get("rate");
-                            long quantity = (long) food.get("quantity");
-                            Order_Food order_food = new Order_Food(foodID, foodName, foodImg, price, rate, quantity);
-                            foodList.add(order_food);
-
-                        }
-                        foodListLiveData.setValue(foodList);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull @NotNull Exception e) {
-                        Log.i("log2", e.getMessage());
-                    }
-                });
-
-        return foodListLiveData;
-    }*/
-
     // get current order
     public MutableLiveData<Order> getCurrentOrder(String resID)
     {
@@ -139,8 +99,7 @@ public class datDonRepository {
         return orderMutableLiveData;
     }
 
-    // add a order
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    // add an order
     public Order addOneOrder(Restaurant restaurant, Order_Food food)
     {
         UUID uuid = UUID.randomUUID();

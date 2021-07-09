@@ -34,11 +34,12 @@ public class CheckoutViewModel extends ViewModel {
         addressCustomerLiveData.setValue(address);
     }
 
-    public void updateOrderPayment(String orderID, long method)
+    public void updateOrderPayment(String orderID, long method, String address)
     {
-        repository.updateOrderPayment(orderID, method);
+        repository.updateOrderPayment(orderID, method, address);
         Order order = orderLiveData.getValue();
         order.setPayment_method(method);
+        order.setLocation(address);
         orderLiveData.setValue(order);
     }
 }

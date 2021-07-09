@@ -81,10 +81,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Restaurant name"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
-                android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"/>
 
@@ -94,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_ten_nha_hang"
                 tools:text="New York"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"/>
@@ -123,17 +122,6 @@
                 android:layout_marginLeft="5dp"/>
 
             <TextView
-                android:id="@+id/tv_phuong_thuc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_dia_chi"
-                android:layout_toRightOf="@id/tv_so_luong"
-                android:layout_alignTop="@id/tv_so_luong"
-                tools:text=" - Ví điện tử"
-                android:textSize="12sp"
-                android:layout_marginBottom="5dp"/>
-
-            <TextView
                 android:id="@+id/tv_trang_thai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -142,6 +130,15 @@
                 android:textSize="12sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"/>
+
+            <TextView
+                android:id="@+id/tv_phuong_thuc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                tools:text="Ví điện tử"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

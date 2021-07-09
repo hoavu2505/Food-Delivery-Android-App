@@ -64,7 +64,7 @@ public class HistoryTabAdapter extends RecyclerView.Adapter<HistoryTabAdapter.It
 
         holder.tvPrice.setText(String.format("%sđ", String.valueOf(totalPrice)));
         holder.tvQuantity.setText(String.format("(%d phần)", quantity));
-        holder.tvPaymentMethod.setText(orderList.get(position).getPayment_method() == 0 ? " - Ví điện tử" : " - Tiền mặt");
+        holder.tvPaymentMethod.setText(orderList.get(position).getPayment_method() == 0 ? "Ví điện tử" : "Tiền mặt");
         holder.tvIsComplete.setText(orderList.get(position).isComplete() ? "Hoàn thành" : "Bị hủy");
     }
 

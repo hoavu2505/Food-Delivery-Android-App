@@ -1,11 +1,16 @@
 package com.ltud.food.Fragment.Order.DeliveringTab;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +19,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +49,7 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
     private NavController navController;
     private BottomNavigationView bottomNavigationView;
     private String orderID;
+    private Order currentOrder;
 
     public deliveringDetailFragment() {
         // Required empty public constructor
@@ -95,6 +102,8 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
         imvLocation.setOnClickListener(this);
         btnReceived.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+
+        progressDialog.dismiss();
     }
 
     private void updateUI() {
@@ -106,6 +115,7 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
 
                 tvResName.setText(order.getRestaurant().getAddress());
                 tvOrderID.setText(order.getId());
+                tvAddress.setText(order.getLocation());
                 tvDate.setText(order.getDate());
 
                 long price = 0;
@@ -115,18 +125,11 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
                 }
                 tvPrice.setText(String.format("%sđ", String.valueOf(price)));
                 tvTotalPrice.setText(String.format("%sđ", String.valueOf(price + 15000)));
+
+                currentOrder = order;
             }
         });
 
-        viewModel.getCustomerAddress().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                tvAddress.setText(s);
-            }
-        });
-
-        if(progressDialog.isShowing())
-            progressDialog.dismiss();
     }
 
     @Override
@@ -155,11 +158,68 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
     private void completedOrder() {
         viewModel.updateCompleteOrder(orderID, true);
         navController.navigate(R.id.orderFragment);
+        showSuccessNotification();
     }
 
     private void canceledOrder() {
         viewModel.updateCompleteOrder(orderID, false);
         navController.navigate(R.id.orderFragment);
+        showFailureNotification();
     }
 
+    private void showSuccessNotification() {
+        final String CHANNEL_ID = "1";
+        String title = "Đơn hàng đã được giao";
+        String message = String.format("Đơn hàng đã được giao đến địa chỉ %s. Cảm ơn bạn đã sử dụng dịch vụ Eat Now. " +
+                "Hãy chia sẻ cảm nhận của bạn và tiếp tục đặt hàng nhé !", currentOrder.getLocation());
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.app_image)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        createNotificationChannel();
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+        notificationManager.notify(1, builder.build());
+    }
+
+    private void showFailureNotification() {
+        final String CHANNEL_ID = "1";
+        String title = "Đã hủy đơn hàng";
+        String message = "Cảm ơn bạn đã sử dụng dịch vụ Eat Now. Hãy ấn đặt lại đơn hàng bất cứ khi nào bạn muốn !";
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.app_image)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        createNotificationChannel();
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+        notificationManager.notify(2, builder.build());
+    }
+
+    private void createNotificationChannel()
+    {
+        final String CHANNEL_ID = "1";
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            String channel_name = getResources().getString(R.string.app_name);
+            String description = "Food app e-commerce";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channel_name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 }

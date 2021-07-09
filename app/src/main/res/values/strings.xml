@@ -2,6 +2,9 @@
     <string name="app_name">Eat Now</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="status_1">Đặt hàng thành công</string>
+    <string name="succeed">Đơn hàng đã được giao</string>
+    <string name="failure">Đơn hàng được hủy</string>
 
     <string-array name="city">
         <item>An Giang</item>
@@ -68,4 +71,11 @@
         <item>Vĩnh Phúc</item>
         <item>Yên Bái</item>
     </string-array>
+
+    <string-array name="status">
+        <item>Hoàn thành</item>
+        <item>Bị hủy</item>
+    </string-array>
+
+
 </resources>

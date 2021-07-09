@@ -1,5 +1,6 @@
 package com.ltud.food.Fragment.Customer;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Build;
@@ -32,17 +33,10 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class CustomerDatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-    public DatePickerFragment() {
+    public CustomerDatePickerFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_date_picker, container, false);
     }
 
     @Override
@@ -52,7 +46,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         int month = calendar.get(Calendar.MONTH);
         int date = calendar.get(Calendar.DATE);
 
-        return new DatePickerDialog(getActivity(), this, year, month, date);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                AlertDialog.THEME_HOLO_DARK,this,year,month,date);
+        return datePickerDialog;
     }
 
     @Override
@@ -62,12 +58,12 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);
         DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String mydate = simpleDateFormat.format(calendar.getTime());
+        String date = simpleDateFormat.format(calendar.getTime());
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference docRef = FirebaseFirestore.getInstance()
                 .collection("Customer")
                 .document(user.getUid());
-        docRef.update("birthday", mydate);
-        ((TextView) getActivity().findViewById(R.id.tv_birthday)).setText(mydate);
+        docRef.update("birthday", date);
+        ((TextView) getActivity().findViewById(R.id.tv_birthday)).setText(date);
     }
 }

@@ -95,6 +95,9 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        progressDialog = new CustomProgressDialog(getActivity());
+        progressDialog.show();
+
         frameName = (ViewGroup) view.findViewById(R.id.frame_name);
         frameAddress = (ViewGroup) view.findViewById(R.id.frame_address);
         frameBirthDay = (ViewGroup) view.findViewById(R.id.frame_birthday);
@@ -107,7 +110,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         tvBirthday =  view.findViewById(R.id.tv_birthday);
         btnLogOut = (Button) view.findViewById(R.id.btn_log_out);
 
-        //set up spin
+        //set up spinner
         spinGender = view.findViewById(R.id.spin_gender);
         genderList = Arrays.asList(new Gender("Không chọn"), new Gender("Nam"), new Gender("Nữ"));
         GenderSpinnerAdapter adapter = new GenderSpinnerAdapter(getActivity(), R.layout.gender_layout, genderList);
@@ -121,7 +124,6 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         frameBirthDay.setOnClickListener(this);
         btnLogOut.setOnClickListener(this);
 
-        progressDialog = new CustomProgressDialog(getActivity());
         isFirstChecked = true;
         storage = FirebaseStorage.getInstance();
         navController = Navigation.findNavController(view);
@@ -168,7 +170,6 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
     }
 
     private void updateUI(Customer customer) {
-        progressDialog.show();
 
         if(customer.getAvatar().isEmpty()) {
             switch (customer.getGender()) {
@@ -360,7 +361,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
     }
 
     private void birthdayChange() {
-        DialogFragment dialogFragment = new DatePickerFragment();
+        DialogFragment dialogFragment = new CustomerDatePickerFragment();
         dialogFragment.show(getActivity().getSupportFragmentManager(), "Birthday");
     }
 

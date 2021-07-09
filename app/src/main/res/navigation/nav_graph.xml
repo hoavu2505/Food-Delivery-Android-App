@@ -33,16 +33,6 @@
             app:destination="@id/restaurantDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/notiFragment"
-        android:name="com.ltud.food.Fragment.Notification.notiFragment"
-        android:label="fragment_noti"
-        tools:layout="@layout/fragment_noti" />
-    <fragment
-        android:id="@+id/favFragment"
-        android:name="com.ltud.food.Fragment.Favorite.favFragment"
-        android:label="fragment_fav"
-        tools:layout="@layout/fragment_fav" />
-    <fragment
         android:id="@+id/userFragment"
         android:name="com.ltud.food.Fragment.Customer.userFragment"
         android:label="fragment_user"
@@ -191,5 +181,15 @@
             android:id="@+id/action_historyDetailFragment_to_restaurantDetailFragment"
             app:destination="@id/restaurantDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favFragment"
+        android:name="com.ltud.food.Fragment.Favorite.favFragment"
+        android:label="fragment_fav"
+        tools:layout="@layout/fragment_fav" />
+    <fragment
+        android:id="@+id/notiFragment"
+        android:name="com.ltud.food.Fragment.Notification.notiFragment"
+        android:label="fragment_noti"
+        tools:layout="@layout/fragment_noti" />
 
 </navigation>

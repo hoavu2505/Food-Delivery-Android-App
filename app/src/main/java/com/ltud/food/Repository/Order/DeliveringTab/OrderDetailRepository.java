@@ -30,21 +30,6 @@ public class OrderDetailRepository {
         return repository;
     }
 
-    // get address
-    public MutableLiveData<String> getAddressCustomer()
-    {
-        MutableLiveData<String> address = new MutableLiveData<>();
-        db.collection("Customer").document(userID)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        address.setValue(documentSnapshot.get("address").toString());
-                    }
-                });
-        return address;
-    }
-
     //get an order
     public MutableLiveData<Order> getOrderList(String orderID)
     {
@@ -83,6 +68,7 @@ public class OrderDetailRepository {
                         long status = (long) document.get("status");
                         long payment_method = (long) document.get("payment_method");
                         Order order = new Order(id, date, status, payment_method, restaurant, foodList);
+                        order.setLocation(document.get("location").toString());
 
                         orderMutableLiveData.setValue(order);
                     }

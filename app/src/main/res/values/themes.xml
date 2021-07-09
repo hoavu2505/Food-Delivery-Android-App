@@ -19,4 +19,9 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/calendar</item>
+        <item name="colorOnPrimary">@color/calendar</item>
+    </style>
+
 </resources>

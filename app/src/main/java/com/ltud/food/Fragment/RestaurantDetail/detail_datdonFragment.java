@@ -59,6 +59,7 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
     NavController navController;
     NotificationBadge notificationBadge;
     RelativeLayout ly_cart;
+    ImageView imgCart;
 
     String res_id, resName, resAddress, resImg, orderID;
     double resRate;
@@ -91,6 +92,7 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
         navController = Navigation.findNavController(view);
         notificationBadge = view.findViewById(R.id.badge);
         ly_cart = view.findViewById(R.id.ly_cart);
+        imgCart  = view.findViewById(R.id.restaurant_detail_cart);
 
         RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
         orderID = restaurantDetailFragment.getOrderID();
@@ -116,38 +118,10 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
                 currentOrder = order;
             }
         });
+
+        imgCart.setOnClickListener(this);
     }
 
-    /*@RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onStart() {
-        super.onStart();
-
-
-        if(!orderID.equals("null"))
-        {
-            viewModel = new ViewModelProvider(getActivity()).get(datDonViewModel.class);
-            viewModel.getFoodList(orderID).observe(getViewLifecycleOwner(), new Observer<List<Order_Food>>() {
-                @Override
-                public void onChanged(List<Order_Food> foodList) {
-                    orderFoodList = foodList;
-                }
-            });
-
-            if(cart_count == 0) {
-                viewModel.addOneOrder(restaurant, orderFoodList.get(0));
-                viewModel.updateFoodQuantity(orderID, orderFoodList);
-            }
-            else{
-                List<Order_Food> newList = new ArrayList<>();
-                newList.addAll(currentOrder.getFoodList());
-                newList.addAll(orderFoodList);
-                viewModel.updateFoodQuantity(orderID, newList);
-            }
-        }
-    }*/
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onAddProduct(int pos) {
 
@@ -156,9 +130,6 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
             navController.navigate(R.id.loginFragment);
             return;
         }
-
-        ImageView imgCart = getView().findViewById(R.id.restaurant_detail_cart);
-        imgCart.setOnClickListener(this);
 
         //create and update cart in database
         String foodID = foodArrayList.get(pos).getId();

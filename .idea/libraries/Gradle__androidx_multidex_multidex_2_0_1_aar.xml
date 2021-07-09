@@ -3,9 +3,10 @@
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d8f12330b009519d57e14b156eddb0b/multidex-2.0.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7c84e7269c6b70952089dffb6b7d6b73/multidex-2.0.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bd88fe9b1ce7b6a9433d93b5d4943c7b/multidex-2.0.1/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bd88fe9b1ce7b6a9433d93b5d4943c7b/multidex-2.0.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bd88fe9b1ce7b6a9433d93b5d4943c7b/multidex-2.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5869604172cba9780aa008c9630d41c0/multidex-2.0.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5869604172cba9780aa008c9630d41c0/multidex-2.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5869604172cba9780aa008c9630d41c0/multidex-2.0.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

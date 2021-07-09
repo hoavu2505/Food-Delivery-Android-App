@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.Order.DeliveringTab.deliveringTabFragment">
+    tools:context=".Fragment.Order.deliveringTabFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec_delivering_list"

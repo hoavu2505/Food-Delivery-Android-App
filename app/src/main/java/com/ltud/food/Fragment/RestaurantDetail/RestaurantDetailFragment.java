@@ -138,7 +138,7 @@ public class RestaurantDetailFragment extends Fragment {
 
         adapter.AddFragment(new detail_datdonFragment(),"Đặt đơn");
         adapter.AddFragment(new detail_danhgiaFragment(),"Đánh giá");
-        //adapter.AddFragment(new detail_thongtinFragment(),"Thông tin");
+        adapter.AddFragment(new detail_thongtinFragment(),"Thông tin");
 
         viewPager.setAdapter(adapter);
 

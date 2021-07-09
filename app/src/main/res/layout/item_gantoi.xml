@@ -21,7 +21,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:src="@drawable/search_location_image" />
+            android:src="@drawable/search_location_image"
+            android:scaleType="centerCrop"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -39,7 +40,7 @@
             android:layout_marginLeft="5dp"
             android:text="Ten nha hang"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:fontFamily="@font/semibold"/>
 
         <LinearLayout
@@ -60,7 +61,7 @@
                 android:layout_gravity="center"
                 android:text="4.5"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="10sp"
                 android:fontFamily="@font/regular" />
 
         </LinearLayout>
@@ -74,7 +75,7 @@
             android:layout_marginBottom="10dp"
             android:text="1.0km"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:fontFamily="@font/regular" />
 
     </LinearLayout>

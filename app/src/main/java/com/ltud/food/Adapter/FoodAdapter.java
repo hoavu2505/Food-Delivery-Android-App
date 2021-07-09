@@ -59,7 +59,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.foodViewHolder
     public void onBindViewHolder(@NonNull @NotNull foodViewHolder holder, int position) {
         Food food = foodArrayList.get(position);
 
-        holder.name.setText(food.getName());
+        holder.name.setText(food.getName().toUpperCase());
         holder.price.setText(String.valueOf(food.getPrice()));
         holder.rate.setText(String.valueOf(food.getRate()));
         Glide.with(holder.food.getContext()).load(food.getImg()).into(holder.food);

@@ -51,7 +51,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ho
 
         Restaurant restaurant = restaurantArrayList.get(position);
 
-        holder.name.setText(restaurant.name);
+        holder.name.setText(restaurant.name.toUpperCase());
         holder.address.setText(restaurant.address);
         holder.rate.setText(String.valueOf(restaurant.rate));
         Glide.with(holder.restaurant.getContext()).load(restaurant.img).into(holder.restaurant);
@@ -59,12 +59,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ho
         holder.item_gantoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context,"Test"+ String.valueOf(holder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
-
-                //Navigate Detail Fragment
-//                AppCompatActivity activity = (AppCompatActivity)v.getContext();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.home_Fragment, new RestaurantDetailFragment(restaurant.getId(),restaurant.getName(),restaurant.getAddress(),String.valueOf(restaurant.getRate()),restaurant.getImg())).addToBackStack(null).commit();
-
                 NavDirections action = homeFragmentDirections.actionHomeFragmentToRestaurantDetailFragment(restaurant.name, restaurant.address, restaurant.id, restaurant.img, (float) restaurant.rate);
 
                 NavController navController = Navigation.findNavController(v);

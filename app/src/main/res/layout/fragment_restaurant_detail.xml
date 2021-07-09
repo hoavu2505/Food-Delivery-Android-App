@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:id="@+id/img_restaurant_detail"
-        android:src="@drawable/background"/>
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -31,9 +32,6 @@
             android:layout_height="25dp"
             android:src="@drawable/ic_back_white"
             android:layout_centerVertical="true"/>
-
-
-
 
     </RelativeLayout>
 

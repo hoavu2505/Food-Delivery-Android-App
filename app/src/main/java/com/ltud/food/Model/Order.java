@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Order {
 
-    private String id, date;
+    private String id, date, location;
     private long status, payment_method;
     private boolean complete;
     private Restaurant restaurant;
@@ -36,6 +36,14 @@ public class Order {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public long getStatus() {

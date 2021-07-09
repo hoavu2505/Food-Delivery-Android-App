@@ -110,9 +110,10 @@ public class CheckoutRepository {
     }
 
     //update payment method and status
-    public void updateOrderPayment(String orderID, long method)
+    public void updateOrderPayment(String orderID, long method, String address)
     {
         Map<String, Object> map = new HashMap<>();
+        map.put("location", address);
         map.put("payment_method", method);
         map.put("status", 1);
         db.collection("Customer").document(userID)

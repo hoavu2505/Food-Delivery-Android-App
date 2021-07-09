@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +24,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.ltud.food.Adapter.CheckoutAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
-import com.ltud.food.Fragment.Order.DeliveringTab.deliveringDetailFragmentArgs;
+import com.ltud.food.Fragment.Order.orderFragment;
 import com.ltud.food.Model.Order;
 import com.ltud.food.Model.Order_Food;
 import com.ltud.food.R;
-import com.ltud.food.ViewModel.Order.DeliveringTab.OrderDetailViewModel;
 import com.ltud.food.ViewModel.Order.HistoryTab.HistoryDetailViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class historyDetailFragment extends Fragment implements View.OnClickListener {
 
     private ImageView imvBack;
-    private TextView tvResName, tvOrderID, tvStatus, tvAddress, tvDate, tvPrice, tvTotalPrice;
+    private TextView tvResName, tvOrderID, tvStatus, tvLocation, tvDate, tvPrice, tvTotalPrice;
     private RecyclerView recyclerView;
     private MaterialButton btnReorder;
     private CheckoutAdapter adapter;
@@ -44,6 +46,7 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
     private NavController navController;
     private BottomNavigationView bottomNavigationView;
     private String orderID;
+    private List<Order> orderList;
     private Order currentOrder;
 
     public historyDetailFragment() {
@@ -68,12 +71,13 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
         progressDialog.show();
         navController = Navigation.findNavController(view);
         orderID = historyDetailFragmentArgs.fromBundle(getArguments()).getOrderID();
+        orderList = orderFragment.orderList;
 
         imvBack = view.findViewById(R.id.imv_back);
         tvResName = view.findViewById(R.id.tv_ten_nha_hang);
         tvOrderID = view.findViewById(R.id.tv_ma_don_hang);
         tvStatus = view.findViewById(R.id.tv_trang_thai);
-        tvAddress = view.findViewById(R.id.tv_address);
+        tvLocation = view.findViewById(R.id.tv_location);
         tvDate = view.findViewById(R.id.tv_date);
         tvPrice = view.findViewById(R.id.tv_tien_hang);
         tvTotalPrice = view.findViewById(R.id.tv_tong_tien);
@@ -103,6 +107,7 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
 
                 tvResName.setText(order.getRestaurant().getAddress());
                 tvOrderID.setText(order.getId());
+                tvLocation.setText(order.getLocation());
                 tvStatus.setText(order.isComplete() ? "Hoàn thành" : "Bị hủy");
                 tvDate.setText(order.getDate());
 
@@ -111,8 +116,8 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
                 {
                     price += food.getPrice() * food.getQuantity();
                 }
-                tvPrice.setText(String.format("%sđ", String.valueOf(price)));
-                tvTotalPrice.setText(String.format("%sđ", String.valueOf(price + 15000)));
+                tvPrice.setText(String.format("%sđ", price));
+                tvTotalPrice.setText(String.format("%sđ", price + 15000));
 
                 currentOrder = order;
             }
@@ -128,11 +133,26 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
             navController.navigate(R.id.orderFragment);
         }
         else {
-            NavDirections action = historyDetailFragmentDirections.actionHistoryDetailFragmentToRestaurantDetailFragment(
-                    currentOrder.getRestaurant().name, currentOrder.getRestaurant().address, currentOrder.getRestaurant().id,
-                    currentOrder.getRestaurant().img, (float) currentOrder.getRestaurant().rate
-            ).setOrderID(orderID);
-            navController.navigate(action);
+            reorderAction();
         }
+    }
+
+    private void reorderAction() {
+        Log.i("log", String.valueOf(orderList.isEmpty()));
+        if(!orderList.isEmpty())
+        {
+            for(Order passingOrder : orderList)
+            {
+                if(passingOrder.getStatus() == 0 && passingOrder.getRestaurant().getId().equals(currentOrder.getRestaurant().getId()))
+                    viewModel.removeAnOrder(passingOrder.getId());
+            }
+        }
+        viewModel.createNewOrder(currentOrder.getRestaurant(), currentOrder.getFoodList());
+
+        NavDirections action = historyDetailFragmentDirections.actionHistoryDetailFragmentToRestaurantDetailFragment(
+                currentOrder.getRestaurant().name, currentOrder.getRestaurant().address, currentOrder.getRestaurant().id,
+                currentOrder.getRestaurant().img, (float) currentOrder.getRestaurant().rate
+        ).setOrderID(orderID);
+        navController.navigate(action);
     }
 }
