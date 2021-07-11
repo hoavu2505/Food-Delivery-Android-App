@@ -31,6 +31,7 @@ import java.util.List;
 
 public class draftTabFragment extends Fragment implements DraftTabAdapter.SelectedItem {
 
+    private ViewGroup layout;
     private RecyclerView recyclerView;
     private DraftTabAdapter adapter;
     private DraftTabViewModel viewModel;
@@ -57,6 +58,7 @@ public class draftTabFragment extends Fragment implements DraftTabAdapter.Select
         progressDialog.show();
         navController = Navigation.findNavController(view);
 
+        layout = view.findViewById(R.id.layout);
         recyclerView = view.findViewById(R.id.rec_draft_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -70,6 +72,7 @@ public class draftTabFragment extends Fragment implements DraftTabAdapter.Select
                 orderList = list;
                 adapter.setOrderList(list);
                 adapter.notifyDataSetChanged();
+                layout.setVisibility(View.GONE);
             }
         });
 

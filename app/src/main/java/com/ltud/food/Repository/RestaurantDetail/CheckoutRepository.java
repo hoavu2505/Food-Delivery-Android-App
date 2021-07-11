@@ -116,6 +116,7 @@ public class CheckoutRepository {
         map.put("location", address);
         map.put("payment_method", method);
         map.put("status", 1);
+        map.put("checked_notification", false);
         db.collection("Customer").document(userID)
                 .collection("Order").document(orderID)
                 .update(map);

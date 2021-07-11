@@ -128,6 +128,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         storage = FirebaseStorage.getInstance();
         navController = Navigation.findNavController(view);
         customerViewModel = new ViewModelProvider(getActivity()).get(CustomerViewModel.class);
+        progressDialog.dismiss();
     }
 
     @Override
@@ -153,6 +154,8 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
             docRef = FirebaseFirestore.getInstance().collection(COLLECTION).document(user.getUid());
             updateCity();
         }
+
+
     }
 
     private void updateCity() {
@@ -203,7 +206,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
             spinGender.setSelection(2);
         else spinGender.setSelection(0);
 
-        progressDialog.dismiss();
+
     }
 
     @Override

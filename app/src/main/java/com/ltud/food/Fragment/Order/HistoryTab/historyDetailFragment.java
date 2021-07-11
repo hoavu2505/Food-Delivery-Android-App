@@ -39,7 +39,7 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
     private ImageView imvBack;
     private TextView tvResName, tvOrderID, tvStatus, tvLocation, tvDate, tvPrice, tvTotalPrice;
     private RecyclerView recyclerView;
-    private MaterialButton btnReorder;
+    private MaterialButton btnReorder, btnRemove;
     private CheckoutAdapter adapter;
     private CustomProgressDialog progressDialog;
     private HistoryDetailViewModel viewModel;
@@ -82,6 +82,7 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
         tvPrice = view.findViewById(R.id.tv_tien_hang);
         tvTotalPrice = view.findViewById(R.id.tv_tong_tien);
         btnReorder = view.findViewById(R.id.btn_dat_lai);
+        btnRemove = view.findViewById(R.id.btn_xoa);
 
         viewModel = new ViewModelProvider(getActivity()).get(HistoryDetailViewModel.class);
         recyclerView = view.findViewById(R.id.rec_order_list);
@@ -91,11 +92,10 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
         recyclerView.setAdapter(adapter);
 
         updateUI();
-        if(progressDialog.isShowing())
-            progressDialog.dismiss();
 
         imvBack.setOnClickListener(this);
         btnReorder.setOnClickListener(this);
+        btnRemove.setOnClickListener(this);
     }
 
     private void updateUI() {
@@ -122,6 +122,9 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
                 currentOrder = order;
             }
         });
+
+        if(progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 
     @Override
@@ -132,13 +135,16 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
             bottomNavigationView.setVisibility(View.VISIBLE);
             navController.navigate(R.id.orderFragment);
         }
-        else {
+        else if(v.getId() == R.id.btn_dat_lai)
             reorderAction();
+        else {
+            viewModel.removeAnOrder(currentOrder.getId());
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            navController.navigate(R.id.orderFragment);
         }
     }
 
     private void reorderAction() {
-        Log.i("log", String.valueOf(orderList.isEmpty()));
         if(!orderList.isEmpty())
         {
             for(Order passingOrder : orderList)

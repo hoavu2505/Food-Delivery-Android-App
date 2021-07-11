@@ -27,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.ltud.food.Adapter.HistoryTabAdapter;
@@ -46,8 +47,10 @@ import java.util.List;
 
 public class historyTabFragment extends Fragment implements HistoryTabAdapter.SelectedItem, View.OnClickListener, HistoryDatePickerFragment.onSetedDate, AdapterView.OnItemClickListener {
 
+    private ViewGroup layout;
     private AutoCompleteTextView completeTextViewStatus, completeTextViewDate;
     private MaterialButton btnGetAll;
+    private TextView tvRemoveAll;
     private RecyclerView recyclerView;
     private HistoryTabAdapter adapter;
     private NavController navController;
@@ -78,6 +81,8 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
         progressDialog.show();
         navController = Navigation.findNavController(view);
 
+        layout = view.findViewById(R.id.layout);
+        tvRemoveAll = view.findViewById(R.id.tv_remove_all);
         completeTextViewStatus = view.findViewById(R.id.actv_complete_status);
         completeTextViewDate = view.findViewById(R.id.actv_date);
         btnGetAll = view.findViewById(R.id.btn_all);
@@ -92,6 +97,7 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
 
         completeTextViewDate.setOnClickListener(this);
         btnGetAll.setOnClickListener(this);
+        tvRemoveAll.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +115,10 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
                 adapter.setOrderList(orders);
                 adapter.notifyDataSetChanged();
                 orderList = orders;
+                if(!orders.isEmpty())
+                    layout.setVisibility(View.GONE);
+                else
+                    layout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -129,6 +139,12 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
             isSelected = false;
             completeTextViewStatus.setAdapter(statusAdapter);
             completeTextViewStatus.setOnItemClickListener(this);
+        }
+        else if(v.getId() == R.id.tv_remove_all)
+        {
+            int index = 0;
+            while (!orderList.isEmpty())
+                viewModel.removeAnOrder(orderList.get(index).getId(), index);
         }
         else dateFilter();
     }

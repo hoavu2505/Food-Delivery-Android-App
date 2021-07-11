@@ -39,7 +39,9 @@ public class NotifyRepository {
         MutableLiveData<List<Order>> orderListLiveData = new MutableLiveData<>();
         List<Order> orderList = new ArrayList<>();
 
-        collectionReference.whereNotEqualTo("status", 0).get()
+        collectionReference.whereNotEqualTo("status", 0)
+                .whereEqualTo("checked_notification", false)
+                .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -80,6 +82,7 @@ public class NotifyRepository {
                                     order.setComplete(isComplete);
                                 }
                                 order.setLocation(document.get("location").toString());
+                                order.setChecked_notify((boolean) document.get("checked_notification"));
 
                                 orderList.add(order);
                             }
@@ -89,4 +92,10 @@ public class NotifyRepository {
                 });
         return orderListLiveData;
     }
+
+    public void updateCheckedNotify(String orderID)
+    {
+        collectionReference.document(orderID).update("checked_notification", true);
+    }
+
 }

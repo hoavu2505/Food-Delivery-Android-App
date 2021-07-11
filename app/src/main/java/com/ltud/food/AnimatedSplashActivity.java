@@ -32,6 +32,6 @@ public class AnimatedSplashActivity extends AppCompatActivity {
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
             }
-        }, 4000);
+        }, 1800);
     }
 }

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.card.MaterialCardView;
 import com.ltud.food.Model.Order;
 import com.ltud.food.Model.Order_Food;
 import com.ltud.food.R;
@@ -75,20 +76,20 @@ public class DraftTabAdapter extends RecyclerView.Adapter<DraftTabAdapter.ItemVi
 
     protected class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView imgRestaurant;
+        MaterialCardView cardView;
         TextView tvName, tvAddress, tvPrice, tvQuantity;
-        Button btnRemove;
 
         public ItemViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
             imgRestaurant = itemView.findViewById(R.id.imv_mon_an);
+            cardView = itemView.findViewById(R.id.cardView_remove_order);
             tvName = itemView.findViewById(R.id.tv_ten_nha_hang);
             tvAddress = itemView.findViewById(R.id.tv_dia_chi);
             tvPrice = itemView.findViewById(R.id.tv_don_gia);
             tvQuantity = itemView.findViewById(R.id.tv_so_luong);
-            btnRemove = itemView.findViewById(R.id.btn_xoa);
 
-            btnRemove.setOnClickListener(new View.OnClickListener() {
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     fragment.onButtonClicked(getAdapterPosition());

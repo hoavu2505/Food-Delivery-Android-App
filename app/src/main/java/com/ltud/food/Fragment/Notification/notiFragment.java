@@ -7,17 +7,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.ltud.food.Adapter.NotifyAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
 import com.ltud.food.Model.Order;
@@ -26,11 +23,14 @@ import com.ltud.food.ViewModel.Notification.NotifyViewModel;
 
 import java.util.List;
 
-public class notiFragment extends Fragment {
+public class notiFragment extends Fragment implements NotifyAdapter.SelectedItem, View.OnClickListener {
 
+    private ViewGroup layout;
+    private TextView tvReadAll;
     private RecyclerView recyclerView;
     private NotifyAdapter adapter;
     private NotifyViewModel viewModel;
+    private List<Order> orderList;
 
     public notiFragment() {
         // Required empty public constructor
@@ -55,25 +55,44 @@ public class notiFragment extends Fragment {
         CustomProgressDialog progressDialog = new CustomProgressDialog(getContext());
         progressDialog.show();
 
+        layout = view.findViewById(R.id.layout);
+        tvReadAll = view.findViewById(R.id.tv_read_all);
         recyclerView = view.findViewById(R.id.rec_notify_list);
-        adapter = new NotifyAdapter();
+        adapter = new NotifyAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         viewModel = new ViewModelProvider(getActivity()).get(NotifyViewModel.class);
-        progressDialog.dismiss();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         viewModel.getOrderList().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
                 adapter.setOrderList(orders);
                 adapter.notifyDataSetChanged();
+                orderList = orders;
+                if(!orders.isEmpty())
+                    layout.setVisibility(View.GONE);
+                else
+                    layout.setVisibility(View.VISIBLE);
             }
         });
+
+        if(progressDialog.isShowing())
+            progressDialog.dismiss();
+
+        tvReadAll.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClickedItem(int index) {
+        viewModel.updateCheckedNotify(orderList.get(index).getId(), index);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int index = 0;
+        while (!orderList.isEmpty())
+        {
+            viewModel.updateCheckedNotify(orderList.get(index).getId(), index);
+        }
     }
 }

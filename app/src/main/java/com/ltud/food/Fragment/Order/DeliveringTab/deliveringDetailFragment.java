@@ -102,8 +102,6 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
         imvLocation.setOnClickListener(this);
         btnReceived.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
-
-        progressDialog.dismiss();
     }
 
     private void updateUI() {
@@ -129,7 +127,8 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
                 currentOrder = order;
             }
         });
-
+        if(progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 
     @Override

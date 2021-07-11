@@ -35,8 +35,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"
-            app:layout_constraintEnd_toStartOf="@id/btn_xoa"
-            android:layout_marginLeft="10dp">
+            app:layout_constraintEnd_toStartOf="@id/cardView_remove_order"
+            android:layout_marginHorizontal="10dp">
 
             <TextView
                 android:id="@+id/tv_ten_nha_hang"
@@ -87,17 +87,21 @@
 
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/btn_xoa"
-            android:layout_width="60dp"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView_remove_order"
+            android:layout_width="50dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:backgroundTint="@color/orange"
-            android:fontFamily="@font/semibold"
-            android:text="Xóa"
-            android:textSize="10dp"/>
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_cancel"
+                android:layout_gravity="center"/>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

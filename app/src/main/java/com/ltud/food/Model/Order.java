@@ -6,7 +6,7 @@ public class Order {
 
     private String id, date, location;
     private long status, payment_method;
-    private boolean complete;
+    private boolean complete, checked_notification;
     private Restaurant restaurant;
     private List<Order_Food> foodList;
 
@@ -50,7 +50,7 @@ public class Order {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(long status) {
         this.status = status;
     }
 
@@ -68,6 +68,14 @@ public class Order {
 
     public void setComplete(boolean complete) {
         this.complete = complete;
+    }
+
+    public boolean isChecked_notify() {
+        return checked_notification;
+    }
+
+    public void setChecked_notify(boolean checked_notify) {
+        this.checked_notification = checked_notify;
     }
 
     public Restaurant getRestaurant() {

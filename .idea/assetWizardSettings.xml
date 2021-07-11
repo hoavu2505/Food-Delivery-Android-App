@@ -307,7 +307,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Users/Saitama/Android/Sdk/icons/material/materialicons/arrow_back_ios_new/baseline_arrow_back_ios_new_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Users/Saitama/Android/Sdk/icons/material/materialicons/check_circle/baseline_check_circle_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -317,7 +317,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_back_black" />
+                            <entry key="outputName" value="ic_check" />
                             <entry key="sourceFile" value="D:\Programming\Android\JavaAndroid\Food-Delivery-Android-App" />
                           </map>
                         </option>

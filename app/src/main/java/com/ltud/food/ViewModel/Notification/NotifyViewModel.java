@@ -20,4 +20,12 @@ public class NotifyViewModel extends ViewModel {
         orderListLiveData = repository.getOrderList();
         return orderListLiveData;
     }
+
+    public void updateCheckedNotify(String orderID, int position)
+    {
+        repository.updateCheckedNotify(orderID);
+        List<Order> orderList = orderListLiveData.getValue();
+        orderList.remove(position);
+        orderListLiveData.setValue(orderList);
+    }
 }

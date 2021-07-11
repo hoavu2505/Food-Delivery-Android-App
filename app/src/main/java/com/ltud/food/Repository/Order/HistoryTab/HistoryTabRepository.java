@@ -252,4 +252,10 @@ public class HistoryTabRepository {
 
         return mutableLiveData;
     }
+
+    //remove all history
+    public void removeAnOrder(String orderID)
+    {
+        collectionReference.document(orderID).delete();
+    }
 }

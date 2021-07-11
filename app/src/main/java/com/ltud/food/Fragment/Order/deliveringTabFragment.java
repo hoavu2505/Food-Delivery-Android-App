@@ -17,8 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import com.google.android.material.tabs.TabLayout;
 import com.ltud.food.Adapter.DeliveringTabAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
 import com.ltud.food.Model.Order;
@@ -27,15 +27,17 @@ import com.ltud.food.ViewModel.Order.DeliveringTab.DeliveringTabViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class deliveringTabFragment extends Fragment implements DeliveringTabAdapter.SelectedItem{
 
+    private ViewGroup layout;
     private RecyclerView recyclerView;
     private DeliveringTabAdapter adapter;
     private DeliveringTabViewModel viewModel;
     private CustomProgressDialog progressDialog;
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
     private NavController navController;
 
     public deliveringTabFragment() {
@@ -46,7 +48,7 @@ public class deliveringTabFragment extends Fragment implements DeliveringTabAdap
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_deliverying_tab, container, false);
+        return inflater.inflate(R.layout.fragment_delivering_tab, container, false);
     }
 
     @Override
@@ -56,6 +58,7 @@ public class deliveringTabFragment extends Fragment implements DeliveringTabAdap
         progressDialog = new CustomProgressDialog(getContext());
         navController = Navigation.findNavController(view);
 
+        layout = view.findViewById(R.id.layout);
         recyclerView = view.findViewById(R.id.rec_delivering_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -82,12 +85,12 @@ public class deliveringTabFragment extends Fragment implements DeliveringTabAdap
         viewModel.getDeliveringOrderList().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> list) {
-                orderList = list;
+                orderList.addAll(list);
                 adapter.setOrderList(list);
                 adapter.notifyDataSetChanged();
+                layout.setVisibility(View.GONE);
             }
         });
-
         progressDialog.dismiss();
     }
 }

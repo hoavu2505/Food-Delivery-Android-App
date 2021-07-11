@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginEnd="20dp"
     android:elevation="0dp"
     app:strokeWidth="0dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imv_order_image"
@@ -29,11 +33,15 @@
 
         <TextView
             android:id="@+id/tv_ten_mon"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            app:layout_constraintBottom_toTopOf="@id/layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="5dp"
             tools:text="Sushi"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:fontFamily="@font/semibold"
             android:textColor="@color/black"
@@ -42,8 +50,14 @@
             android:layout_marginHorizontal="5dp"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1"
+            android:layout_below="@id/tv_ten_mon"
             android:orientation="horizontal"
             android:layout_marginTop="5dp"
             android:gravity="center">
@@ -53,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="50.000đ"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 android:textColor="@color/orange"
                 android:fontFamily="@font/semibold"/>
 
@@ -61,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="x"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 android:textColor="@color/black"
                 android:layout_marginHorizontal="5dp"/>
 
@@ -70,12 +84,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="5"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

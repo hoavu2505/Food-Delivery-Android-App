@@ -42,4 +42,12 @@ public class HistoryTabViewModel extends ViewModel {
         orderListLiveData = repository.getOrderFilter(isComplete, date);
         return orderListLiveData;
     }
+
+    public void removeAnOrder(String orderID, int position)
+    {
+        repository.removeAnOrder(orderID);
+        List<Order> orderList = orderListLiveData.getValue();
+        orderList.remove(position);
+        orderListLiveData.setValue(orderList);
+    }
 }

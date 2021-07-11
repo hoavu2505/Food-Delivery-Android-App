@@ -1,81 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    android:id="@+id/detail_fragment"
+    app:layoutDescription="@xml/fragment_restaurant_detail_scene"
     tools:context=".Fragment.RestaurantDetail.RestaurantDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:id="@+id/img_restaurant_detail"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop"/>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ly_restaurant_detail"
-        android:padding="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="6dp"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="260dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_restaurant_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/img_res_detail_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_back_white"
-            android:layout_centerVertical="true"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="230dp"
         android:background="@drawable/res_detail_round"
         android:elevation="20dp"
-        android:layout_marginTop="230dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/txt_restaurant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restaurant Name"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/semibold"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="25dp"
-            android:layout_marginLeft="30dp"/>
+            android:fontFamily="@font/semibold"
+            android:text="Restaurant Name"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:id="@+id/ly_rate_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_restaurant_name"
-            android:orientation="horizontal"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="6dp"
-            android:layout_marginLeft="25dp">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/rate"/>
+                android:src="@drawable/rate" />
 
             <TextView
                 android:id="@+id/txt_rate_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/regular"
                 android:text="4.5"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:fontFamily="@font/regular" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/txt_address_detail"
@@ -83,18 +92,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="90dp"
+                android:fontFamily="@font/regular"
                 android:text="Address"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:fontFamily="@font/regular" />
-
-<!--            <TextView-->
-<!--                android:id="@+id/txt_id_detail"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="right|center_vertical"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:text="id"/>-->
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -110,21 +111,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="20dp"
-                app:tabMode="fixed"
-                app:tabIndicatorGravity="stretch"
-                app:tabSelectedTextColor="@color/white"
                 app:tabBackground="@drawable/round_cover"
-                app:tabTextAppearance="@style/tab_text"
+                app:tabIndicator="@drawable/tab_indicator"
                 app:tabIndicatorAnimationMode="elastic"
-                app:tabIndicator="@drawable/tab_indicator" />
+                app:tabIndicatorGravity="stretch"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextAppearance="@style/tab_text" />
+
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager_res_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
