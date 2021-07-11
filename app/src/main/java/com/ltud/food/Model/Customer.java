@@ -1,6 +1,13 @@
 package com.ltud.food.Model;
 
+import android.net.Uri;
+
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.ServerTimestamp;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Customer implements Serializable {

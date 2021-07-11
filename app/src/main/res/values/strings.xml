@@ -68,4 +68,9 @@
         <item>Vĩnh Phúc</item>
         <item>Yên Bái</item>
     </string-array>
+
+    <string-array name="status">
+        <item>Hoàn thành</item>
+        <item>Bị hủy</item>
+    </string-array>
 </resources>

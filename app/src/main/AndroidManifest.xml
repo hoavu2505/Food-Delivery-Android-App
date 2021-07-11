@@ -19,13 +19,21 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAVxdqDZH64ox3ghL7GeBByFn312O1r9RA" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".AnimatedSplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity">
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

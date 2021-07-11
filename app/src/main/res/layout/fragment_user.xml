@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".Fragment.user.userFragment">
+    tools:context=".Fragment.Customer.userFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frame_avatar"

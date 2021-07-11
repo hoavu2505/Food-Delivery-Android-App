@@ -53,14 +53,13 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata:2.3.1'
 
 
-    //Add libs
+    //Graphic
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.nex3z:notification-badge:1.0.4'
-
-
+    implementation 'com.airbnb.android:lottie:3.7.1'
 
     //firestore
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
@@ -70,6 +69,9 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
 
+    // location
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     //Android jetpack navigation
     def nav_version = "2.3.5"
