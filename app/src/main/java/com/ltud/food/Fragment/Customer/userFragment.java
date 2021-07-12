@@ -403,7 +403,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         progressDialog = new CustomProgressDialog(getActivity());
         progressDialog.show();
         FirebaseAuth.getInstance().signOut();
-        navController.navigate(R.id.loginFragment);
+        navController.navigate(R.id.homeFragment);
         progressDialog.dismiss();
     }
 }

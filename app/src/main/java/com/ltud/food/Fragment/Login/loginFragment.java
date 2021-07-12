@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -72,7 +73,10 @@ public class loginFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        imvBack = view.findViewById(R.id.imgBack);
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
+        navBar.setVisibility(getView().GONE);
+
+        imvBack = view.findViewById(R.id.imgBack);
         edtPhoneNumber = view.findViewById(R.id.edt_phone_number);
         edtEmail = view.findViewById(R.id.edt_email);
         edtPassword = view.findViewById(R.id.edt_password);
@@ -163,11 +167,12 @@ public class loginFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
         switch (v.getId())
         {
-//            case R.id.imgBack: navController.navigate(R.id.homeFragment); break;
-            case R.id.btn_phone_submit: verifyPhoneNumberAction(); break;
-            case R.id.btn_email_submit: logInWithEmail(); break;
+            case R.id.imgBack: navController.navigate(R.id.homeFragment); navBar.setVisibility(getView().VISIBLE); break;
+            case R.id.btn_phone_submit: verifyPhoneNumberAction(); navBar.setVisibility(getView().VISIBLE); break;
+            case R.id.btn_email_submit: logInWithEmail(); navBar.setVisibility(getView().VISIBLE); break;
             case R.id.tv_signUp: navController.navigate(R.id.signUpEmailFragment); break;
             case R.id.tv_email_login_change: emailLoginChangeAction(); break;
             case R.id.tv_phone_login_change: phoneLoginChangeAction(); break;

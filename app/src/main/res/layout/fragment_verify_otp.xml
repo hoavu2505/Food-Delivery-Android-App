@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Fragment.verifyOTPFragment">
+    tools:context=".Fragment.Login.verifyOTPFragment">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/email_verification"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_verification"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="0dp"/>
 
     <TextView
         android:layout_width="match_parent"
