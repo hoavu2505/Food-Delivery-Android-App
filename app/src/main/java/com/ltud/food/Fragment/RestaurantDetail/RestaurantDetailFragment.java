@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -92,6 +93,13 @@ public class RestaurantDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         NavController navController = Navigation.findNavController(view);
+
+        //Xu ly null id user
+        if(FirebaseAuth.getInstance().getCurrentUser() == null)
+        {
+            navController.navigate(R.id.loginFragment);
+            return;
+        }
 
         name = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getName();
         address = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getAddress();
