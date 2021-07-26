@@ -1,5 +1,7 @@
 package com.ltud.food.Fragment.Home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,12 +13,20 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.ltud.food.CurrentLocationActivity;
+import com.ltud.food.MainActivity;
 import com.ltud.food.R;
 
 
@@ -27,11 +37,11 @@ import java.util.ArrayList;
 public class homeFragment extends Fragment{
 
     ImageView img_search, img_com, img_douong, img_anvat;
-
+    TextView txtLocation;
     TabLayout tabLayout;
     ViewPager viewPager;
     homeAdapter adapter;
-
+    String location;
 
     public homeFragment() {
         // Required empty public constructor
@@ -55,12 +65,13 @@ public class homeFragment extends Fragment{
     public void onViewCreated(View view,Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         NavController navController = Navigation.findNavController(view);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("locationPreference", CurrentLocationActivity.MODE_PRIVATE);
+        location = sharedPref.getString("location", "Hà Nội");
 
-
+        txtLocation = view.findViewById(R.id.txt_location);
+        txtLocation.setText(location);
         img_search = view.findViewById(R.id.img_search);
-
         img_com = view.findViewById(R.id.img_com);
         img_douong = view.findViewById(R.id.img_douong);
         img_anvat = view.findViewById(R.id.img_anvat);
@@ -100,19 +111,14 @@ public class homeFragment extends Fragment{
                 img_anvat.setImageResource(R.drawable.anvat_picked);
             }
         });
-
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-
-
         tabLayout = getView().findViewById(R.id.tablayout_home);
         viewPager = getView().findViewById(R.id.viewpager_home);
-
 
         //Add fragment vao tablayout
         adapter = new homeAdapter(getActivity().getSupportFragmentManager());
@@ -124,8 +130,18 @@ public class homeFragment extends Fragment{
         viewPager.setAdapter(adapter);
 
         tabLayout.setupWithViewPager(viewPager);
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null)
+        {
+            DocumentReference documentRef = FirebaseFirestore.getInstance().collection("Customer").document(user.getUid());
+            documentRef.update("address", location);
+        }
     }
 
     //Su dung homeAdapter de them cac fragment vao tablayout

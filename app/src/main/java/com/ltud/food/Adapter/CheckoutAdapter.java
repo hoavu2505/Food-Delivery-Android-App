@@ -16,7 +16,9 @@ import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ItemViewHolder> {
 
@@ -40,7 +42,9 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ItemVi
                 .load(orderList.get(position).getImg())
                 .into(holder.imageFood);
         holder.tvName.setText(orderList.get(position).getName().toUpperCase());
-        holder.tvPrice.setText(String.format("%sđ", orderList.get(position).getPrice()));
+        Locale vietnam = new Locale("vi", "VN");
+        NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+        holder.tvPrice.setText(dongFormat.format(orderList.get(position).getPrice()));
         holder.tvQuantity.setText(String.valueOf(orderList.get(position).getQuantity()));
     }
 

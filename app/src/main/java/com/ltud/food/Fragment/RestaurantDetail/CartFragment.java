@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.L;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.ltud.food.Adapter.CartListAdapter;
@@ -30,7 +31,9 @@ import com.ltud.food.ViewModel.RestaurantDetail.CartViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CartFragment extends Fragment implements CartListAdapter.ChangeQuantity, View.OnClickListener {
 
@@ -83,7 +86,9 @@ public class CartFragment extends Fragment implements CartListAdapter.ChangeQuan
                     {
                         totalPrice += food.getPrice() * food.getQuantity();
                     }
-                    tvTotalPrice.setText(String.format("%sđ", String.valueOf(totalPrice)));
+                    Locale vietnam = new Locale("vi", "VN");
+                    NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+                    tvTotalPrice.setText(dongFormat.format(totalPrice));
 
                     currentOrder = order;
                     progressDialog.dismiss();

@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#FFD563</color>
-    <color name="grey">#14212423</color>
+    <color name="grey">#081B1B19</color>
+    <color name="home_theme">#AAAAAA</color>
     <color name="orange">#FF6701</color>
     <color name="orange_tab_layout">#CEFF6701</color>
     <color name="red">#F44336</color>

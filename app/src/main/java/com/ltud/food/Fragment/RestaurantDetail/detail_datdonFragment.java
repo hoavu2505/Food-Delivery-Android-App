@@ -103,23 +103,31 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
         resImg = restaurantDetailFragment.getImg();
         restaurant = new Restaurant(res_id, resName, resAddress, resImg, resRate);
 
-        viewModel = new ViewModelProvider(getActivity()).get(datDonViewModel.class);
-        viewModel.getCurrentOrder(res_id).observe(getViewLifecycleOwner(), new Observer<Order>() {
-            @Override
-            public void onChanged(Order order) {
-                int quantity = 0;
-                for(Order_Food food : order.getFoodList())
-                {
-                    quantity += food.getQuantity();
-                }
-                cart_count = quantity;
-                notificationBadge.setNumber(cart_count);
-                ly_cart.setVisibility(getView().VISIBLE);
-                currentOrder = order;
-            }
-        });
-
         imgCart.setOnClickListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+        {
+            viewModel = new ViewModelProvider(getActivity()).get(datDonViewModel.class);
+            viewModel.getCurrentOrder(res_id).observe(getViewLifecycleOwner(), new Observer<Order>() {
+                @Override
+                public void onChanged(Order order) {
+                    int quantity = 0;
+                    for(Order_Food food : order.getFoodList())
+                    {
+                        quantity += food.getQuantity();
+                    }
+                    cart_count = quantity;
+                    notificationBadge.setNumber(cart_count);
+                    ly_cart.setVisibility(getView().VISIBLE);
+                    currentOrder = order;
+                }
+            });
+        }
     }
 
     @Override

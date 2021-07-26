@@ -13,14 +13,12 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.ltud.food.Adapter.CheckoutAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
@@ -32,7 +30,10 @@ import com.ltud.food.ViewModel.Order.HistoryTab.HistoryDetailViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class historyDetailFragment extends Fragment implements View.OnClickListener {
 
@@ -44,7 +45,6 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
     private CustomProgressDialog progressDialog;
     private HistoryDetailViewModel viewModel;
     private NavController navController;
-    private BottomNavigationView bottomNavigationView;
     private String orderID;
     private List<Order> orderList;
     private Order currentOrder;
@@ -63,9 +63,6 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
-        bottomNavigationView.setVisibility(View.GONE);
 
         progressDialog = new CustomProgressDialog(getContext());
         progressDialog.show();
@@ -109,22 +106,23 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
                 tvOrderID.setText(order.getId());
                 tvLocation.setText(order.getLocation());
                 tvStatus.setText(order.isComplete() ? "Hoàn thành" : "Bị hủy");
-                tvDate.setText(order.getDate());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                tvDate.setText(dateFormat.format(order.getDate()));
 
                 long price = 0;
                 for (Order_Food food : order.getFoodList())
                 {
                     price += food.getPrice() * food.getQuantity();
                 }
-                tvPrice.setText(String.format("%sđ", price));
-                tvTotalPrice.setText(String.format("%sđ", price + 15000));
+                Locale vietnam = new Locale("vi", "VN");
+                NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+                tvPrice.setText(dongFormat.format(price));
+                tvTotalPrice.setText(dongFormat.format(price + 15000));
 
                 currentOrder = order;
+                progressDialog.dismiss();
             }
         });
-
-        if(progressDialog.isShowing())
-            progressDialog.dismiss();
     }
 
     @Override
@@ -132,14 +130,12 @@ public class historyDetailFragment extends Fragment implements View.OnClickListe
 
         if(v.getId() == R.id.imv_back)
         {
-            bottomNavigationView.setVisibility(View.VISIBLE);
             navController.navigate(R.id.orderFragment);
         }
         else if(v.getId() == R.id.btn_dat_lai)
             reorderAction();
         else {
             viewModel.removeAnOrder(currentOrder.getId());
-            bottomNavigationView.setVisibility(View.VISIBLE);
             navController.navigate(R.id.orderFragment);
         }
     }

@@ -38,18 +38,19 @@
             android:id="@+id/tv_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            tools:text="Hoàng"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/apalu400"
-            android:background="#4C000000"
-            android:paddingHorizontal="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imv_avatar"
-            android:layout_marginTop="20dp"/>
+            app:layout_constraintVertical_bias="0.2"
+            android:background="@drawable/name_round_cover"
+            android:fontFamily="@font/apalu400"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Hoàng" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -57,172 +58,191 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="40dp">
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="20dp">
 
             <ImageView
+                android:id="@+id/img_account"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/ic_account"/>
 
             <TextView
                 android:id="@+id/tv_account"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:text="0123456789"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                tools:text="superman@gmail.com"
                 android:textSize="15sp"
-                android:inputType="phone"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"/>
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:inputType="textPostalAddress"
+                android:layout_marginHorizontal="20dp" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/frame_name"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_marginTop="3dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="40dp">
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="20dp">
 
             <ImageView
+                android:id="@+id/img_name"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/ic_name"/>
 
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_name"
+                app:layout_constraintEnd_toStartOf="@id/img2"
+                app:layout_constraintHorizontal_bias="0"
                 tools:text="Name"
                 android:textSize="15sp"
                 android:singleLine="true"
-                android:ellipsize="marquee"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent" />
+                android:ellipsize="end"
+                android:inputType="textPostalAddress"
+                android:layout_marginHorizontal="20dp" />
 
             <ImageView
+                android:id="@+id/img2"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_forword"
-                android:layout_gravity="center_vertical"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_forword" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/frame_address"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="3dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="3dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="40dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="20dp">
 
             <ImageView
+                android:id="@+id/img_address"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/ic_address"/>
 
             <TextView
                 android:id="@+id/tv_address"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_address"
+                app:layout_constraintEnd_toStartOf="@id/img3"
+                app:layout_constraintHorizontal_bias="0"
                 tools:text="Address"
                 android:textSize="15sp"
                 android:singleLine="true"
-                android:ellipsize="marquee"
+                android:ellipsize="end"
                 android:inputType="textPostalAddress"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent" />
+                android:layout_marginHorizontal="20dp" />
 
             <ImageView
+                android:id="@+id/img3"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_forword"
-                android:layout_gravity="center_vertical"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_forword" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/frame_birthday"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="3dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="3dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="40dp">
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="20dp">
 
             <ImageView
+                android:id="@+id/img_birthday"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/ic_birthday"/>
 
             <TextView
                 android:id="@+id/tv_birthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="00/00/00"
-                android:textSize="15sp"
-                android:inputType="date"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical" />
-
-            <Space
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_birthday"
+                app:layout_constraintEnd_toStartOf="@id/img4"
+                app:layout_constraintHorizontal_bias="0"
+                tools:text="31/12/2030"
+                android:textSize="15sp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:inputType="textPostalAddress"
+                android:layout_marginLeft="20dp" />
 
             <ImageView
+                android:id="@+id/img4"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_forword"
-                android:layout_gravity="center_vertical"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_forword" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 
@@ -238,7 +258,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="40dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@null"
             android:spinnerMode="dialog"/>
 

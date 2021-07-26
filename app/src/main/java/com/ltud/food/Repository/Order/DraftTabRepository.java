@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ltud.food.Model.Order;
@@ -17,6 +19,7 @@ import com.ltud.food.Model.Restaurant;
 import com.ltud.food.Repository.Order.DeliveringTab.DeliveringTabRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +44,9 @@ public class DraftTabRepository {
         MutableLiveData<List<Order>> orderListLiveData = new MutableLiveData<>();
         List<Order> orderList = new ArrayList<>();
 
-        collectionReference.whereEqualTo("status", 0).get()
+        collectionReference.whereEqualTo("status", 0)
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -72,7 +77,8 @@ public class DraftTabRepository {
                                 }
 
                                 String id = document.get("id").toString();
-                                String date = document.get("date").toString();
+                                Timestamp ts = (Timestamp) document.get("date");
+                                Date date = ts.toDate();
                                 long status = (long) document.get("status");
                                 long payment_method = (long) document.get("payment_method");
                                 Order order = new Order(id, date, status, payment_method, restaurant, foodList);

@@ -16,6 +16,7 @@ import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolderItem> {
@@ -50,7 +51,8 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder
         Glide.with(holder.itemView.getContext())
                 .load(orderList.get(position).getRestaurant().getImg())
                 .into(holder.imageView);
-        holder.tvDate.setText(orderList.get(position).getDate());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        holder.tvDate.setText(dateFormat.format(orderList.get(position).getDate()));
 
         if (orderList.get(position).getStatus() == 1) {
             holder.tvTitle.setText("Đặt hàng thành công");

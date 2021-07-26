@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -71,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Restaurant name"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
                 android:textStyle="bold"
@@ -84,8 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_ten_nha_hang"
                 tools:text="New York"
-                android:textSize="12sp"
-                android:layout_marginTop="5dp"/>
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_don_gia"
@@ -93,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_dia_chi"
                 tools:text="100.000đ"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginTop="5dp"
@@ -107,7 +105,7 @@
                 android:layout_toRightOf="@id/tv_don_gia"
                 android:layout_alignTop="@id/tv_don_gia"
                 tools:text="(5 phần)"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textColor="@color/black"
                 android:layout_marginLeft="5dp" />
 
@@ -118,7 +116,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:text="Đang giao hàng"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textColor="@color/black" />
 
             <TextView
@@ -128,7 +126,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 tools:text="Ví điện tử"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textColor="@color/black" />
 
         </RelativeLayout>

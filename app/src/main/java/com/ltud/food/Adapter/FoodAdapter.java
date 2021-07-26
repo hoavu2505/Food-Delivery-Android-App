@@ -17,7 +17,9 @@ import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.foodViewHolder> {
 
@@ -42,8 +44,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.foodViewHolder
         this.addCallbacks = addCallbacks;
     }
 
-
-
     @NotNull
     @Override
     public foodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,12 +60,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.foodViewHolder
         Food food = foodArrayList.get(position);
 
         holder.name.setText(food.getName().toUpperCase());
-        holder.price.setText(String.valueOf(food.getPrice()));
+        Locale vietnam = new Locale("vi", "VN");
+        NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+        holder.price.setText(dongFormat.format(food.getPrice()));
         holder.rate.setText(String.valueOf(food.getRate()));
         Glide.with(holder.food.getContext()).load(food.getImg()).into(holder.food);
-
-
-
         holder.add_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

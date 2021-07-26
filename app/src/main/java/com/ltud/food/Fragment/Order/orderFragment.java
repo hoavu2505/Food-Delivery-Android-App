@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
@@ -17,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -32,6 +32,7 @@ import com.ltud.food.Model.Restaurant;
 import com.ltud.food.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -121,7 +122,8 @@ public class orderFragment extends Fragment{
                                 }
 
                                 String id = document.get("id").toString();
-                                String date = document.get("date").toString();
+                                Timestamp ts = (Timestamp) document.get("date");
+                                Date date = ts.toDate();
                                 long status = (long) document.get("status");
                                 long payment_method = (long) document.get("payment_method");
                                 Order order = new Order(id, date, status, payment_method, restaurant, foodList);

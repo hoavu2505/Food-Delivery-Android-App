@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel;
 import com.ltud.food.Model.Order;
 import com.ltud.food.Repository.Order.HistoryTab.HistoryTabRepository;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HistoryTabViewModel extends ViewModel {
@@ -22,11 +24,8 @@ public class HistoryTabViewModel extends ViewModel {
         return orderListLiveData;
     }
 
-    public LiveData<List<Order>> getDateOrderFilter(String date)
+    public LiveData<List<Order>> getDateOrderFilter(Date date)
     {
-        /*List<Order> orderList = repository.getOrderFilter(date);
-        orderListLiveData.setValue(orderList);*/
-
         orderListLiveData = repository.getDateOrderFilter(date);
         return orderListLiveData;
     }
@@ -37,7 +36,7 @@ public class HistoryTabViewModel extends ViewModel {
         return orderListLiveData;
     }
 
-    public LiveData<List<Order>> getOrderFilter(boolean isComplete, String date)
+    public LiveData<List<Order>> getOrderFilter(boolean isComplete, Date date)
     {
         orderListLiveData = repository.getOrderFilter(isComplete, date);
         return orderListLiveData;

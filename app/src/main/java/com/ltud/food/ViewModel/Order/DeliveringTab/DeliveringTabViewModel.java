@@ -16,7 +16,6 @@ public class DeliveringTabViewModel extends ViewModel {
 
     public LiveData<List<Order>> getDeliveringOrderList()
     {
-
         orderListLiveData = repository.getDeliveringOrderList();
         return orderListLiveData;
     }

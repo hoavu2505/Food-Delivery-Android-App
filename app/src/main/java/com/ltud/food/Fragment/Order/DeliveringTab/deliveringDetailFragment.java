@@ -1,16 +1,11 @@
 package com.ltud.food.Fragment.Order.DeliveringTab;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,14 +14,12 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.ltud.food.Adapter.CheckoutAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
@@ -36,6 +29,10 @@ import com.ltud.food.R;
 import com.ltud.food.ViewModel.Order.DeliveringTab.OrderDetailViewModel;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class deliveringDetailFragment extends Fragment implements View.OnClickListener {
 
@@ -47,9 +44,7 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
     private CustomProgressDialog progressDialog;
     private OrderDetailViewModel viewModel;
     private NavController navController;
-    private BottomNavigationView bottomNavigationView;
     private String orderID;
-    private Order currentOrder;
 
     public deliveringDetailFragment() {
         // Required empty public constructor
@@ -65,9 +60,6 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
-        bottomNavigationView.setVisibility(View.GONE);
 
         progressDialog = new CustomProgressDialog(getContext());
         progressDialog.show();
@@ -114,26 +106,27 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
                 tvResName.setText(order.getRestaurant().getAddress());
                 tvOrderID.setText(order.getId());
                 tvAddress.setText(order.getLocation());
-                tvDate.setText(order.getDate());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                tvDate.setText(dateFormat.format(order.getDate()));
 
                 long price = 0;
                 for (Order_Food food : order.getFoodList())
                 {
                     price += food.getPrice() * food.getQuantity();
                 }
-                tvPrice.setText(String.format("%sđ", String.valueOf(price)));
-                tvTotalPrice.setText(String.format("%sđ", String.valueOf(price + 15000)));
+                Locale vietnam = new Locale("vi", "VN");
+                NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+                tvPrice.setText(dongFormat.format(price));
+                tvTotalPrice.setText(dongFormat.format(price + 15000));
 
-                currentOrder = order;
+                progressDialog.dismiss();
             }
         });
-        if(progressDialog.isShowing())
-            progressDialog.dismiss();
     }
 
     @Override
     public void onClick(View v) {
-        bottomNavigationView.setVisibility(View.VISIBLE);
+
         switch (v.getId())
         {
             case R.id.imv_back: navController.navigate(R.id.orderFragment); break;
@@ -157,68 +150,10 @@ public class deliveringDetailFragment extends Fragment implements View.OnClickLi
     private void completedOrder() {
         viewModel.updateCompleteOrder(orderID, true);
         navController.navigate(R.id.orderFragment);
-        showSuccessNotification();
     }
 
     private void canceledOrder() {
         viewModel.updateCompleteOrder(orderID, false);
         navController.navigate(R.id.orderFragment);
-        showFailureNotification();
-    }
-
-    private void showSuccessNotification() {
-        final String CHANNEL_ID = "1";
-        String title = "Đơn hàng đã được giao";
-        String message = String.format("Đơn hàng đã được giao đến địa chỉ %s. Cảm ơn bạn đã sử dụng dịch vụ Eat Now. " +
-                "Hãy chia sẻ cảm nhận của bạn và tiếp tục đặt hàng nhé !", currentOrder.getLocation());
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-                .setSmallIcon(R.drawable.app_image)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        createNotificationChannel();
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
-        notificationManager.notify(1, builder.build());
-    }
-
-    private void showFailureNotification() {
-        final String CHANNEL_ID = "1";
-        String title = "Đã hủy đơn hàng";
-        String message = "Cảm ơn bạn đã sử dụng dịch vụ Eat Now. Hãy ấn đặt lại đơn hàng bất cứ khi nào bạn muốn !";
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-                .setSmallIcon(R.drawable.app_image)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        createNotificationChannel();
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
-        notificationManager.notify(2, builder.build());
-    }
-
-    private void createNotificationChannel()
-    {
-        final String CHANNEL_ID = "1";
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            String channel_name = getResources().getString(R.string.app_name);
-            String description = "Food app e-commerce";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channel_name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 }

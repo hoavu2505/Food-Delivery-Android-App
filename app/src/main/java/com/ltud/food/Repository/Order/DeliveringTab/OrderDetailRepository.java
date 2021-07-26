@@ -3,6 +3,7 @@ package com.ltud.food.Repository.Order.DeliveringTab;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -12,6 +13,8 @@ import com.ltud.food.Model.Order_Food;
 import com.ltud.food.Model.Restaurant;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +67,8 @@ public class OrderDetailRepository {
                         }
 
                         String id = document.get("id").toString();
-                        String date = document.get("date").toString();
+                        Timestamp ts = (Timestamp) document.get("date");
+                        Date date = ts.toDate();
                         long status = (long) document.get("status");
                         long payment_method = (long) document.get("payment_method");
                         Order order = new Order(id, date, status, payment_method, restaurant, foodList);
@@ -78,9 +82,13 @@ public class OrderDetailRepository {
 
     public void updateCompleteOrder(String orderID, boolean isComplete)
     {
+        Date date = new Date();
+        Map<String, Object> mapRef = new HashMap<>();
+        mapRef.put("date", date);
+        mapRef.put("complete", isComplete);
+        mapRef.put("status", 2);
         db.collection("Customer").document(userID)
                 .collection("Order").document(orderID)
-                .update("complete", isComplete,
-                        "status", 2);
+                .update(mapRef);
     }
 }

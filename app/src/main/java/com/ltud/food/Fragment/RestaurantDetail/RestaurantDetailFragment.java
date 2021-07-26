@@ -78,10 +78,6 @@ public class RestaurantDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
-
-        BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
-        navBar.setVisibility(v.GONE);
-
         return v;
     }
 
@@ -118,8 +114,6 @@ public class RestaurantDetailFragment extends Fragment {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav);
-                navBar.setVisibility(getView().VISIBLE);
                 navController.navigate(R.id.action_restaurantDetailFragment_to_homeFragment);
             }
         });

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/location_permission_image"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cho phép chúng tôi lấy vị trí thiết bị của ban ?"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/semibold"
+        android:gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đồng ý"
+        android:textSize="13sp"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/orange"
+        app:cornerRadius="20dp"
+        android:layout_marginTop="50dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Không cho phép"
+        android:textSize="13sp"
+        android:textColor="@color/orange"
+        app:backgroundTint="@color/white"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/orange"
+        app:cornerRadius="20dp"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>

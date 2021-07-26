@@ -2,6 +2,7 @@ package com.ltud.food.Fragment.Order.HistoryTab;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -43,14 +44,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class historyTabFragment extends Fragment implements HistoryTabAdapter.SelectedItem, View.OnClickListener, HistoryDatePickerFragment.onSetedDate, AdapterView.OnItemClickListener {
 
     private ViewGroup layout;
     private AutoCompleteTextView completeTextViewStatus, completeTextViewDate;
-    private MaterialButton btnGetAll;
-    private TextView tvRemoveAll;
+    private TextView tvGetAll, tvRemoveAll;
     private RecyclerView recyclerView;
     private HistoryTabAdapter adapter;
     private NavController navController;
@@ -60,7 +62,7 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
     private ArrayAdapter<String> statusAdapter;
     private boolean isComplete;
     private boolean isSelected;
-    private String myDate;
+    private Date myDate;
 
     public historyTabFragment() {
         // Required empty public constructor
@@ -82,10 +84,10 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
         navController = Navigation.findNavController(view);
 
         layout = view.findViewById(R.id.layout);
+        tvGetAll = view.findViewById(R.id.tv_get_all);
         tvRemoveAll = view.findViewById(R.id.tv_remove_all);
         completeTextViewStatus = view.findViewById(R.id.actv_complete_status);
         completeTextViewDate = view.findViewById(R.id.actv_date);
-        btnGetAll = view.findViewById(R.id.btn_all);
 
         recyclerView = view.findViewById(R.id.rec_history_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
@@ -96,7 +98,7 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
         progressDialog.dismiss();
 
         completeTextViewDate.setOnClickListener(this);
-        btnGetAll.setOnClickListener(this);
+        tvGetAll.setOnClickListener(this);
         tvRemoveAll.setOnClickListener(this);
     }
 
@@ -112,17 +114,20 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
         viewModel.getHistoryOrderList().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
-                adapter.setOrderList(orders);
-                adapter.notifyDataSetChanged();
-                orderList = orders;
                 if(!orders.isEmpty())
                     layout.setVisibility(View.GONE);
                 else
                     layout.setVisibility(View.VISIBLE);
+                orderList = orders;
+                adapter.setOrderList(orderList);
+                adapter.notifyDataSetChanged();
             }
         });
 
         //set up autocomplete
+        myDate = null;
+        isSelected = false;
+        completeTextViewDate.setText("Ngày");
         completeTextViewStatus.setText("Trạng thái");
         statusAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.status));
@@ -132,21 +137,41 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btn_all)
+        if(v.getId() == R.id.tv_get_all)
         {
             updateUI();
-            myDate = null;
-            isSelected = false;
-            completeTextViewStatus.setAdapter(statusAdapter);
-            completeTextViewStatus.setOnItemClickListener(this);
         }
         else if(v.getId() == R.id.tv_remove_all)
         {
-            int index = 0;
-            while (!orderList.isEmpty())
-                viewModel.removeAnOrder(orderList.get(index).getId(), index);
+            removeHistory();
         }
         else dateFilter();
+    }
+
+    private void removeHistory() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false)
+                .setIcon(R.drawable.history_image)
+                .setMessage("Sau khi xóa toàn bộ lịch sử sẽ không thể khôi phục !")
+                .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        progressDialog.show();
+                        int index = 0;
+                        while (!orderList.isEmpty())
+                            viewModel.removeAnOrder(orderList.get(index).getId(), index);
+                        progressDialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void dateFilter() {
@@ -161,8 +186,10 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
     }
 
     @Override
-    public void onSet(String date) {
+    public void onSet(Date date) {
         myDate = date;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        completeTextViewDate.setText(dateFormat.format(date));
 
         if(!isSelected)
         {
@@ -172,7 +199,6 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
                     adapter.setOrderList(orders);
                     adapter.notifyDataSetChanged();
                     orderList = orders;
-                    completeTextViewDate.setText(date);
                     return;
                 }
             });
@@ -191,7 +217,6 @@ public class historyTabFragment extends Fragment implements HistoryTabAdapter.Se
 
         adapter.setOrderList(new ArrayList<>());
         adapter.notifyDataSetChanged();
-        //viewModel.getDateOrderFilter(date);
     }
 
     @Override

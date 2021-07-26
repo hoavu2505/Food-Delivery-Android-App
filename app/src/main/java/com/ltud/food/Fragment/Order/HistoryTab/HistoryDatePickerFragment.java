@@ -8,22 +8,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.util.Log;
 import android.widget.DatePicker;
 
 import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class HistoryDatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -35,7 +29,7 @@ public class HistoryDatePickerFragment extends DialogFragment implements DatePic
     onSetedDate date;
     public interface onSetedDate
     {
-        void onSet(String date);
+        void onSet(Date date);
     }
 
     @NonNull
@@ -56,11 +50,14 @@ public class HistoryDatePickerFragment extends DialogFragment implements DatePic
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DATE, dayOfMonth);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);
-        DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String mydate = simpleDateFormat.format(calendar.getTime());
-        date.onSet(mydate);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        Date myDate = calendar.getTime();
+        date.onSet(myDate);
+        Log.i("log", String.valueOf(myDate));
     }
 }

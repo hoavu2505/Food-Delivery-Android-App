@@ -5,19 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="20dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="7dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="8"
+        android:weightSum="13"
         android:paddingRight="5dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_weight="2"
+            android:layout_weight="4"
             app:cardCornerRadius="20dp">
 
             <ImageView
@@ -32,7 +32,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="6"
             android:orientation="vertical"
             android:paddingVertical="5dp"
             android:paddingHorizontal="15dp">
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Name"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:ellipsize="end"
@@ -54,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="500+ thích"
+                android:fontFamily="@font/semibold"
                 android:textSize="10sp" />
 
             <TextView
@@ -61,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="50.000đ"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="@color/orange"
                 android:layout_marginTop="20dp"
@@ -73,7 +74,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="horizontal">
 
             <ImageView

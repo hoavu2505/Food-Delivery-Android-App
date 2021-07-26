@@ -16,7 +16,9 @@ import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class DeliveringTabAdapter extends RecyclerView.Adapter<DeliveringTabAdapter.ItemViewHolder> {
 
@@ -61,7 +63,9 @@ public class DeliveringTabAdapter extends RecyclerView.Adapter<DeliveringTabAdap
             quantity += food.getQuantity();
         }
 
-        holder.tvPrice.setText(String.format("%sđ", String.valueOf(totalPrice)));
+        Locale vietnam = new Locale("vi", "VN");
+        NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+        holder.tvPrice.setText(dongFormat.format(totalPrice));
         holder.tvQuantity.setText(String.format("(%d phần)", quantity));
         holder.tvPaymentMethod.setText(orderList.get(position).getPayment_method() == 0 ? "Ví điện tử" : "Tiền mặt");
     }

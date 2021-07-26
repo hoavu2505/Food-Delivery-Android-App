@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,10 +27,12 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.UUID;
 
 public class datDonRepository {
@@ -86,7 +89,8 @@ public class datDonRepository {
                                 }
 
                                 String id = document.get("id").toString();
-                                String date = document.get("date").toString();
+                                Timestamp ts = (Timestamp) document.get("date");
+                                Date date = ts.toDate();
                                 long status = (long) document.get("status");
                                 long payment_method = (long) document.get("payment_method");
                                 Order order = new Order(id, date, status, payment_method, restaurant, foodList);
@@ -104,8 +108,7 @@ public class datDonRepository {
     {
         UUID uuid = UUID.randomUUID();
         String id = uuid.toString();
-        DateFormat today = new SimpleDateFormat("dd/MM/yyyy");
-        String date = today.format(new Date());
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
         int status = 0;
         int payment_method = 0;
 
@@ -133,7 +136,7 @@ public class datDonRepository {
         //order map
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
-        map.put("date", date);
+        map.put("date", calendar.getTime());
         map.put("status", status);
         map.put("payment_method", payment_method);
         map.put("restaurant", restaurantMap);
@@ -142,7 +145,7 @@ public class datDonRepository {
 
         List<Order_Food> foodList = new ArrayList<>();
         foodList.add(food);
-        Order order = new Order(id, date, status, payment_method,restaurant, foodList);
+        Order order = new Order(id, calendar.getTime(), status, payment_method,restaurant, foodList);
 
         return order;
     }

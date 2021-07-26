@@ -28,6 +28,7 @@ import com.ltud.food.ViewModel.Order.DeliveringTab.DeliveringTabViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class deliveringTabFragment extends Fragment implements DeliveringTabAdapter.SelectedItem{
@@ -85,10 +86,14 @@ public class deliveringTabFragment extends Fragment implements DeliveringTabAdap
         viewModel.getDeliveringOrderList().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> list) {
-                orderList.addAll(list);
-                adapter.setOrderList(list);
+                if(!list.isEmpty())
+                    layout.setVisibility(View.GONE);
+                else
+                    layout.setVisibility(View.VISIBLE);
+
+                orderList = list;
+                adapter.setOrderList(orderList);
                 adapter.notifyDataSetChanged();
-                layout.setVisibility(View.GONE);
             }
         });
         progressDialog.dismiss();

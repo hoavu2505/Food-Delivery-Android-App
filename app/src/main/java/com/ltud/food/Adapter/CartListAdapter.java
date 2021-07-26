@@ -18,7 +18,10 @@ import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ItemViewHolder> {
 
@@ -82,7 +85,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ItemVi
                 .into(holder.imvItemImage);
         holder.tvName.setText(orderList.get(position).getName().toUpperCase());
         holder.tvRate.setText(String.format("%d lượt thích", orderList.get(position).getRate()));
-        holder.tvPrice.setText(String.format("%sđ", orderList.get(position).getPrice()));
+        Locale vietnam = new Locale("vi", "VN");
+        NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+        holder.tvPrice.setText(dongFormat.format(orderList.get(position).getPrice()));
         holder.tvQuantity.setText(String.valueOf(orderList.get(position).getQuantity()));
     }
 

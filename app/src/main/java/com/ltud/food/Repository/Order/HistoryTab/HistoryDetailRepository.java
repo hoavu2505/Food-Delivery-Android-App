@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -76,7 +77,8 @@ public class HistoryDetailRepository {
                         }
 
                         String id = document.get("id").toString();
-                        String date = document.get("date").toString();
+                        Timestamp ts = (Timestamp) document.get("date");
+                        Date date = ts.toDate();
                         long status = (long) document.get("status");
                         long payment_method = (long) document.get("payment_method");
                         String location = document.get("location").toString();
@@ -125,8 +127,7 @@ public class HistoryDetailRepository {
     {
         UUID uuid = UUID.randomUUID();
         String id = uuid.toString();
-        DateFormat today = new SimpleDateFormat("dd/MM/yyyy");
-        String date = today.format(new Date());
+        Date date = new Date();
         int status = 0;
         int payment_method = 0;
 

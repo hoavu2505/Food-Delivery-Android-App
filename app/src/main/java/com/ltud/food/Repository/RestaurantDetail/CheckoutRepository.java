@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,6 +22,7 @@ import com.ltud.food.Model.Restaurant;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,7 +100,8 @@ public class CheckoutRepository {
                         }
 
                         String id = document.get("id").toString();
-                        String date = document.get("date").toString();
+                        Timestamp ts = (Timestamp) document.get("date");
+                        Date date = ts.toDate();
                         long status = (long) document.get("status");
                         long payment_method = (long) document.get("payment_method");
                         Order order = new Order(id, date, status, payment_method, restaurant, foodList);
@@ -113,6 +116,8 @@ public class CheckoutRepository {
     public void updateOrderPayment(String orderID, long method, String address)
     {
         Map<String, Object> map = new HashMap<>();
+        Date date = new Date();
+        map.put("date", date);
         map.put("location", address);
         map.put("payment_method", method);
         map.put("status", 1);

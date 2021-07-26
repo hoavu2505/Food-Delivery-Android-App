@@ -16,7 +16,10 @@ import com.ltud.food.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class HistoryTabAdapter extends RecyclerView.Adapter<HistoryTabAdapter.ItemViewHolder> {
 
@@ -50,7 +53,8 @@ public class HistoryTabAdapter extends RecyclerView.Adapter<HistoryTabAdapter.It
                 .load(orderList.get(position).getRestaurant().getImg())
                 .into(holder.imgRestaurant);
         holder.tvOrderID.setText(orderList.get(position).getId());
-        holder.tvDate.setText(orderList.get(position).getDate());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        holder.tvDate.setText(dateFormat.format(orderList.get(position).getDate()));
         holder.tvName.setText(orderList.get(position).getRestaurant().getName());
         holder.tvAddress.setText(orderList.get(position).getRestaurant().getAddress());
 
@@ -61,8 +65,9 @@ public class HistoryTabAdapter extends RecyclerView.Adapter<HistoryTabAdapter.It
             totalPrice += food.getPrice() * food.getQuantity();
             quantity += food.getQuantity();
         }
-
-        holder.tvPrice.setText(String.format("%sđ", String.valueOf(totalPrice)));
+        Locale vietnam = new Locale("vi", "VN");
+        NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+        holder.tvPrice.setText(dongFormat.format(totalPrice));
         holder.tvQuantity.setText(String.format("(%d phần)", quantity));
         holder.tvPaymentMethod.setText(orderList.get(position).getPayment_method() == 0 ? "Ví điện tử" : "Tiền mặt");
         holder.tvIsComplete.setText(orderList.get(position).isComplete() ? "Hoàn thành" : "Bị hủy");

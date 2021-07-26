@@ -1,5 +1,7 @@
 package com.ltud.food.Fragment.Notification;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ public class notiFragment extends Fragment implements NotifyAdapter.SelectedItem
     private NotifyAdapter adapter;
     private NotifyViewModel viewModel;
     private List<Order> orderList;
+    private CustomProgressDialog progressDialog;
 
     public notiFragment() {
         // Required empty public constructor
@@ -52,7 +55,7 @@ public class notiFragment extends Fragment implements NotifyAdapter.SelectedItem
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CustomProgressDialog progressDialog = new CustomProgressDialog(getContext());
+        progressDialog = new CustomProgressDialog(getContext());
         progressDialog.show();
 
         layout = view.findViewById(R.id.layout);
@@ -73,12 +76,12 @@ public class notiFragment extends Fragment implements NotifyAdapter.SelectedItem
                     layout.setVisibility(View.GONE);
                 else
                     layout.setVisibility(View.VISIBLE);
+
+                progressDialog.dismiss();
             }
         });
-
         if(progressDialog.isShowing())
             progressDialog.dismiss();
-
         tvReadAll.setOnClickListener(this);
     }
 
@@ -89,10 +92,32 @@ public class notiFragment extends Fragment implements NotifyAdapter.SelectedItem
 
     @Override
     public void onClick(View v) {
-        int index = 0;
-        while (!orderList.isEmpty())
-        {
-            viewModel.updateCheckedNotify(orderList.get(index).getId(), index);
-        }
+        readAll();
+    }
+
+    private void readAll() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false)
+                .setIcon(R.drawable.history_image)
+                .setMessage("Đánh dấu tất cả là đã đọc ?")
+                .setPositiveButton("Đã đọc", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        progressDialog.show();
+                        int index = 0;
+                        while (!orderList.isEmpty())
+                            viewModel.updateCheckedNotify(orderList.get(index).getId(), index);
+                        progressDialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

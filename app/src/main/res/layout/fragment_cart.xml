@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="Thanh toán"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:fontFamily="@font/semibold"
             app:backgroundTint="@color/orange"
             app:cornerRadius="15dp"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:text="Tổng tiền"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:fontFamily="@font/semibold"
             android:layout_alignParentLeft="true"
             android:layout_above="@id/btn_thanh_toan"
@@ -105,12 +105,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/orange"
-            android:textSize="20sp"
+            android:textSize="18sp"
             tools:text="500.000đ"
             android:fontFamily="@font/semibold"
             android:layout_alignParentRight="true"
             android:layout_above="@id/btn_thanh_toan"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="15dp"/>
 
     </RelativeLayout>
 

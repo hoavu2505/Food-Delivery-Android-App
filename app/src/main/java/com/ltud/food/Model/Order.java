@@ -1,10 +1,12 @@
 package com.ltud.food.Model;
 
+import java.util.Date;
 import java.util.List;
 
 public class Order {
 
-    private String id, date, location;
+    private String id, location;
+    private Date date;
     private long status, payment_method;
     private boolean complete, checked_notification;
     private Restaurant restaurant;
@@ -13,7 +15,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String id, String date, long status, long payment_method, Restaurant restaurant, List<Order_Food> foodList) {
+    public Order(String id, Date date, long status, long payment_method, Restaurant restaurant, List<Order_Food> foodList) {
         this.id = id;
         this.date = date;
         this.status = status;
@@ -30,11 +32,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

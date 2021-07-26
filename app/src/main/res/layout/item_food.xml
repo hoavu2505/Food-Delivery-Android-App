@@ -3,12 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="3dp"
     app:cardCornerRadius="20dp"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:layout_marginBottom="10dp"
     android:id="@+id/item_food_id">
 
     <androidx.cardview.widget.CardView
@@ -30,7 +28,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="120dp"
+        android:layout_marginLeft="110dp"
         android:orientation="vertical">
 
         <TextView
@@ -41,7 +39,7 @@
             android:layout_marginLeft="5dp"
             android:text="Ten mon an"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:fontFamily="@font/semibold"/>
 
         <LinearLayout
@@ -56,8 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="500"
-                android:textColor="@color/grey"
-                android:textSize="12sp"
+                android:textColor="@color/home_theme"
+                android:textSize="10sp"
                 android:fontFamily="@font/semibold" />
 
             <ImageView
@@ -81,19 +79,10 @@
                 android:layout_height="wrap_content"
                 android:text="50000"
                 android:textColor="@color/orange"
-                android:textSize="14sp"
-                android:fontFamily="@font/semibold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="đ"
-                android:textColor="@color/orange"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:fontFamily="@font/semibold" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 

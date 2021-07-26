@@ -5,7 +5,6 @@
     android:id="@+id/detail_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
     app:layoutDescription="@xml/fragment_restaurant_detail_scene"
     tools:context=".Fragment.RestaurantDetail.RestaurantDetailFragment">
 
@@ -24,16 +23,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/background"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/img_res_detail_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_back_white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +49,7 @@
             android:fontFamily="@font/semibold"
             android:text="Restaurant Name"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
         <LinearLayout
             android:id="@+id/ly_rate_address"
@@ -116,7 +105,7 @@
                 app:tabIndicatorAnimationMode="elastic"
                 app:tabIndicatorGravity="stretch"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/white"
+                app:tabSelectedTextColor="@color/black"
                 app:tabTextAppearance="@style/tab_text" />
 
             <androidx.viewpager.widget.ViewPager
@@ -128,5 +117,24 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingHorizontal="20dp"
+        android:background="#B3000000">
+
+        <ImageView
+            android:id="@+id/img_res_detail_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_back_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

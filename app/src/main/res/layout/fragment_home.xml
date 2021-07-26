@@ -11,19 +11,24 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
+        android:layout_marginLeft="10dp"
         android:src="@drawable/search" />
 
     <TextView
         android:id="@+id/txt_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="175 Tây Sơn, Đống Đa, Hà Nội"
-        android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/img_search"
+        android:layout_toLeftOf="@id/img_search"
+        tools:text="175 Tây Sơn, Đống Đa, Hà Nội"
+        android:textColor="@color/black"
+        android:textSize="11sp"
         android:fontFamily="@font/semibold"
-        android:layout_marginTop="20dp"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:layout_marginLeft="20dp"/>
 
     <TextView
@@ -32,9 +37,9 @@
         android:layout_height="wrap_content"
         android:text="Danh mục"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="19sp"
         android:fontFamily="@font/semibold"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"/>
 
     <RelativeLayout
@@ -58,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cơm"
-                android:textColor="@color/grey"
+                android:textColor="@color/home_theme"
                 android:textSize="15dp"
                 android:fontFamily="@font/semibold"
                 android:layout_below="@id/img_com"
@@ -83,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đồ uống"
-                android:textColor="@color/grey"
+                android:textColor="@color/home_theme"
                 android:textSize="15dp"
                 android:fontFamily="@font/semibold"
                 android:layout_below="@id/img_douong"
@@ -108,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ăn vặt"
-                android:textColor="@color/grey"
+                android:textColor="@color/home_theme"
                 android:textSize="15dp"
                 android:fontFamily="@font/semibold"
                 android:layout_below="@id/img_anvat"

@@ -70,8 +70,8 @@
 
             <ImageView
                 android:id="@+id/image_location"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_location"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,25 +81,25 @@
                 android:id="@+id/tv_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:text="Address"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:hint="Thêm địa chỉ"
+                android:layout_marginHorizontal="10dp"
                 android:fontFamily="@font/semibold"
+                android:hint="Thêm địa chỉ"
+                android:textColor="@color/black"
+                android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@id/text1"
+                app:layout_constraintEnd_toStartOf="@id/imv_edit_address"
                 app:layout_constraintStart_toEndOf="@id/image_location"
-                app:layout_constraintEnd_toStartOf="@id/image_add"
-                android:layout_marginTop="9dp"
-                android:layout_marginHorizontal="10dp"/>
+                android:layout_marginTop="10dp"
+                tools:text="Address" />
 
             <ImageView
-                android:id="@+id/image_add"
+                android:id="@+id/imv_edit_address"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_add"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_edit_address" />
 
             <TextView
                 android:id="@+id/text2"
@@ -124,12 +124,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Date"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
-                app:layout_constraintTop_toBottomOf="@id/text2"
-                app:layout_constraintStart_toStartOf="@id/tv_address"
-                android:layout_marginTop="9dp" />
+                app:layout_constraintTop_toTopOf="@id/image_time"
+                app:layout_constraintBottom_toBottomOf="@id/image_time"
+                app:layout_constraintStart_toEndOf="@id/image_time"
+                android:layout_marginStart="10dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
@@ -222,7 +223,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ví điện tử"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/semibold"
                     android:layoutDirection="rtl"
@@ -233,7 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tiền mặt"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/semibold"
                     android:layoutDirection="rtl"
@@ -255,7 +256,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="500.000đ"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toTopOf="@id/text5"
@@ -275,7 +276,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15.000đ"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:fontFamily="@font/semibold"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toTopOf="@id/text6"
@@ -298,7 +299,7 @@
     <RelativeLayout
         android:id="@+id/layout_3"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -309,7 +310,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="Thanh toán"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:fontFamily="@font/semibold"
             app:backgroundTint="@color/orange"
             app:cornerRadius="15dp"
@@ -321,23 +322,23 @@
             android:layout_height="wrap_content"
             android:text="Tổng tiền"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:fontFamily="@font/semibold"
             android:layout_alignParentLeft="true"
             android:layout_above="@id/btn_thanh_toan"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/tv_tong_tien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/orange"
-            android:textSize="20sp"
+            android:textSize="17sp"
             tools:text="500.000đ"
             android:fontFamily="@font/semibold"
             android:layout_alignParentRight="true"
             android:layout_above="@id/btn_thanh_toan"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="20dp"/>
 
     </RelativeLayout>
 

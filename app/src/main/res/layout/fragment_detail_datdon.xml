@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_datdon"
+    android:background="@color/grey"
     tools:context=".Fragment.RestaurantDetail.detail_datdonFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -18,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ly_cart"
-
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="6dp">

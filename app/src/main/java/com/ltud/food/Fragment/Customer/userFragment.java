@@ -19,6 +19,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -149,6 +151,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
                 public void onChanged(Customer cus) {
                     customer = cus;
                     updateUI(customer);
+                    progressDialog.dismiss();
                 }
             });
             docRef = FirebaseFirestore.getInstance().collection(COLLECTION).document(user.getUid());
@@ -228,9 +231,35 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         dialog.getWindow().setLayout(width, height);
         dialog.show();
 
-        ImageView imvBack = imvBack = (ImageView) dialog.findViewById(R.id.imv_back);
+        ImageView imvBack = (ImageView) dialog.findViewById(R.id.imv_back);
         EditText edtChangeName = (EditText) dialog.findViewById(R.id.edt_Change_Name);
         Button btnSave = (Button) dialog.findViewById(R.id.btn_save);
+
+        edtChangeName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().equals(tvName.getText().toString()) && s.length() != 0)
+                {
+                    btnSave.setEnabled(true);
+                    btnSave.setBackgroundColor(getResources().getColor(R.color.orange));
+                }
+                else
+                {
+                    btnSave.setEnabled(false);
+                    btnSave.setBackgroundColor(getResources().getColor(R.color.home_theme));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         edtChangeName.setText(tvName.getText().toString());
         edtChangeName.requestFocus();
 
@@ -312,6 +341,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
 
         if(requestCode == REQUEST_IMAGE_CODE && data != null) {
             Uri avatarUri = data.getData();
+            imvAvatar.setImageURI(avatarUri);
             String filePath = "customer/" + avatarUri.getLastPathSegment();
             storageRef = storage.getReference().child(filePath);
             storageRef.putFile(avatarUri);
@@ -321,7 +351,6 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
                         @Override
                         public void onSuccess(Uri uri) {
                             docRef.update("avatar", uri.toString());
-                            imvAvatar.setImageURI(avatarUri);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -336,6 +365,7 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
         else
         {
             Bitmap avatar = data.getParcelableExtra("data");
+            imvAvatar.setImageBitmap(avatar);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             avatar.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] imageData = baos.toByteArray();
@@ -349,7 +379,6 @@ public class userFragment extends Fragment implements View.OnClickListener, Adap
                         @Override
                         public void onSuccess(Uri uri) {
                             docRef.update("avatar", uri);
-                            imvAvatar.setImageBitmap(avatar);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

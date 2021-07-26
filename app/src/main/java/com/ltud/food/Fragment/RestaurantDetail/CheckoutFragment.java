@@ -27,7 +27,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ltud.food.Adapter.CheckoutAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
 import com.ltud.food.Model.Order;
@@ -37,10 +36,14 @@ import com.ltud.food.ViewModel.RestaurantDetail.CheckoutViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 public class CheckoutFragment extends Fragment implements View.OnClickListener {
 
-    private ImageView imvBack;
+    private ImageView imvBack, imvEditAddress;
     private TextView tvLocation, tvDate, tvPrice, tvTotalPrice;
     private Button btnCheckout;
     private RadioButton rdbDigitalWallet, rdbCash;
@@ -49,7 +52,6 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
     private CheckoutViewModel checkoutViewModel;
     private NavController navController;
     private CustomProgressDialog progressDialog;
-    private BottomNavigationView bottomNavigationView;
     private String orderID;
     private String address;
     private Order currentOrder;
@@ -73,6 +75,7 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
         progressDialog.show();
 
         imvBack = view.findViewById(R.id.imv_back);
+        imvEditAddress = view.findViewById(R.id.imv_edit_address);
         tvLocation = view.findViewById(R.id.tv_address);
         tvDate = view.findViewById(R.id.tv_date);
         tvPrice = view.findViewById(R.id.tv_tien_hang);
@@ -94,10 +97,8 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
         liveDataObserve();
 
         imvBack.setOnClickListener(this);
-        tvLocation.setOnClickListener(this);
+        imvEditAddress.setOnClickListener(this);
         btnCheckout.setOnClickListener(this);
-
-        progressDialog.dismiss();
     }
 
     private void liveDataObserve() {
@@ -117,7 +118,8 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
                 adapter.notifyDataSetChanged();
                 currentOrder = order;
 
-                tvDate.setText(order.getDate());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                tvDate.setText(dateFormat.format(order.getDate()));
                 if(order.getPayment_method() == 0)
                     rdbDigitalWallet.setChecked(true);
                 else
@@ -128,8 +130,12 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
                 {
                     price += food.getPrice() * food.getQuantity();
                 }
-                tvPrice.setText(String.format("%sđ", String.valueOf(price)));
-                tvTotalPrice.setText(String.format("%sđ", String.valueOf(price + 15000)));
+                Locale vietnam = new Locale("vi", "VN");
+                NumberFormat dongFormat = NumberFormat.getCurrencyInstance(vietnam);
+                tvPrice.setText(dongFormat.format(price));
+                tvTotalPrice.setText(dongFormat.format(price + 15000));
+
+                progressDialog.dismiss();
             }
         });
     }
@@ -148,7 +154,7 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
         switch (v.getId())
         {
             case R.id.imv_back: backToCart(); break;
-            case R.id.tv_address: changeLocation(); break;
+            case R.id.imv_edit_address: changeLocation(); break;
             case R.id.btn_thanh_toan: orderCheckOut(); break;
         }
     }
@@ -175,8 +181,6 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
         if(rdbCash.isChecked())
             method = 1;
         checkoutViewModel.updateOrderPayment(orderID, method, address);
-        bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
-        bottomNavigationView.setVisibility(View.VISIBLE);
         navController.navigate(R.id.orderFragment);
 
         showNotification();
@@ -189,7 +193,7 @@ public class CheckoutFragment extends Fragment implements View.OnClickListener {
                     currentOrder.getRestaurant().getName(), currentOrder.getRestaurant().getAddress());
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-                .setSmallIcon(R.drawable.app_image)
+                .setSmallIcon(R.drawable.splash_logo)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)

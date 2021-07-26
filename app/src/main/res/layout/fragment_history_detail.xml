@@ -69,7 +69,7 @@
                 android:layout_marginTop="20dp"
                 tools:text="Restaurant name"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"/>
 
@@ -88,6 +88,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/text8"
                 app:layout_constraintStart_toEndOf="@id/text8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
                 tools:text="abcde"/>
 
             <TextView
@@ -104,8 +106,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/text10"
+                app:layout_constraintBottom_toBottomOf="@id/text10"
                 app:layout_constraintStart_toEndOf="@id/text10"
-                tools:text="hoan thanh"/>
+                tools:text="Hoan thanh"/>
 
             <TextView
                 android:id="@+id/text1"
@@ -118,8 +121,8 @@
 
             <ImageView
                 android:id="@+id/image_location"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_location"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,14 +133,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="Address"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:hint="Thêm địa chỉ"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 app:layout_constraintStart_toEndOf="@id/image_location"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="10dp"/>
 
             <TextView
@@ -163,12 +166,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Date"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
-                app:layout_constraintTop_toBottomOf="@id/text2"
-                app:layout_constraintStart_toStartOf="@id/tv_location"
-                android:layout_marginTop="9dp" />
+                app:layout_constraintTop_toTopOf="@id/image_time"
+                app:layout_constraintBottom_toBottomOf="@id/image_time"
+                app:layout_constraintStart_toEndOf="@id/image_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="10dp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
@@ -226,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="500.000đ"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toTopOf="@id/text5"
@@ -246,7 +252,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15.000đ"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toTopOf="@id/text6"
@@ -258,7 +264,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tổng tiền"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toBottomOf="@id/text6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -269,7 +275,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 tools:text="500.000đ"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toTopOf="@id/text7"
@@ -293,7 +299,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/semibold"
                     android:text="Đặt lại"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     app:backgroundTint="@color/orange"
                     app:cornerRadius="10dp"
                     android:layout_marginRight="5dp"/>
@@ -306,7 +312,7 @@
                     android:text="Xóa"
                     android:fontFamily="@font/semibold"
                     android:textColor="@color/orange"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     app:cornerRadius="10dp"
                     app:strokeWidth="1dp"
                     app:strokeColor="@color/orange"

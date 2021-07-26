@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đơn hàng : "
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
                 android:layout_alignParentLeft="true"/>
@@ -36,6 +36,7 @@
                 android:layout_toRightOf="@id/text1"
                 android:layout_toLeftOf="@id/tv_ngay"
                 tools:text="12345"
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:ellipsize="end"
                 android:singleLine="true" />
@@ -45,7 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                tools:text="30/06/2021" />
+                tools:text="30/06/2021"
+                android:textSize="12sp"/>
 
         </RelativeLayout>
 
@@ -55,7 +57,8 @@
             android:layout_height="100dp"
             app:layout_constraintTop_toBottomOf="@id/layout_1"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp">
 
             <ImageView
                 android:id="@+id/imv_mon_an"
@@ -93,8 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_ten_nha_hang"
                 tools:text="New York"
-                android:textSize="11sp"
-                android:layout_marginTop="5dp"
+                android:textSize="10sp"
                 android:ellipsize="end"
                 android:maxLines="1"/>
 
@@ -105,7 +107,7 @@
                 android:layout_below="@id/tv_dia_chi"
                 android:layout_marginTop="5dp"
                 tools:text="100.000đ"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"/>
@@ -118,7 +120,7 @@
                 android:layout_toRightOf="@id/tv_don_gia"
                 android:layout_alignTop="@id/tv_don_gia"
                 tools:text="(5 phần)"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_marginLeft="5dp"/>
 
             <TextView
@@ -127,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 tools:text="Hoàn thành"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"/>
 
@@ -138,7 +140,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 tools:text="Ví điện tử"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
         </RelativeLayout>
 

@@ -3,10 +3,12 @@ package com.ltud.food.Repository.Notification;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ltud.food.Model.Order;
@@ -15,6 +17,7 @@ import com.ltud.food.Model.Restaurant;
 import com.ltud.food.Repository.Order.HistoryTab.HistoryTabRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -72,7 +75,8 @@ public class NotifyRepository {
                                 }
 
                                 String id = document.get("id").toString();
-                                String date = document.get("date").toString();
+                                Timestamp ts = (Timestamp) document.get("date");
+                                Date date = ts.toDate();
                                 long status = (long) document.get("status");
                                 long payment_method = (long) document.get("payment_method");
 
@@ -95,7 +99,10 @@ public class NotifyRepository {
 
     public void updateCheckedNotify(String orderID)
     {
-        collectionReference.document(orderID).update("checked_notification", true);
+        Date date = new Date();
+        collectionReference.document(orderID)
+                .update("checked_notification", true,
+                "date", date);
     }
 
 }

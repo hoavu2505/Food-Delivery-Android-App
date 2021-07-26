@@ -69,7 +69,7 @@
                 android:layout_marginTop="20dp"
                 tools:text="Restaurant name"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"/>
 
@@ -80,11 +80,11 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_ten_nha_hang"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="10dp"
-                android:text="Mã đơn hàng : "/>
+                android:text="Mã đơn hàng : " />
 
             <TextView
                 android:id="@+id/tv_ma_don_hang"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/text8"
                 app:layout_constraintStart_toEndOf="@id/text8"
@@ -103,8 +103,8 @@
 
             <ImageView
                 android:id="@+id/image_location"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_location"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,14 +115,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="Address"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:hint="Thêm địa chỉ"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toBottomOf="@id/text1"
                 app:layout_constraintStart_toEndOf="@id/image_location"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="10dp"/>
 
             <TextView
@@ -148,12 +148,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Date"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
-                app:layout_constraintTop_toBottomOf="@id/text2"
-                app:layout_constraintStart_toStartOf="@id/tv_address"
-                android:layout_marginTop="9dp" />
+                app:layout_constraintTop_toTopOf="@id/image_time"
+                app:layout_constraintBottom_toBottomOf="@id/image_time"
+                app:layout_constraintStart_toEndOf="@id/image_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="10dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
@@ -237,7 +240,7 @@
                         android:maxLines="1"
                         android:text="Phùng Thanh Độ"
                         android:fontFamily="@font/semibold"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -246,7 +249,8 @@
                         android:layout_alignParentBottom="true"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Đang giao hàng"/>
+                        android:text="Đang giao hàng"
+                        android:textSize="11sp"/>
 
                 </RelativeLayout>
 
@@ -321,7 +325,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="500.000đ"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toTopOf="@id/text5"
@@ -341,7 +345,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15.000đ"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toTopOf="@id/text6"
@@ -353,7 +357,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tổng tiền"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:fontFamily="@font/semibold"
                app:layout_constraintTop_toBottomOf="@id/text6"
                 app:layout_constraintStart_toStartOf="parent"
@@ -364,7 +368,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/orange"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 tools:text="500.000đ"
                 android:fontFamily="@font/semibold"
                 app:layout_constraintTop_toTopOf="@id/text7"
@@ -387,7 +391,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:text="Đã nhận"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:fontFamily="@font/semibold"
                     app:backgroundTint="@color/orange"
                     app:cornerRadius="10dp"
@@ -401,7 +405,7 @@
                     android:text="Hủy"
                     android:fontFamily="@font/semibold"
                     android:textColor="@color/orange"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     app:cornerRadius="10dp"
                     app:strokeWidth="1dp"
                     app:strokeColor="@color/orange"

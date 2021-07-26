@@ -193,7 +193,7 @@ public class loginFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onComplete(@NotNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            navController.navigate(R.id.userFragment);
+                            navController.navigate(R.id.homeFragment);
                             progressDialog.dismiss();
                         }
                         else

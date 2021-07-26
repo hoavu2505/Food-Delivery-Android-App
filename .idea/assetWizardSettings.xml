@@ -79,8 +79,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="F:\food_delivery.jpg" />
-                                                <entry key="scalingPercent" value="77" />
+                                                <entry key="imagePath" value="F:\logo.png" />
+                                                <entry key="scalingPercent" value="87" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -113,7 +114,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffc47c" />
+                                      <entry key="backgroundColor" value="ffffff" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -131,6 +132,20 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="C:\Users\nguye\AppData\Local\Temp\ic_android_black_24dp.xml" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="F:\logo_size_invert.jpg" />
+                                                <entry key="paddingPercent" value="-10" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -158,6 +173,14 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="backgroundColor" value="fdde6a" />
+                                      <entry key="cropped" value="true" />
+                                      <entry key="imageAsset" value="F:\logo_size_invert.jpg" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -307,7 +330,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Users/Saitama/Android/Sdk/icons/material/materialicons/check_circle/baseline_check_circle_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Users/Saitama/Android/Sdk/icons/material/materialicons/edit/baseline_edit_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -317,7 +340,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_check" />
+                            <entry key="outputName" value="ic_edit_address" />
                             <entry key="sourceFile" value="D:\Programming\Android\JavaAndroid\Food-Delivery-Android-App" />
                           </map>
                         </option>
