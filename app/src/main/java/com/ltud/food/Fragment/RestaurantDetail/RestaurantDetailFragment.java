@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
@@ -20,7 +23,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.ltud.food.Model.Favourite;
+import com.ltud.food.Model.Restaurant;
 import com.ltud.food.R;
+import com.ltud.food.ViewModel.RestaurantDetail.FavouriteViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +38,10 @@ public class RestaurantDetailFragment extends Fragment {
     ViewPager viewPager;
     resdetailAdapter adapter;
     ImageView img_back;
+    FavouriteViewModel favouriteViewModel;
+
+    private static boolean check_fav = false;
+    String favID;
 
 //    private RestaurantDetailListener listener;
 
@@ -131,6 +141,54 @@ public class RestaurantDetailFragment extends Fragment {
                 navController.navigate(R.id.action_restaurantDetailFragment_to_homeFragment);
             }
         });
+
+        ImageView img_favourite = view.findViewById(R.id.img_res_detail_fav);
+
+        //Get a favourite
+        favouriteViewModel = new ViewModelProvider(getActivity()).get(FavouriteViewModel.class);
+        favouriteViewModel.getCurrentFavourite(id).observe(getViewLifecycleOwner(), new Observer<Favourite>() {
+            @Override
+            public void onChanged(Favourite favourite) {
+                check_fav = favourite.isCheck_fav();
+                favID = favourite.getId();
+                if (check_fav == false)
+                {
+                    img_favourite.setImageResource(R.drawable.ic_favourite_outline);
+                }
+                else{
+                    img_favourite.setImageResource(R.drawable.ic_favourite);
+                }
+            }
+        });
+
+        //Add a favourite
+        img_favourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (check_fav == false)
+                {
+                    Restaurant restaurant = new Restaurant(id, name, address, img, rate);
+                    favouriteViewModel.addOneFavourite(restaurant);
+                    img_favourite.setImageResource(R.drawable.ic_favourite);
+                    Toast.makeText(getActivity(),"Qán đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                }
+                else{
+//                    favouriteViewModel.getCurrentFavourite(id).observe(getViewLifecycleOwner(), new Observer<Favourite>() {
+//                        @Override
+//                        public void onChanged(Favourite favourite) {
+//                            String favID = favourite.getId();
+//                            favouriteViewModel.deleteOneFavourite(favID);
+//                        }
+//                    });
+                    favouriteViewModel.deleteOneFavourite(favID);
+                    img_favourite.setImageResource(R.drawable.ic_favourite_outline);
+                    check_fav = false;
+                    Toast.makeText(getActivity(),"Quán đã bị xóa khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -192,5 +250,7 @@ public class RestaurantDetailFragment extends Fragment {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        check_fav = false;
     }
 }

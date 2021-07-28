@@ -1,4 +1,4 @@
-package com.ltud.food.Fragment.Order;
+package com.ltud.food.Fragment.Order.DeliveringTab;
 
 import android.os.Bundle;
 
@@ -21,6 +21,7 @@ import android.widget.ImageView;
 
 import com.ltud.food.Adapter.DeliveringTabAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
+import com.ltud.food.Fragment.Order.orderFragmentDirections;
 import com.ltud.food.Model.Order;
 import com.ltud.food.R;
 import com.ltud.food.ViewModel.Order.DeliveringTab.DeliveringTabViewModel;

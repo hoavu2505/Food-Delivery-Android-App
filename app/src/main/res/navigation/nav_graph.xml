@@ -39,9 +39,13 @@
         tools:layout="@layout/fragment_noti" />
     <fragment
         android:id="@+id/favFragment"
-        android:name="com.ltud.food.Fragment.Favorite.favFragment"
+        android:name="com.ltud.food.Fragment.Favourite.favFragment"
         android:label="fragment_fav"
-        tools:layout="@layout/fragment_fav" />
+        tools:layout="@layout/fragment_fav" >
+        <action
+            android:id="@+id/action_favFragment_to_restaurantDetailFragment"
+            app:destination="@id/restaurantDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.ltud.food.Fragment.Customer.userFragment"
