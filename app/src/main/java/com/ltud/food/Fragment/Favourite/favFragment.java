@@ -35,7 +35,8 @@ public class favFragment extends Fragment {
     private FavouriteAdapter adapter;
     private FavouriteViewModel viewModel;
     private NavController navController;
-    private final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private String userID;
+
 
     FirebaseFirestore db;
     ArrayList<Favourite> favouriteList;
@@ -68,6 +69,8 @@ public class favFragment extends Fragment {
             return;
         }
 
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         layout = view.findViewById(R.id.layout);
 
 
@@ -83,8 +86,6 @@ public class favFragment extends Fragment {
 
 
         recyclerView.setAdapter(adapter);
-
-//        viewModel = new ViewModelProvider(getActivity()).get(FavouriteViewModel.class);
 
         EventChangeListener();
     }
@@ -116,6 +117,7 @@ public class favFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        recyclerView.setAdapter(adapter);
+        if (userID != null)
+            recyclerView.setAdapter(adapter);
     }
 }

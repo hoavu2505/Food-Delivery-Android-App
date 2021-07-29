@@ -126,7 +126,8 @@
                 app:tabIndicatorAnimationMode="elastic"
                 app:tabIndicatorGravity="stretch"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/white"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/grey1"
                 app:tabTextAppearance="@style/tab_text" />
 
             <androidx.viewpager.widget.ViewPager
