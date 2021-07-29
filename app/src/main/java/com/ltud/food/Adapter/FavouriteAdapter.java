@@ -50,7 +50,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
                 .into(holder.restaurant);
         holder.name.setText(favouriteList.get(position).getRestaurant().getName());
         holder.address.setText(favouriteList.get(position).getRestaurant().getAddress());
-        holder.rate.setText(String.valueOf(favouriteList.get(position).getRestaurant().getRate()));
+        holder.rate.setText(String.format("%.1f",favouriteList.get(position).getRestaurant().getRate()));
 
         holder.item_gantoi.setOnClickListener(new View.OnClickListener() {
             @Override

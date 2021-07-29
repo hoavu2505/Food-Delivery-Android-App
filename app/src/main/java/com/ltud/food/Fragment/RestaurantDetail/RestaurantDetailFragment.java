@@ -170,7 +170,7 @@ public class RestaurantDetailFragment extends Fragment {
                     Restaurant restaurant = new Restaurant(id, name, address, img, rate);
                     favouriteViewModel.addOneFavourite(restaurant);
                     img_favourite.setImageResource(R.drawable.ic_favourite);
-                    Toast.makeText(getActivity(),"Qán đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Quán đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
                 }
                 else{
 //                    favouriteViewModel.getCurrentFavourite(id).observe(getViewLifecycleOwner(), new Observer<Favourite>() {
