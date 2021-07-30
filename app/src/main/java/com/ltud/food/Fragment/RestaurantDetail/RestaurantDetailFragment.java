@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
@@ -19,18 +22,27 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.ltud.food.Model.Favourite;
+import com.ltud.food.Model.Restaurant;
 import com.ltud.food.R;
+import com.ltud.food.ViewModel.Favourite.FavouriteViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class RestaurantDetailFragment extends Fragment {
+public class RestaurantDetailFragment extends Fragment implements View.OnClickListener {
 
     TabLayout tabLayout;
     ViewPager viewPager;
     resdetailAdapter adapter;
     ImageView img_back;
+    FavouriteViewModel favouriteViewModel;
+    private static boolean check_fav = false;
+    String favID;
+    ImageView img_favourite;
+    NavController navController;
 
 //    private RestaurantDetailListener listener;
 
@@ -66,7 +78,6 @@ public class RestaurantDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,21 +92,17 @@ public class RestaurantDetailFragment extends Fragment {
         return v;
     }
 
-
-
     @Override
     public void onViewCreated(View view,Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        NavController navController = Navigation.findNavController(view);
+        navController = Navigation.findNavController(view);
 
         name = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getName();
         address = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getAddress();
         rate = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getRate();
         img = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getImg();
         orderID = RestaurantDetailFragmentArgs.fromBundle(getArguments()).getOrderID();
-
-
 
         TextView txt_restaurant_name = view.findViewById(R.id.txt_restaurant_name);
         TextView txt_address = view.findViewById(R.id.txt_address_detail);
@@ -117,6 +124,33 @@ public class RestaurantDetailFragment extends Fragment {
                 navController.navigate(R.id.action_restaurantDetailFragment_to_homeFragment);
             }
         });
+
+        img_favourite = view.findViewById(R.id.img_res_detail_fav);
+
+        //Add a favourite
+        img_favourite.setOnClickListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //Get a favourite
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+        {
+            favouriteViewModel = new ViewModelProvider(getActivity()).get(FavouriteViewModel.class);
+            favouriteViewModel.getCurrentFavourite(id).observe(getViewLifecycleOwner(), new Observer<Favourite>() {
+                @Override
+                public void onChanged(Favourite favourite) {
+                    check_fav = favourite.isCheck_fav();
+                    favID = favourite.getId();
+                    if (check_fav == true)
+                    {
+                        img_favourite.setImageResource(R.drawable.ic_favourite_bar);
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -137,6 +171,29 @@ public class RestaurantDetailFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(FirebaseAuth.getInstance().getCurrentUser() == null)
+        {
+            navController.navigate(R.id.loginFragment);
+            return;
+        }
+
+        if (check_fav == false)
+        {
+            Restaurant restaurant = new Restaurant(id, name, address, img, rate);
+            favouriteViewModel.addOneFavourite(restaurant);
+            img_favourite.setImageResource(R.drawable.ic_favourite_bar);
+            Toast.makeText(getActivity(),"Quán đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            favouriteViewModel.deleteOneFavourite(favID);
+            img_favourite.setImageResource(R.drawable.ic_favourite_outline);
+            check_fav = false;
+            Toast.makeText(getActivity(),"Quán đã bị xóa khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private class resdetailAdapter extends FragmentPagerAdapter {
@@ -178,5 +235,6 @@ public class RestaurantDetailFragment extends Fragment {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        check_fav = false;
     }
 }

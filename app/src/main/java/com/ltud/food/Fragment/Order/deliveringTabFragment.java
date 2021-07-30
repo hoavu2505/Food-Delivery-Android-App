@@ -13,11 +13,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.ltud.food.Adapter.DeliveringTabAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
@@ -28,7 +26,6 @@ import com.ltud.food.ViewModel.Order.DeliveringTab.DeliveringTabViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class deliveringTabFragment extends Fragment implements DeliveringTabAdapter.SelectedItem{

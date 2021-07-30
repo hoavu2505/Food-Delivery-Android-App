@@ -183,8 +183,6 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
             progressDialog.show();
         }
 
-
-
         recyclerView = (RecyclerView) getView().findViewById(R.id.datdon_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -197,7 +195,6 @@ public class detail_datdonFragment extends Fragment implements FoodAdapter.AddCa
         recyclerView.setAdapter(FoodAdapter);
 
         EventChangeListener(res_id);
-
     }
 
     private void EventChangeListener(String id) {

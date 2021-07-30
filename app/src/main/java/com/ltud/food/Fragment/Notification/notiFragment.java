@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.ltud.food.Adapter.NotifyAdapter;
 import com.ltud.food.Dialog.CustomProgressDialog;
 import com.ltud.food.Model.Order;
@@ -34,6 +37,7 @@ public class notiFragment extends Fragment implements NotifyAdapter.SelectedItem
     private NotifyViewModel viewModel;
     private List<Order> orderList;
     private CustomProgressDialog progressDialog;
+    private NavController navController;
 
     public notiFragment() {
         // Required empty public constructor
@@ -58,6 +62,7 @@ public class notiFragment extends Fragment implements NotifyAdapter.SelectedItem
         progressDialog = new CustomProgressDialog(getContext());
         progressDialog.show();
 
+        navController = Navigation.findNavController(view);
         layout = view.findViewById(R.id.layout);
         tvReadAll = view.findViewById(R.id.tv_read_all);
         recyclerView = view.findViewById(R.id.rec_notify_list);
@@ -65,24 +70,36 @@ public class notiFragment extends Fragment implements NotifyAdapter.SelectedItem
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        viewModel = new ViewModelProvider(getActivity()).get(NotifyViewModel.class);
-        viewModel.getOrderList().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
-            @Override
-            public void onChanged(List<Order> orders) {
-                adapter.setOrderList(orders);
-                adapter.notifyDataSetChanged();
-                orderList = orders;
-                if(!orders.isEmpty())
-                    layout.setVisibility(View.GONE);
-                else
-                    layout.setVisibility(View.VISIBLE);
-
-                progressDialog.dismiss();
-            }
-        });
-        if(progressDialog.isShowing())
-            progressDialog.dismiss();
         tvReadAll.setOnClickListener(this);
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            navController.navigate(R.id.loginFragment);
+        }
+        else{
+            viewModel = new ViewModelProvider(getActivity()).get(NotifyViewModel.class);
+            viewModel.getOrderList().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
+                @Override
+                public void onChanged(List<Order> orders) {
+                    adapter.setOrderList(orders);
+                    adapter.notifyDataSetChanged();
+                    orderList = orders;
+                    if(!orders.isEmpty())
+                        layout.setVisibility(View.GONE);
+                    else
+                        layout.setVisibility(View.VISIBLE);
+
+                    progressDialog.dismiss();
+                }
+            });
+            if(progressDialog.isShowing())
+                progressDialog.dismiss();
+        }
     }
 
     @Override
